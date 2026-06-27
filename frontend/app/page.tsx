@@ -93,7 +93,7 @@ export default function Home() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brandPurple"></span>
               </span>
               <span className="text-sm font-bold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-brandBlue to-brandPurple uppercase">
-                AUST's Premier Tech Community
+                AUST&apos;s Premier Tech Community
               </span>
             </div>
           </FadeIn>
