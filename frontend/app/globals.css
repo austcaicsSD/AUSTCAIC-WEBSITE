@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+  /* Amader poster er theme colors */
+  --color-brandBlue: #1e3a8a;
+  --color-brandPurple: #6d28d9;
+  --color-lightBg: #f3f4f6;
+}
