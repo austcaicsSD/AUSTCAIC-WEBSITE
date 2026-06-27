@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 // ================= ANIMATION COMPONENT =================
@@ -108,7 +109,10 @@ export default function Home() {
 
           <FadeIn delay={500}>
             <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
-              Secure. Innovate. Lead. Join the community shaping the future of security and artificial intelligence.
+              Secure. Innovate. Lead.
+            </p>
+            <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+              Join the community shaping the future of security and artificial intelligence.
             </p>
           </FadeIn>
 
@@ -149,7 +153,7 @@ export default function Home() {
                 <div className="md:w-1/2 md:pr-12 md:text-right">
                   <div className="absolute left-[-11px] md:left-auto md:right-[-11px] top-1 w-5 h-5 rounded-full bg-brandBlue border-4 border-white shadow transition-transform duration-300 group-hover:scale-150"></div>
                   <h3 className="text-2xl font-bold text-gray-900 group-hover:text-brandBlue transition-colors">The Inception</h3>
-                  <span className="inline-block px-3 py-1 bg-brandPurple/10 text-brandPurple font-semibold rounded-full mt-2 mb-3"></span>
+                  <span className="inline-block px-3 py-1 bg-brandPurple/10 text-brandPurple font-semibold rounded-full mt-2 mb-3">2024</span>
                   <p className="text-gray-600">Started with a core group of tech enthusiasts aiming to create a dedicated hub for cybersecurity awareness and AI exploration at AUST.</p>
                 </div>
               </div>
@@ -160,7 +164,7 @@ export default function Home() {
                 <div className="md:w-1/2 md:ml-auto md:pl-12">
                   <div className="absolute left-[-11px] top-1 w-5 h-5 rounded-full bg-brandPurple border-4 border-white shadow transition-transform duration-300 group-hover:scale-150"></div>
                   <h3 className="text-2xl font-bold text-gray-900 group-hover:text-brandPurple transition-colors">Growth & Execution</h3>
-                  <span className="inline-block px-3 py-1 bg-brandBlue/10 text-brandBlue font-semibold rounded-full mt-2 mb-3"></span>
+                  <span className="inline-block px-3 py-1 bg-brandBlue/10 text-brandBlue font-semibold rounded-full mt-2 mb-3">2025</span>
                   <p className="text-gray-600">Expanded our resource base, hosted university-wide tech seminars, and launched collaborative open-source projects.</p>
                 </div>
               </div>
@@ -289,8 +293,21 @@ export default function Home() {
       <section id="join-us" className="py-24 px-6 relative overflow-hidden bg-gradient-to-br from-brandBlue to-brandPurple text-white">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
         
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
+          
+          {/* ADDED: Logo Badge here in CTA */}
           <FadeIn>
+            <div className="w-32 h-32 relative mb-8 rounded-[2rem] overflow-hidden shadow-2xl bg-white p-3 ring-4 ring-white/20 transform hover:scale-105 transition-transform duration-300">
+              <Image 
+                src="/AUSTCAIC-logo.jpg" 
+                alt="AUSTCAIC Logo" 
+                fill 
+                className="object-contain"
+              />
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={100}>
             <h2 className="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">Ready to Make an Impact?</h2>
             <p className="text-xl text-white/90 mb-10 font-medium">Be a part of a community that builds, secures, and innovates.</p>
           </FadeIn>
