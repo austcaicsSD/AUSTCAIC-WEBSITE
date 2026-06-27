@@ -2,7 +2,7 @@ export default function LabFree() {
   return (
     <div className="max-w-4xl mx-auto py-20 px-6 text-center">
       <h1 className="text-4xl font-bold text-brandPurple mb-4">
-        Gift Resources & Lab Free
+        Gift Resources 
       </h1>
       <p className="text-gray-600 mb-8">
         Direct download links for our exclusive resources.
