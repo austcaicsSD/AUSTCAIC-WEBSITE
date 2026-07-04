@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "AUST Cybersecurity and AI Club",
@@ -17,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-gray-50 text-gray-900 antialiased`}>
+      <body className="bg-gray-50 font-sans text-gray-900 antialiased">
         
         {/* ================= FULL-WIDTH PREMIUM NAVBAR ================= */}
         <header className="sticky top-0 z-50 w-full pointer-events-none">
