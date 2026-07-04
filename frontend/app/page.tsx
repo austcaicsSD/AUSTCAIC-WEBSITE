@@ -67,7 +67,7 @@ export default function Home() {
       className="relative w-full overflow-hidden bg-[#fafafa] text-gray-900 selection:bg-brandPurple/30 font-sans"
     >
       
-      {/* ================= HERO SECTION (Kept As Is) ================= */}
+      {/* ================= HERO SECTION ================= */}
       <section className="relative min-h-screen flex items-center justify-center pt-10 overflow-hidden bg-white z-20 rounded-b-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border-b border-gray-100">
         <div 
           className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300 opacity-70"
@@ -120,7 +120,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto">
               <Link href="#join-us" className="group relative px-8 py-4 bg-gradient-to-r from-brandBlue to-brandPurple text-white rounded-xl font-bold text-lg overflow-hidden w-full sm:w-auto shadow-[0_8px_30px_rgba(29,78,216,0.3)] hover:shadow-brandBlue/50 hover:-translate-y-1 transition-all duration-300">
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
-                <span className="relative z-10">Become a Member</span>
+                <span className="relative z-10">Why you should become a Member</span>
               </Link>
               <Link href="/lab-free" className="group flex items-center justify-center gap-2 px-8 py-4 bg-white/80 backdrop-blur-md text-gray-900 border-2 border-gray-200 rounded-xl font-bold text-lg hover:border-brandPurple hover:text-brandPurple hover:-translate-y-1 transition-all duration-300 shadow-sm w-full sm:w-auto">
                 Explore Resources
