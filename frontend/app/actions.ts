@@ -44,7 +44,7 @@ export async function registerMember(formData: FormData) {
   }
 }
 
-export async function loginMember(prevState: any, formData: FormData) {
+export async function loginMember(prevState: unknown, formData: FormData) {
   try {
     const email = formData.get("email") as string;
     const studentId = formData.get("studentId") as string;
