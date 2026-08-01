@@ -30,7 +30,7 @@ export default async function DashboardPage() {
       <div className="relative z-10 max-w-4xl mx-auto w-full">
         <header className="flex justify-between items-center mb-12">
           <h1 className="text-3xl font-black tracking-tight text-gray-950">
-            AUST<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">CAIC</span> Dashboard
+            AUST<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">CAIC</span> Profile
           </h1>
           <form action={async () => {
             "use server";

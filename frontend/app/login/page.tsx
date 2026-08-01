@@ -73,7 +73,7 @@ export default function LoginPage() {
   // Redirect on success
   useEffect(() => {
     if (state?.success) {
-      router.push("/dashboard");
+      router.push("/profile");
     }
   }, [state, router]);
 
@@ -142,7 +142,6 @@ export default function LoginPage() {
                   name="email"
                   id="email"
                   required
-                  placeholder="e.g. hifzulalam26@gmail.com"
                   className="w-full px-5 py-4 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-xl outline-none focus:border-brandBlue focus:ring-2 focus:ring-brandBlue/20 transition-all font-medium text-gray-900 placeholder:text-gray-400"
                 />
               </div>
@@ -159,7 +158,6 @@ export default function LoginPage() {
                   name="studentId"
                   id="studentId"
                   required
-                  placeholder="e.g. 20220205006"
                   className="w-full px-5 py-4 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-xl outline-none focus:border-brandBlue focus:ring-2 focus:ring-brandBlue/20 transition-all font-medium text-gray-900 placeholder:text-gray-400"
                 />
               </div>
@@ -176,7 +174,6 @@ export default function LoginPage() {
                   name="memberId"
                   id="memberId"
                   required
-                  placeholder="e.g. AUSTCAIC 25-02-007"
                   className="w-full px-5 py-4 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-xl outline-none focus:border-brandBlue focus:ring-2 focus:ring-brandBlue/20 transition-all font-medium text-gray-900 placeholder:text-gray-400"
                 />
               </div>
