@@ -62,6 +62,9 @@ export default function RootLayout({
                       <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>
                       Resources
                     </Link>
+                    <Link href="/login" className="px-4 py-2 rounded-xl hover:text-gray-950 hover:bg-white hover:shadow-sm transition-all duration-300 flex items-center gap-1.5 text-brandBlue">
+                      Login
+                    </Link>
                   </div>
 
                   {/* Primary CTA Button */}
@@ -102,6 +105,10 @@ export default function RootLayout({
                 <Link href="/lab-free" className="font-bold text-gray-600 hover:text-gray-950 p-4 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-all flex items-center justify-between">
                   <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span> Resources</span>
                   <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
+                </Link>
+                <Link href="/login" className="font-bold text-blue-600 hover:text-blue-800 p-4 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-all flex items-center justify-between">
+                  Login
+                  <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
                 </Link>
                 
                 <a href="https://discord.com/invite/Y6V3wuq2j" target="_blank" rel="noopener noreferrer" className="mt-2 flex justify-center items-center gap-2 p-4 bg-gray-950 text-white font-bold rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.1)] active:scale-95 transition-transform">
