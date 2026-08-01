@@ -12,6 +12,7 @@ model Member {
   fullName   String
   studentId  String   @unique
   email      String   @unique
+  memberId   String?  @unique
   phone      String
   department String
   semester   String
