@@ -336,7 +336,7 @@ export default function RegisterConversion() {
           </h1>
           <p className="text-lg md:text-xl text-gray-600 font-medium leading-relaxed max-w-2xl mx-auto">
             Protecting and leading the future with Cybersecurity and AI.
-            Discover the exclusive benefits of becoming a part of AUST's premier
+            Discover the exclusive benefits of becoming a part of AUST&apos;s premier
             tech community.
           </p>
         </FadeIn>
