@@ -3,6 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import { cookies } from "next/headers";
+import SocialDropdown from "./components/Socialdropdown";
 
 export const metadata: Metadata = {
   title: "AUST Cybersecurity and AI Club",
@@ -77,19 +78,8 @@ export default async function RootLayout({
                     )}
                   </div>
 
-                  {/* Primary CTA Button */}
-                  <a
-                    href="https://discord.com/invite/Y6V3wuq2j"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-950 text-white text-sm font-bold rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-blue-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <span className="relative z-10 flex items-center gap-1.5 tracking-wide">
-                      Join Discord Community
-                      <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </span>
-                  </a>
+                  {/* Social dropdown for Desktop view */}
+                  <SocialDropdown/>
                 </div>
 
                 {/* 3. MOBILE HAMBURGER BUTTON (Visible only on Mobile) */}
@@ -102,7 +92,7 @@ export default async function RootLayout({
             </div>
 
             {/* 4. MOBILE NAVIGATION DROPDOWN MENU */}
-            <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-2xl border-b border-gray-200/60 overflow-hidden max-h-0 group-has-[:checked]/nav:max-h-[400px] transition-all duration-500 ease-in-out shadow-2xl">
+            <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-2xl border-b border-gray-200/60 overflow-hidden max-h-0 group-has-[:checked]/nav:max-h-[600px] transition-all duration-500 ease-in-out shadow-2xl">
               <div className="flex flex-col px-5 py-6 gap-3">
                 <Link href="/" className="font-bold text-gray-600 hover:text-gray-950 p-4 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-all flex items-center justify-between">
                   Home
@@ -127,10 +117,9 @@ export default async function RootLayout({
                     <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
                   </Link>
                 )}
-                
-                <a href="https://discord.com/invite/Y6V3wuq2j" target="_blank" rel="noopener noreferrer" className="mt-2 flex justify-center items-center gap-2 p-4 bg-gray-950 text-white font-bold rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.1)] active:scale-95 transition-transform">
-                  Join our Discord
-                </a>
+                {/* Social dropdown for mobile view */}
+                <SocialDropdown/>
+
               </div>
             </div>
 
