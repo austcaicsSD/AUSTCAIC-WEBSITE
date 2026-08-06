@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { cookies } from "next/headers";
 import SocialDropdown from "./components/Socialdropdown";
+import Footer from "./components/Footer";
+
 
 export const metadata: Metadata = {
   title: "AUST Cybersecurity and AI Club",
@@ -125,10 +127,10 @@ export default async function RootLayout({
 
           </nav>
         </header>
-
+      
         {/* ================= PAGE CONTENT ================= */}
         <main className="min-h-screen z-10">{children}</main>
-        
+       <Footer/>
       </body>
     </html>
   );
