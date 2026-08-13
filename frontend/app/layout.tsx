@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
+import Footer from "./components/Footer";
+import Socialdropdown from "./components/Socialdropdown"; // <-- Socialdropdown ইমপোর্ট করা হলো
 
 export const metadata: Metadata = {
   title: "AUST Cybersecurity and AI Club",
@@ -9,7 +11,6 @@ export const metadata: Metadata = {
 };
 
 // ================= PANEL SEMESTERS CONFIGURATION =================
-
 const panelSemesters = [{ id: "fall-2025", label: "Fall 2025" }];
 
 export default function RootLayout({
@@ -19,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
-      <body className="bg-gray-50 font-sans text-gray-900 antialiased">
+      <body className="bg-gray-50 font-sans text-gray-900 antialiased flex flex-col min-h-screen">
         <header className="sticky top-0 z-50 w-full group/nav">
           <nav className="w-full bg-white/80 backdrop-blur-xl border-b border-gray-200/60 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.1)] transition-all duration-300">
             <input type="checkbox" id="mobile-menu" className="hidden" />
@@ -60,10 +61,10 @@ export default function RootLayout({
                       Home
                     </Link>
 
-                    {/* GOVERNING PANEL DROPDOWN */}
+                    {/* EXECUTIVE COMMITTEE DROPDOWN */}
                     <div className="relative group/dropdown">
                       <button className="px-4 py-2 rounded-xl hover:text-gray-950 hover:bg-white hover:shadow-sm transition-all duration-300 flex items-center gap-1 cursor-pointer">
-                        Executive Board
+                        Executive Committee
                         <svg
                           className="w-4 h-4 transition-transform group-hover/dropdown:rotate-180"
                           fill="none"
@@ -112,30 +113,8 @@ export default function RootLayout({
                     </Link>
                   </div>
 
-                  <a
-                    href="https://discord.com/invite/Y6V3wuq2j"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-950 text-white text-sm font-bold rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-blue-500/30 hover:-translate-y-0.5 transition-all duration-300"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <span className="relative z-10 flex items-center gap-1.5 tracking-wide">
-                      Join Community
-                      <svg
-                        className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2.5"
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        ></path>
-                      </svg>
-                    </span>
-                  </a>
+                  {/* JOIN COMMUNITY SOCIAL DROPDOWN RESTORED */}
+                  <Socialdropdown />
                 </div>
 
                 {/* MOBILE HAMBURGER BUTTON */}
@@ -175,7 +154,7 @@ export default function RootLayout({
 
                 <div className="flex flex-col gap-1 border-y border-gray-100 py-2 my-1">
                   <span className="px-3 py-1 text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                    Governing Panel
+                    Executive Committee
                   </span>
                   {panelSemesters.map((semester) => (
                     <Link
@@ -249,20 +228,19 @@ export default function RootLayout({
                   </svg>
                 </Link>
 
-                <a
-                  href="https://discord.com/invite/Y6V3wuq2j"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 flex justify-center items-center gap-2 p-4 bg-gray-950 text-white font-bold rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.1)] active:scale-95 transition-transform"
-                >
-                  Join our Discord
-                </a>
+                <div className="mt-4 flex justify-center items-center">
+                  <Socialdropdown />
+                </div>
               </div>
             </div>
           </nav>
         </header>
 
-        <main className="min-h-screen z-10">{children}</main>
+        {/* MAIN CONTENT AREA */}
+        <main className="flex-grow z-10">{children}</main>
+
+        {/* ================= FOOTER RESTORED ================= */}
+        <Footer />
       </body>
     </html>
   );
