@@ -222,7 +222,6 @@ const officialPanelData = [
   },
 
   // ================= NEW OPTIONS =================
-  
   {
     id: 27,
     name: "To Be Announced",
@@ -246,16 +245,14 @@ export default function SemesterPanelPage({
 }: {
   params: Promise<{ semester: string }>;
 }) {
-  
   const resolvedParams = use(params);
   const semesterSlug = resolvedParams.semester;
 
-  // Modal State Control
   const [selectedMember, setSelectedMember] = useState<any | null>(null);
 
   const formattedTitle = semesterSlug
     ? semesterSlug.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())
-    : "Governing Panel";
+    : "Executive Committee";
 
   const semesterExecutives = officialPanelData.filter(
     (member) => member.semester === semesterSlug
@@ -272,8 +269,6 @@ export default function SemesterPanelPage({
     },
     {}
   );
-
-  // ================= ROLE ORDER =================
 
   const roleOrder = [
     "Advisor",
@@ -299,16 +294,26 @@ export default function SemesterPanelPage({
   });
 
   return (
-    <main className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-blue-500/30 overflow-hidden">
-      {/* Background Glows */}
+    <main className="min-h-screen bg-[#fcfcfc] text-gray-900 font-sans selection:bg-blue-500/30 overflow-hidden relative">
+      {/* ================= BACKGROUND GRID & GLOWS ================= */}
       <div className="fixed inset-0 z-0 pointer-events-none">
+        {/* Subtle Grid Pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.6]"
+          style={{
+            backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.035) 1px, transparent 1px)`,
+            backgroundSize: "40px 40px",
+          }}
+        ></div>
+
+        {/* Soft Radial Glows */}
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-400/10 rounded-full blur-[120px]"></div>
         <div className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-purple-400/10 rounded-full blur-[150px]"></div>
       </div>
 
       {/* HEADER SECTION */}
       <div className="relative z-10 pt-16 pb-12 px-4 md:px-8 max-w-7xl mx-auto flex flex-col items-center text-center animate-fade-in-up">
-        <div className="px-5 py-2 rounded-full border border-blue-200 bg-blue-50 text-blue-600 text-xs md:text-sm font-bold tracking-widest uppercase mb-6 shadow-sm">
+        <div className="px-5 py-2 rounded-full border border-blue-200 bg-white shadow-sm text-blue-600 text-xs md:text-sm font-bold tracking-widest uppercase mb-6">
           AUSTCAIC Leadership
         </div>
         <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-4 tracking-tighter drop-shadow-sm">
@@ -335,7 +340,7 @@ export default function SemesterPanelPage({
                 <a
                   key={`nav-${roleName}`}
                   href={`#${roleName.replace(/\s+/g, "-").toLowerCase()}`}
-                  className="whitespace-nowrap px-4 py-2 rounded-full bg-gray-100 hover:bg-blue-600 text-gray-600 hover:text-white text-sm font-bold transition-all duration-300 shadow-sm hover:shadow-md"
+                  className="whitespace-nowrap px-4 py-2 rounded-full bg-white border border-gray-200 hover:border-blue-400 hover:bg-blue-50 text-gray-600 hover:text-blue-600 text-sm font-bold transition-all duration-300 shadow-sm hover:shadow-md"
                 >
                   {roleName}
                 </a>
@@ -356,14 +361,14 @@ export default function SemesterPanelPage({
               style={{ animationDelay: `${sectionIndex * 150}ms` }}
             >
               {/* SECTION HEADER */}
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-gray-100 pb-4 mb-10 gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-gray-200/60 pb-4 mb-10 gap-4">
                 <div className="flex items-center gap-4">
                   <div className="w-2 h-10 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
                   <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
                     {roleName}s
                   </h2>
                 </div>
-                <div className="px-4 py-1.5 bg-gray-100 text-gray-500 font-bold text-sm rounded-full w-fit">
+                <div className="px-4 py-1.5 bg-white border border-gray-200 text-gray-500 font-bold text-sm rounded-full w-fit shadow-sm">
                   {groupedMembers[roleName].length} Member
                   {groupedMembers[roleName].length > 1 ? "s" : ""}
                 </div>
@@ -378,7 +383,7 @@ export default function SemesterPanelPage({
                     className="group relative w-full h-[420px] rounded-[2rem] overflow-hidden bg-white border border-gray-200 transition-all duration-500 hover:border-blue-300 hover:shadow-[0_20px_50px_-12px_rgba(37,99,235,0.2)] hover:-translate-y-2 cursor-pointer"
                   >
                     {/* View Details Hover Text/Icon */}
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 backdrop-blur rounded-full p-2 text-blue-600 shadow-sm z-30 flex items-center justify-center">
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 backdrop-blur rounded-full p-2 text-blue-600 shadow-sm z-30 flex items-center justify-center">
                       <svg
                         className="w-5 h-5"
                         fill="none"
@@ -400,9 +405,9 @@ export default function SemesterPanelPage({
                       </svg>
                     </div>
 
-                    {/* Abstract Background Pattern */}
+                    {/* Background Pattern Inside Card */}
                     <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white opacity-100"></div>
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-[80px] group-hover:bg-purple-100 transition-colors duration-700"></div>
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50/50 rounded-full blur-[80px] group-hover:bg-purple-100/50 transition-colors duration-700"></div>
 
                     {/* Top Badges */}
                     <div className="absolute top-5 left-5 right-5 z-20 flex justify-between items-start">
@@ -468,7 +473,22 @@ export default function SemesterPanelPage({
             </section>
           ))
         ) : (
-          <div className="flex flex-col items-center justify-center py-20 px-4 border border-dashed border-gray-200 rounded-3xl bg-white/50 animate-fade-in-up">
+          <div className="flex flex-col items-center justify-center py-20 px-4 border border-dashed border-gray-300 rounded-3xl bg-white shadow-sm animate-fade-in-up">
+            <div className="w-16 h-16 mb-4 border border-gray-200 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400">
+              <svg
+                className="w-8 h-8"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"
+                ></path>
+              </svg>
+            </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
               Panel Not Found
             </h3>
@@ -568,7 +588,7 @@ export default function SemesterPanelPage({
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
         @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); filter: blur(5px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
-        .animate-fade-in-up { animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+        .animate-fade-in-up { animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
       `,
         }}
       />
