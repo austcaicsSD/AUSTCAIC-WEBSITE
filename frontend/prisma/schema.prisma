@@ -18,3 +18,21 @@ model Member {
   semester   String
   createdAt  DateTime @default(now())
 }
+
+model PanelMember {
+  id            String   @id @default(uuid())
+  name          String
+  memberId      String?
+  semester      String
+  role          String
+  wing          String?
+  personalEmail String?
+  facebookUrl   String?
+  linkedinUrl   String?
+  imageUrl      String?
+  orderIndex    Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  @@map("panel_members")
+}
+
