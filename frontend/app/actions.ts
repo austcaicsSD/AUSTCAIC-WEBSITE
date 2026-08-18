@@ -81,3 +81,24 @@ export async function loginMember(prevState: unknown, formData: FormData) {
     return { success: false, message: "Something went wrong. Please try again." };
   }
 }
+
+export async function getPanelImages(semester: string) {
+  try {
+    const dbMembers = await prisma.panelMember.findMany({
+      where: {
+        semester,
+        imageUrl: {
+          not: null,
+        },
+      },
+      select: {
+        name: true,
+        imageUrl: true,
+      },
+    });
+    return { success: true, data: dbMembers };
+  } catch (error) {
+    console.error("Error fetching panel images:", error);
+    return { success: false, error: "Failed to fetch images" };
+  }
+}

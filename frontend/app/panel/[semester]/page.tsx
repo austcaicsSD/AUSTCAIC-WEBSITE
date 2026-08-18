@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, use } from "react";
+import React, { useState, use, useEffect } from "react";
 import Image from "next/image";
+import { getPanelImages } from "@/app/actions";
 
 // ================= OFFICIAL PANEL DATA =================
 const officialPanelData = [
@@ -42,7 +43,7 @@ const officialPanelData = [
   },
   {
     id: 5,
-    name: "Md. Iftaker hossain Rafi",
+    name: "Md. Iftaker Hossain Rafi",
     role: "Vice President",
     wing: "",
     semester: "fall-2025",
@@ -84,7 +85,7 @@ const officialPanelData = [
   },
   {
     id: 10,
-    name: "Arhan",
+    name: "Arhan Tibro",
     role: "Executive Director",
     wing: "AI & ML Wing",
     semester: "fall-2025",
@@ -100,7 +101,7 @@ const officialPanelData = [
   },
   {
     id: 12,
-    name: "Shanti",
+    name: "Nusrat Jahan",
     role: "Executive Director",
     wing: "Academic & Research Team",
     semester: "fall-2025",
@@ -150,7 +151,7 @@ const officialPanelData = [
   // Associate Directors
   {
     id: 18,
-    name: "Fahim",
+    name: "MD FAHIM MOONTASHIR",
     role: "Associate Director",
     wing: "Cybersecurity Wing",
     semester: "fall-2025",
@@ -158,7 +159,7 @@ const officialPanelData = [
   },
   {
     id: 19,
-    name: "Maruf",
+    name: "MD Maruful Islam",
     role: "Associate Director",
     wing: "AI & ML Wing",
     semester: "fall-2025",
@@ -240,6 +241,35 @@ const officialPanelData = [
   },
 ];
 
+interface PanelMemberData {
+  id: string | number;
+  name: string;
+  role: string;
+  wing: string | null;
+  semester: string;
+  image: string;
+}
+
+const getRoleHeading = (role: string, count: number): string => {
+  if (count === 1) {
+    return role;
+  }
+  const plurals: Record<string, string> = {
+    "Advisor": "Advisors",
+    "Treasurer": "Treasurers",
+    "President": "Presidents",
+    "Vice President": "Vice Presidents",
+    "General Secretary": "General Secretaries",
+    "Joint Secretary": "Joint Secretaries",
+    "Organizing Secretary": "Organizing Secretaries",
+    "Executive Director": "Executive Directors",
+    "Associate Director": "Associate Directors",
+    "Associate Executive": "Associate Executives",
+    "Sub Executive": "Sub Executives",
+  };
+  return plurals[role] || `${role}s`;
+};
+
 export default function SemesterPanelPage({
   params,
 }: {
@@ -248,7 +278,42 @@ export default function SemesterPanelPage({
   const resolvedParams = use(params);
   const semesterSlug = resolvedParams.semester;
 
-  const [selectedMember, setSelectedMember] = useState<any | null>(null);
+  const [selectedMember, setSelectedMember] = useState<PanelMemberData | null>(null);
+  const [dbImages, setDbImages] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    let isMounted = true;
+    getPanelImages(semesterSlug).then((res) => {
+      if (res.success && res.data && isMounted) {
+        const imageMap: Record<string, string> = {};
+        const approvedImageMapping: Record<string, string> = {
+          "Iftekhar Salehin": "Iftekhar Salehin",
+          "Masiath Ibna Jamil": "Masiath Ibna Jamil",
+          "Md. Iftaker Hossain Rafi": "Md.Iftaker Hossain Rafi",
+          "Saobia Islam Tinni": "Saobia Islam Tinni"
+        };
+        
+        res.data.forEach((member) => {
+          if (member.name && member.imageUrl) {
+            imageMap[member.name] = member.imageUrl;
+          }
+        });
+
+        // Set whitelisted images map
+        const whitelistedImages: Record<string, string> = {};
+        Object.entries(approvedImageMapping).forEach(([webName, dbName]) => {
+          if (imageMap[dbName]) {
+            whitelistedImages[webName] = imageMap[dbName];
+          }
+        });
+
+        setDbImages(whitelistedImages);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [semesterSlug]);
 
   const formattedTitle = semesterSlug
     ? semesterSlug.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())
@@ -256,10 +321,13 @@ export default function SemesterPanelPage({
 
   const semesterExecutives = officialPanelData.filter(
     (member) => member.semester === semesterSlug
-  );
+  ).map((member) => ({
+    ...member,
+    image: dbImages[member.name] || member.image,
+  }));
 
   const groupedMembers = semesterExecutives.reduce(
-    (groups: any, member: any) => {
+    (groups: Record<string, PanelMemberData[]>, member: PanelMemberData) => {
       const role = member.role || "Executive Member";
       if (!groups[role]) {
         groups[role] = [];
@@ -267,7 +335,7 @@ export default function SemesterPanelPage({
       groups[role].push(member);
       return groups;
     },
-    {}
+    {} as Record<string, PanelMemberData[]>
   );
 
   const roleOrder = [
@@ -365,7 +433,7 @@ export default function SemesterPanelPage({
                 <div className="flex items-center gap-4">
                   <div className="w-2 h-10 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
                   <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
-                    {roleName}s
+                    {getRoleHeading(roleName, groupedMembers[roleName].length)}
                   </h2>
                 </div>
                 <div className="px-4 py-1.5 bg-white border border-gray-200 text-gray-500 font-bold text-sm rounded-full w-fit shadow-sm">
@@ -376,7 +444,7 @@ export default function SemesterPanelPage({
 
               {/* PROFILE CARDS GRID */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-                {groupedMembers[roleName].map((member: any) => (
+                {groupedMembers[roleName].map((member: PanelMemberData) => (
                   <div
                     key={member.id}
                     onClick={() => setSelectedMember(member)}
