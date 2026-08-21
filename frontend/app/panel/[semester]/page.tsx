@@ -286,28 +286,28 @@ export default function SemesterPanelPage({
     getPanelImages(semesterSlug).then((res) => {
       if (res.success && res.data && isMounted) {
         const imageMap: Record<string, string> = {};
-        const approvedImageMapping: Record<string, string> = {
-          "Iftekhar Salehin": "Iftekhar Salehin",
-          "Masiath Ibna Jamil": "Masiath Ibna Jamil",
+        const imageNameOverrides: Record<string, string> = {
           "Md. Iftaker Hossain Rafi": "Md.Iftaker Hossain Rafi",
-          "Saobia Islam Tinni": "Saobia Islam Tinni"
+          "Shaila Islam": "Sanjida Islam Shaila",
+          "Redowan Imran Sarkar": "Redowan Imran Sarker",
         };
         
         res.data.forEach((member) => {
           if (member.name && member.imageUrl) {
-            imageMap[member.name] = member.imageUrl;
+            imageMap[member.name.trim()] = member.imageUrl;
           }
         });
 
-        // Set whitelisted images map
-        const whitelistedImages: Record<string, string> = {};
-        Object.entries(approvedImageMapping).forEach(([webName, dbName]) => {
+        // Map frontend panel members dynamically using name override fallback
+        const mappedImages: Record<string, string> = {};
+        officialPanelData.forEach((member) => {
+          const dbName = imageNameOverrides[member.name] || member.name;
           if (imageMap[dbName]) {
-            whitelistedImages[webName] = imageMap[dbName];
+            mappedImages[member.name] = imageMap[dbName];
           }
         });
 
-        setDbImages(whitelistedImages);
+        setDbImages(mappedImages);
       }
     });
     return () => {
@@ -323,7 +323,7 @@ export default function SemesterPanelPage({
     (member) => member.semester === semesterSlug
   ).map((member) => ({
     ...member,
-    image: dbImages[member.name] || member.image,
+    image: dbImages[member.name] || "/placeholder-user.svg",
   }));
 
   const groupedMembers = semesterExecutives.reduce(
