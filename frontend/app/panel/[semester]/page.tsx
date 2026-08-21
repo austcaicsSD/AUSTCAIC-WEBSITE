@@ -13,7 +13,7 @@ const officialPanelData = [
     role: "Advisor",
     wing: "",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const officialPanelData = [
     role: "Treasurer",
     wing: "",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
 
   // Core Committee
@@ -31,7 +31,7 @@ const officialPanelData = [
     role: "President",
     wing: "",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 4,
@@ -39,15 +39,15 @@ const officialPanelData = [
     role: "General Secretary",
     wing: "",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 5,
-    name: "Md. Iftaker Hossain Rafi",
+    name: "Md.Iftaker Hossain Rafi",
     role: "Vice President",
     wing: "",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 6,
@@ -55,7 +55,7 @@ const officialPanelData = [
     role: "Joint Secretary",
     wing: "",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 7,
@@ -63,7 +63,7 @@ const officialPanelData = [
     role: "Joint Secretary",
     wing: "",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 8,
@@ -71,7 +71,7 @@ const officialPanelData = [
     role: "Organizing Secretary",
     wing: "",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
 
   // Executive Directors
@@ -81,7 +81,7 @@ const officialPanelData = [
     role: "Executive Director",
     wing: "Cybersecurity Wing",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 10,
@@ -89,7 +89,7 @@ const officialPanelData = [
     role: "Executive Director",
     wing: "AI & ML Wing",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 11,
@@ -97,7 +97,7 @@ const officialPanelData = [
     role: "Executive Director",
     wing: "CTF & AI Hackathon Wing",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 12,
@@ -105,7 +105,7 @@ const officialPanelData = [
     role: "Executive Director",
     wing: "Academic & Research Team",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 13,
@@ -113,7 +113,7 @@ const officialPanelData = [
     role: "Executive Director",
     wing: "Event & Operation",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 14,
@@ -121,7 +121,7 @@ const officialPanelData = [
     role: "Executive Director",
     wing: "Office & Finance",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 15,
@@ -129,7 +129,7 @@ const officialPanelData = [
     role: "Executive Director",
     wing: "Public Relation & Sponsorship",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 16,
@@ -137,7 +137,7 @@ const officialPanelData = [
     role: "Executive Director",
     wing: "Technical Content & Media",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 17,
@@ -145,7 +145,7 @@ const officialPanelData = [
     role: "Executive Director",
     wing: "Software Development",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
 
   // Associate Directors
@@ -155,7 +155,7 @@ const officialPanelData = [
     role: "Associate Director",
     wing: "Cybersecurity Wing",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 19,
@@ -163,7 +163,7 @@ const officialPanelData = [
     role: "Associate Director",
     wing: "AI & ML Wing",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 20,
@@ -171,7 +171,7 @@ const officialPanelData = [
     role: "Associate Director",
     wing: "CTF & AI Hackathon Wing",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 21,
@@ -179,7 +179,7 @@ const officialPanelData = [
     role: "Associate Director",
     wing: "Event & Operation",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 22,
@@ -187,7 +187,7 @@ const officialPanelData = [
     role: "Associate Director",
     wing: "Office & Finance",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 23,
@@ -195,7 +195,7 @@ const officialPanelData = [
     role: "Associate Director",
     wing: "Public Relation & Sponsorship",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 24,
@@ -203,7 +203,7 @@ const officialPanelData = [
     role: "Associate Director",
     wing: "Technical Content & Media",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 25,
@@ -211,7 +211,7 @@ const officialPanelData = [
     role: "Associate Director",
     wing: "Software Development",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 26,
@@ -219,7 +219,7 @@ const officialPanelData = [
     role: "Associate Director",
     wing: "Creative design & Production",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
 
   // ================= NEW OPTIONS =================
@@ -229,7 +229,7 @@ const officialPanelData = [
     role: "Associate Executive",
     wing: "TBA",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
   {
     id: 28,
@@ -237,7 +237,7 @@ const officialPanelData = [
     role: "Sub Executive",
     wing: "TBA",
     semester: "fall-2025",
-    image: "/placeholder-user.png",
+    image: "/placeholder-user.svg",
   },
 ];
 
@@ -251,17 +251,12 @@ interface PanelMemberData {
 }
 
 const getRoleHeading = (role: string, count: number): string => {
+  if (role === "Presidential Panel") return "Presidential Panel";
+
   if (count === 1) {
     return role;
   }
   const plurals: Record<string, string> = {
-    "Advisor": "Advisors",
-    "Treasurer": "Treasurers",
-    "President": "Presidents",
-    "Vice President": "Vice Presidents",
-    "General Secretary": "General Secretaries",
-    "Joint Secretary": "Joint Secretaries",
-    "Organizing Secretary": "Organizing Secretaries",
     "Executive Director": "Executive Directors",
     "Associate Director": "Associate Directors",
     "Associate Executive": "Associate Executives",
@@ -278,7 +273,9 @@ export default function SemesterPanelPage({
   const resolvedParams = use(params);
   const semesterSlug = resolvedParams.semester;
 
-  const [selectedMember, setSelectedMember] = useState<PanelMemberData | null>(null);
+  const [selectedMember, setSelectedMember] = useState<PanelMemberData | null>(
+    null
+  );
   const [dbImages, setDbImages] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -286,28 +283,15 @@ export default function SemesterPanelPage({
     getPanelImages(semesterSlug).then((res) => {
       if (res.success && res.data && isMounted) {
         const imageMap: Record<string, string> = {};
-        const imageNameOverrides: Record<string, string> = {
-          "Md. Iftaker Hossain Rafi": "Md.Iftaker Hossain Rafi",
-          "Shaila Islam": "Sanjida Islam Shaila",
-          "Redowan Imran Sarkar": "Redowan Imran Sarker",
-        };
-        
+
+        // No whitelist restrictions - fetch all available images directly from the DB
         res.data.forEach((member) => {
           if (member.name && member.imageUrl) {
-            imageMap[member.name.trim()] = member.imageUrl;
+            imageMap[member.name] = member.imageUrl;
           }
         });
 
-        // Map frontend panel members dynamically using name override fallback
-        const mappedImages: Record<string, string> = {};
-        officialPanelData.forEach((member) => {
-          const dbName = imageNameOverrides[member.name] || member.name;
-          if (imageMap[dbName]) {
-            mappedImages[member.name] = imageMap[dbName];
-          }
-        });
-
-        setDbImages(mappedImages);
+        setDbImages(imageMap);
       }
     });
     return () => {
@@ -319,26 +303,15 @@ export default function SemesterPanelPage({
     ? semesterSlug.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())
     : "Executive Committee";
 
-  const semesterExecutives = officialPanelData.filter(
-    (member) => member.semester === semesterSlug
-  ).map((member) => ({
-    ...member,
-    image: dbImages[member.name] || "/placeholder-user.svg",
-  }));
+  const semesterExecutives = officialPanelData
+    .filter((member) => member.semester === semesterSlug)
+    .map((member) => ({
+      ...member,
+      image: dbImages[member.name] || member.image,
+    }));
 
-  const groupedMembers = semesterExecutives.reduce(
-    (groups: Record<string, PanelMemberData[]>, member: PanelMemberData) => {
-      const role = member.role || "Executive Member";
-      if (!groups[role]) {
-        groups[role] = [];
-      }
-      groups[role].push(member);
-      return groups;
-    },
-    {} as Record<string, PanelMemberData[]>
-  );
-
-  const roleOrder = [
+  // ================= SMART GROUPING LOGIC =================
+  const presidentialRoles = [
     "Advisor",
     "Treasurer",
     "President",
@@ -346,6 +319,27 @@ export default function SemesterPanelPage({
     "General Secretary",
     "Joint Secretary",
     "Organizing Secretary",
+  ];
+
+  const groupedMembers = semesterExecutives.reduce(
+    (groups: Record<string, PanelMemberData[]>, member: PanelMemberData) => {
+      const role = member.role || "Executive Member";
+
+      const groupName = presidentialRoles.includes(role)
+        ? "Presidential Panel"
+        : role;
+
+      if (!groups[groupName]) {
+        groups[groupName] = [];
+      }
+      groups[groupName].push(member);
+      return groups;
+    },
+    {} as Record<string, PanelMemberData[]>
+  );
+
+  const roleOrder = [
+    "Presidential Panel",
     "Executive Director",
     "Associate Director",
     "Associate Executive",
@@ -365,7 +359,6 @@ export default function SemesterPanelPage({
     <main className="min-h-screen bg-[#fcfcfc] text-gray-900 font-sans selection:bg-blue-500/30 overflow-hidden relative">
       {/* ================= BACKGROUND GRID & GLOWS ================= */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        {/* Subtle Grid Pattern */}
         <div
           className="absolute inset-0 opacity-[0.6]"
           style={{
@@ -374,7 +367,6 @@ export default function SemesterPanelPage({
           }}
         ></div>
 
-        {/* Soft Radial Glows */}
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-400/10 rounded-full blur-[120px]"></div>
         <div className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-purple-400/10 rounded-full blur-[150px]"></div>
       </div>
@@ -428,17 +420,13 @@ export default function SemesterPanelPage({
               className="scroll-mt-36 mb-24 animate-fade-in-up"
               style={{ animationDelay: `${sectionIndex * 150}ms` }}
             >
-              {/* SECTION HEADER */}
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-gray-200/60 pb-4 mb-10 gap-4">
+              {/* SECTION HEADER (MEMBER COUNT REMOVED) */}
+              <div className="flex flex-col sm:flex-row sm:items-end border-b-2 border-gray-200/60 pb-4 mb-10 gap-4">
                 <div className="flex items-center gap-4">
                   <div className="w-2 h-10 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
                   <h2 className="text-3xl md:text-4xl font-black text-gray-900 tracking-tight">
                     {getRoleHeading(roleName, groupedMembers[roleName].length)}
                   </h2>
-                </div>
-                <div className="px-4 py-1.5 bg-white border border-gray-200 text-gray-500 font-bold text-sm rounded-full w-fit shadow-sm">
-                  {groupedMembers[roleName].length} Member
-                  {groupedMembers[roleName].length > 1 ? "s" : ""}
                 </div>
               </div>
 
@@ -479,11 +467,12 @@ export default function SemesterPanelPage({
 
                     {/* Top Badges */}
                     <div className="absolute top-5 left-5 right-5 z-20 flex justify-between items-start">
-                      <div className="w-12 h-12 rounded-xl overflow-hidden border border-gray-100 bg-white/80 backdrop-blur-md shadow-sm p-1.5 transition-transform duration-300 group-hover:scale-110">
+                      <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-gray-100 bg-white/80 backdrop-blur-md shadow-sm p-1 transition-transform duration-300 group-hover:scale-110">
                         <Image
                           src="/AUSTCAIC-logo.jpg"
                           alt="Logo"
                           fill
+                          sizes="40px"
                           className="object-contain"
                         />
                       </div>

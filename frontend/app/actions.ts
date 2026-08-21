@@ -84,21 +84,22 @@ export async function loginMember(prevState: unknown, formData: FormData) {
 
 export async function getPanelImages(semester: string) {
   try {
+    // সঠিক মডেলের নাম: panelMember
     const dbMembers = await prisma.panelMember.findMany({
       where: {
-        semester,
+        semester: semester,
         imageUrl: {
-          not: null,
+          not: null, // যাদের ছবি নেই (NULL), তাদের আনবে না
         },
       },
-      select: {
-        name: true,
-        imageUrl: true,
-      },
     });
-    return { success: true, data: dbMembers };
+
+    return {
+      success: true,
+      data: dbMembers.map((m: any) => ({ name: m.name, imageUrl: m.imageUrl })),
+    };
   } catch (error) {
     console.error("Error fetching panel images:", error);
-    return { success: false, error: "Failed to fetch images" };
+    return { success: false, data: [] };
   }
 }
