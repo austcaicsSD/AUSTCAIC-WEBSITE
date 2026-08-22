@@ -87,7 +87,7 @@ export default function SocialDropdown() {
 
   return (
     <div ref={wrapRef} className="relative w-full md:w-auto">
-      {/* Trigger — matches the site's existing gray-950 / blue-purple-gradient CTA */}
+      
       <button
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
