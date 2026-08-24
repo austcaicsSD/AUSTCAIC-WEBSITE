@@ -68,7 +68,7 @@ export default function Navigation({
   };
 
   return (
-    <nav className="relative w-full bg-white/80 backdrop-blur-xl border-b border-gray-200/60 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.1)] transition-all duration-300">
+    <nav className="relative w-full bg-white/70 backdrop-blur-2xl backdrop-saturate-150 border-b border-white/60 shadow-[0_10px_40px_-12px_rgba(15,23,42,0.28)] transition-all duration-300 after:pointer-events-none after:absolute after:inset-x-0 after:top-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-white/80 after:to-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* BRAND LOGO */}
@@ -97,7 +97,7 @@ export default function Navigation({
 
           {/* DESKTOP NAVIGATION */}
           <div className="hidden md:flex items-center gap-6">
-            <div className="flex items-center gap-1 font-bold text-sm text-gray-600 bg-gray-100/60 p-1.5 rounded-2xl border border-gray-200/50">
+            <div className="flex items-center gap-1 font-bold text-sm text-gray-600 bg-white/40 p-1.5 rounded-2xl border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
               <Link href="/" className={deskLink(isActive("/"))}>
                 Home
               </Link>
@@ -124,7 +124,7 @@ export default function Navigation({
                     />
                   </svg>
                 </button>
-                <div className="absolute top-full left-0 mt-1 w-48 bg-white/95 backdrop-blur-xl border border-gray-200/60 rounded-xl shadow-lg opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-300 flex flex-col p-2 z-50">
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white/85 backdrop-blur-2xl backdrop-saturate-150 border border-white/70 rounded-2xl shadow-[0_24px_60px_-15px_rgba(15,23,42,0.35)] opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-300 flex flex-col p-2 z-50">
                   {panelSemesters.map((semester) => (
                     <Link
                       key={semester.id}
@@ -194,7 +194,7 @@ export default function Navigation({
       <div
         id="mobile-nav"
         ref={menuRef}
-        className={`md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-2xl border-b border-gray-200/60 overflow-hidden transition-all duration-500 ease-in-out shadow-2xl z-40 ${
+        className={`md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-2xl backdrop-saturate-150 border-b border-white/60 overflow-hidden transition-all duration-500 ease-in-out shadow-[0_24px_60px_-15px_rgba(15,23,42,0.35)] z-40 ${
           open ? "max-h-[600px]" : "max-h-0"
         }`}
       >
