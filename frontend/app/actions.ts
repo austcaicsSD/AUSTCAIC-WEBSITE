@@ -96,10 +96,38 @@ export async function getPanelImages(semester: string) {
 
     return {
       success: true,
-      data: dbMembers.map((m: any) => ({ name: m.name, imageUrl: m.imageUrl })),
+      data: dbMembers.map((m: { name: string; imageUrl: string | null }) => ({ name: m.name, imageUrl: m.imageUrl })),
     };
   } catch (error) {
     console.error("Error fetching panel images:", error);
+    return { success: false, data: [] };
+  }
+}
+
+export async function getPanelMembers(semester: string) {
+  try {
+    const dbMembers = await prisma.panelMember.findMany({
+      where: {
+        semester: semester,
+      },
+      orderBy: {
+        orderIndex: "asc",
+      },
+    });
+
+    return {
+      success: true,
+      data: dbMembers.map((m: { id: string; name: string; role: string; wing: string | null; semester: string; imageUrl: string | null }) => ({
+        id: m.id,
+        name: m.name,
+        role: m.role,
+        wing: m.wing,
+        semester: m.semester,
+        imageUrl: m.imageUrl,
+      })),
+    };
+  } catch (error) {
+    console.error("Error fetching panel members:", error);
     return { success: false, data: [] };
   }
 }

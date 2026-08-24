@@ -2,7 +2,7 @@
 
 import React, { useState, use, useEffect } from "react";
 import Image from "next/image";
-import { getPanelImages } from "@/app/actions";
+import { getPanelImages, getPanelMembers } from "@/app/actions";
 import Pagination from "@/app/components/Pagination";
 
 // ================= OFFICIAL PANEL DATA =================
@@ -398,6 +398,7 @@ export default function SemesterPanelPage({
     null
   );
   const [dbImages, setDbImages] = useState<Record<string, string>>({});
+  const [dbMembers, setDbMembers] = useState<PanelMemberData[]>([]);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
 
@@ -423,6 +424,26 @@ export default function SemesterPanelPage({
   }, [semesterSlug]);
 
   useEffect(() => {
+    let isMounted = true;
+    getPanelMembers(semesterSlug).then((res) => {
+      if (res.success && res.data && isMounted) {
+        const mapped = res.data.map((m) => ({
+          id: m.id,
+          name: m.name,
+          role: m.role,
+          wing: m.wing,
+          semester: m.semester,
+          image: m.imageUrl || "/placeholder-user.svg",
+        }));
+        setDbMembers(mapped);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [semesterSlug]);
+
+  useEffect(() => {
     if (!selectedMember) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelectedMember(null);
@@ -435,12 +456,30 @@ export default function SemesterPanelPage({
     ? semesterSlug.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())
     : "Executive Committee";
 
-  const semesterExecutives = officialPanelData
+  const staticSemesterExecutives = officialPanelData
     .filter((member) => member.semester === semesterSlug)
+    .filter((member) => !(member.role === "Associate Executive" && member.name === "To Be Announced"))
     .map((member) => ({
       ...member,
       image: dbImages[member.name] || member.image,
     }));
+
+  const dbAssociateExecutives = dbMembers.filter(
+    (member) => member.role === "Associate Executive"
+  );
+
+  const mahim = dbAssociateExecutives.find((m) => m.name.trim() === "Mahim Abdullah Rianto");
+  const tanjim = dbAssociateExecutives.find((m) => m.name.trim() === "Md Tanjimul Islam");
+  const others = dbAssociateExecutives.filter(
+    (m) => m.name.trim() !== "Mahim Abdullah Rianto" && m.name.trim() !== "Md Tanjimul Islam"
+  );
+
+  const sortedAssociateExecutives: PanelMemberData[] = [];
+  if (mahim) sortedAssociateExecutives.push(mahim);
+  if (tanjim) sortedAssociateExecutives.push(tanjim);
+  sortedAssociateExecutives.push(...others);
+
+  const semesterExecutives = [...staticSemesterExecutives, ...sortedAssociateExecutives];
 
   // ================= SMART GROUPING LOGIC =================
   const presidentialRoles = [
