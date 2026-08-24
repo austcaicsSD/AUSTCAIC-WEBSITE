@@ -1,32 +1,29 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import FadeIn from "./components/FadeIn";
+import HeroBackground from "./components/HeroBackground";
+import AnimatedCounters from "./components/AnimatedCounters";
+import UpcomingEvents from "./components/UpcomingEvents";
+import RecentActivities from "./components/RecentActivities";
+import BeyondTech from "./components/BeyondTech";
+import GalleryMoments from "./components/GalleryMoments";
+import SponsorsPartners from "./components/SponsorsPartners";
+import { PrismaClient } from "@prisma/client";
 
-// ================= MAIN PAGE COMPONENT =================
-export default function Home() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+const prisma = new PrismaClient();
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-  };
+export const dynamic = "force-dynamic";
 
+// ================= MAIN PAGE SERVER COMPONENT =================
+export default async function Home() {
+  const memberCount = await prisma.member.count();
   return (
-    <main
-      onMouseMove={handleMouseMove}
-      className="relative w-full overflow-hidden bg-[#fafafa] text-gray-900 selection:bg-brandPurple/30 font-sans"
-    >
-      {/* ================= HERO SECTION ================= */}
+    <main className="relative w-full overflow-hidden bg-[#fafafa] text-gray-900 selection:bg-brandPurple/30 font-sans">
+      
+      {/* ================= 1. HERO SECTION ================= */}
       <section className="relative min-h-screen flex items-center justify-center pt-10 overflow-hidden bg-white z-20 rounded-b-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border-b border-gray-100">
-        <div
-          className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300 opacity-70"
-          style={{
-            background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(29, 78, 216, 0.08), transparent 80%)`,
-          }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none z-0"></div>
+        {/* Extracted client interactive cursor radial background */}
+        <HeroBackground />
 
         <div className="absolute top-1/4 left-[10%] opacity-20 animate-[bounce_6s_infinite] pointer-events-none z-0">
           <svg
@@ -34,6 +31,7 @@ export default function Home() {
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -52,6 +50,7 @@ export default function Home() {
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -121,6 +120,7 @@ export default function Home() {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -140,6 +140,7 @@ export default function Home() {
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -151,7 +152,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= OUR JOURNEY (Holographic Line Timeline) ================= */}
+      {/* ================= 2. ANIMATED STATISTICS ================= */}
+      <AnimatedCounters memberCount={memberCount} />
+
+      {/* ================= 3. UPCOMING EVENTS ================= */}
+      <UpcomingEvents />
+
+      {/* ================= 4. RECENT ACTIVITIES ================= */}
+      <RecentActivities />
+
+      {/* ================= 5. OUR JOURNEY (Timeline) ================= */}
       <section className="py-32 px-6 relative z-10">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brandBlue/10 rounded-full blur-[100px] -z-10 mix-blend-multiply"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brandPurple/10 rounded-full blur-[100px] -z-10 mix-blend-multiply"></div>
@@ -170,7 +180,7 @@ export default function Home() {
 
           <div className="relative">
             {/* Glowing Gradient Center Line */}
-            <div className="absolute left-8 md:left-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-brandBlue/20 via-brandPurple/50 to-brandBlue/20 -translate-x-1/2 rounded-full hidden md:block"></div>
+            <div className="absolute left-8 md:left-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-brandBlue/20 via-brandPurple/50 to-brandBlue/20 -translate-x-1/2 rounded-full hidden md:block" aria-hidden="true"></div>
 
             <div className="space-y-16 md:space-y-24">
               {/* Node 1 */}
@@ -184,10 +194,10 @@ export default function Home() {
                       Foundation of the tech hub.
                     </p>
                   </div>
-                  <div className="absolute left-8 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-gray-200 -translate-x-1/2 group-hover:border-brandBlue group-hover:shadow-[0_0_20px_rgba(29,78,216,0.4)] transition-all duration-500 z-10"></div>
+                  <div className="absolute left-8 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-gray-200 -translate-x-1/2 group-hover:border-brandBlue group-hover:shadow-[0_0_20px_rgba(29,78,216,0.4)] transition-all duration-500 z-10" aria-hidden="true"></div>
                   <div className="md:w-5/12 pl-16 md:pl-12 w-full">
                     <div className="p-8 bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(29,78,216,0.1)] hover:-translate-y-1 transition-all duration-500">
-                      <span className="inline-block px-4 py-1.5 bg-brandBlue/10 text-brandBlue font-bold rounded-full mb-4 text-sm tracking-widest"></span>
+                      <span className="inline-block px-4 py-1.5 bg-brandBlue/10 text-brandBlue font-bold rounded-full mb-4 text-sm tracking-widest" aria-hidden="true"></span>
                       <h3 className="text-2xl font-bold text-gray-900 mb-3 md:hidden">
                         The Inception
                       </h3>
@@ -212,10 +222,10 @@ export default function Home() {
                       Expanding our horizons.
                     </p>
                   </div>
-                  <div className="absolute left-8 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-gray-200 -translate-x-1/2 group-hover:border-brandPurple group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all duration-500 z-10"></div>
+                  <div className="absolute left-8 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-gray-200 -translate-x-1/2 group-hover:border-brandPurple group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all duration-500 z-10" aria-hidden="true"></div>
                   <div className="md:w-5/12 pl-16 md:pr-12 md:pl-0 w-full text-left md:text-right">
                     <div className="p-8 bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(139,92,246,0.1)] hover:-translate-y-1 transition-all duration-500">
-                      <span className="inline-block px-4 py-1.5 bg-brandPurple/10 text-brandPurple font-bold rounded-full mb-4 text-sm tracking-widest"></span>
+                      <span className="inline-block px-4 py-1.5 bg-brandPurple/10 text-brandPurple font-bold rounded-full mb-4 text-sm tracking-widest" aria-hidden="true"></span>
                       <h3 className="text-2xl font-bold text-gray-900 mb-3 md:hidden">
                         Growth & Execution
                       </h3>
@@ -238,7 +248,7 @@ export default function Home() {
                     </h3>
                     <p className="text-gray-500 text-lg">Building a legacy.</p>
                   </div>
-                  <div className="absolute left-8 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-gray-200 -translate-x-1/2 group-hover:border-blue-500 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all duration-500 z-10"></div>
+                  <div className="absolute left-8 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-gray-200 -translate-x-1/2 group-hover:border-blue-500 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all duration-500 z-10" aria-hidden="true"></div>
                   <div className="md:w-5/12 pl-16 md:pl-12 w-full">
                     <div className="p-8 bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.1)] hover:-translate-y-1 transition-all duration-500">
                       <span className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 font-bold rounded-full mb-4 text-sm tracking-widest">
@@ -260,7 +270,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= VISION & MISSION ================= */}
+      {/* ================= 6. VISION & MISSION ================= */}
       <section className="py-40 px-6 relative z-10 overflow-hidden border-y border-gray-100 bg-white">
         <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-brandBlue/20 rounded-full blur-[120px] pointer-events-none mix-blend-multiply animate-pulse"></div>
         <div
@@ -278,6 +288,7 @@ export default function Home() {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -314,6 +325,7 @@ export default function Home() {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -337,7 +349,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= PROJECTS GALLERY ================= */}
+      {/* ================= 7. BEYOND TECH / CULTURAL ================= */}
+      <BeyondTech />
+
+      {/* ================= 8. FEATURED PROJECTS ================= */}
       <section className="py-32 px-6 relative z-20">
         <div className="max-w-6xl mx-auto relative">
           <FadeIn>
@@ -498,17 +513,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= CALL TO ACTION ================= */}
+      {/* ================= 9. GALLERY / MOMENTS ================= */}
+      <GalleryMoments />
+
+      {/* ================= 10. SPONSORS & PARTNERS ================= */}
+      <SponsorsPartners />
+
+      {/* ================= 11. CALL TO ACTION ================= */}
       <section
         id="join-us"
-        className="py-24 px-6 relative overflow-hidden bg-gradient-to-br from-brandBlue to-brandPurple text-white"
+        className="py-24 px-6 relative overflow-hidden bg-gradient-to-br from-brandBlue to-brandPurple text-white z-20"
       >
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay" aria-hidden="true"></div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
           <FadeIn>
             <div className="w-32 h-32 relative mb-8 rounded-[2rem] overflow-hidden shadow-2xl bg-white p-3 ring-4 ring-white/20 transform hover:scale-105 transition-transform duration-300">
-              {/* FIX APPLIED: sizes="128px" added to resolve Next.js performance warning */}
               <Image
                 src="/AUSTCAIC-logo.jpg"
                 alt="AUSTCAIC Logo"
@@ -539,6 +559,7 @@ export default function Home() {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
