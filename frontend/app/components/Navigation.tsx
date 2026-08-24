@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Socialdropdown from "./Socialdropdown";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 // ================= PANEL SEMESTERS CONFIGURATION =================
@@ -13,6 +14,24 @@ export default function Navigation() {
   const [panelOpen, setPanelOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const deskLink = (active: boolean) =>
+    `px-4 py-2 rounded-xl transition-all duration-300 ${
+      active
+        ? "bg-white text-gray-950 shadow-sm"
+        : "hover:text-gray-950 hover:bg-white hover:shadow-sm"
+    }`;
+
+  const mobileLink = (active: boolean) =>
+    `font-bold p-3 rounded-xl border transition-all flex items-center justify-between ${
+      active
+        ? "bg-blue-50 border-blue-100 text-blue-700"
+        : "text-gray-600 hover:text-gray-950 hover:bg-gray-50 border-transparent hover:border-gray-100"
+    }`;
 
   // ===== CLOSE MOBILE MENU ON OUTSIDE CLICK / ESC =====
   useEffect(() => {
@@ -76,16 +95,17 @@ export default function Navigation() {
           {/* DESKTOP NAVIGATION */}
           <div className="hidden md:flex items-center gap-6">
             <div className="flex items-center gap-1 font-bold text-sm text-gray-600 bg-gray-100/60 p-1.5 rounded-2xl border border-gray-200/50">
-              <Link
-                href="/"
-                className="px-4 py-2 rounded-xl hover:text-gray-950 hover:bg-white hover:shadow-sm transition-all duration-300"
-              >
+              <Link href="/" className={deskLink(isActive("/"))}>
                 Home
               </Link>
 
               {/* EXECUTIVE COMMITTEE DROPDOWN */}
               <div className="relative group/dropdown">
-                <button className="px-4 py-2 rounded-xl hover:text-gray-950 hover:bg-white hover:shadow-sm transition-all duration-300 flex items-center gap-1 cursor-pointer">
+                <button
+                  className={`${deskLink(
+                    isActive("/panel")
+                  )} flex items-center gap-1 cursor-pointer`}
+                >
                   Executive Committee
                   <svg
                     className="w-4 h-4 transition-transform group-hover/dropdown:rotate-180"
@@ -116,21 +136,20 @@ export default function Navigation() {
 
               <Link
                 href="/culture/syllabus"
-                className="px-4 py-2 rounded-xl hover:text-gray-950 hover:bg-white hover:shadow-sm transition-all duration-300"
+                className={deskLink(isActive("/culture"))}
               >
                 Culture
               </Link>
               <Link
                 href="/lab-free"
-                className="px-4 py-2 rounded-xl hover:text-gray-950 hover:bg-white hover:shadow-sm transition-all duration-300 flex items-center gap-1.5"
+                className={`${deskLink(
+                  isActive("/lab-free")
+                )} flex items-center gap-1.5`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>{" "}
                 Resources
               </Link>
-              <Link
-                href="/login"
-                className="px-4 py-2 rounded-xl hover:text-gray-950 hover:bg-white hover:shadow-sm transition-all duration-300"
-              >
+              <Link href="/login" className={deskLink(isActive("/login"))}>
                 Login
               </Link>
             </div>
@@ -180,7 +199,7 @@ export default function Navigation() {
           <Link
             href="/"
             onClick={closeMenu}
-            className="font-bold text-gray-600 hover:text-gray-950 p-3 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-all flex items-center justify-between"
+            className={mobileLink(isActive("/"))}
           >
             Home{" "}
             <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -194,7 +213,9 @@ export default function Navigation() {
             aria-expanded={panelOpen}
             aria-controls="mobile-panel-semesters"
             onClick={() => setPanelOpen((v) => !v)}
-            className="w-full text-left font-bold text-gray-600 hover:text-gray-950 p-3 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-all flex items-center justify-between cursor-pointer"
+            className={`w-full text-left cursor-pointer ${mobileLink(
+              isActive("/panel")
+            )}`}
           >
             Executive Committee{" "}
             <svg
@@ -229,7 +250,7 @@ export default function Navigation() {
           <Link
             href="/culture/syllabus"
             onClick={closeMenu}
-            className="font-bold text-gray-600 hover:text-gray-950 p-3 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-all flex items-center justify-between"
+            className={mobileLink(isActive("/culture"))}
           >
             Culture{" "}
             <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -239,7 +260,7 @@ export default function Navigation() {
           <Link
             href="/lab-free"
             onClick={closeMenu}
-            className="font-bold text-gray-600 hover:text-gray-950 p-3 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-all flex items-center justify-between"
+            className={mobileLink(isActive("/lab-free"))}
           >
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span> Resources
@@ -251,7 +272,7 @@ export default function Navigation() {
           <Link
             href="/login"
             onClick={closeMenu}
-            className="font-bold text-gray-600 hover:text-gray-950 p-3 rounded-xl hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-all flex items-center justify-between"
+            className={mobileLink(isActive("/login"))}
           >
             Login{" "}
             <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
