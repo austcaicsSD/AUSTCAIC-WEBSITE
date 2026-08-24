@@ -15,9 +15,7 @@ const cols = await p.$queryRaw`
 const counts = {
   member: await p.member.count(),
   panelMember: await p.panelMember.count(),
-  semester: await p.semester.count(),
   panelWithImage: await p.panelMember.count({ where: { imageUrl: { not: null } } }),
-  panelLinkedToSemester: await p.panelMember.count({ where: { semesterId: { not: null } } }),
 };
 
 console.log("tables:", tables.map((r) => r.table_name).join(", "));

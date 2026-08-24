@@ -486,6 +486,7 @@ export default function PanelView({
                 src={selectedMember.image}
                 alt={selectedMember.name}
                 fill
+                sizes="(max-width: 768px) 100vw, 40vw"
                 className="relative z-10 object-contain object-bottom drop-shadow-xl"
               />
             </div>
