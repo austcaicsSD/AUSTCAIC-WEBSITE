@@ -80,25 +80,3 @@ export async function loginMember(prevState: unknown, formData: FormData) {
     return { success: false, message: "Something went wrong. Please try again." };
   }
 }
-
-export async function getPanelImages(semester: string) {
-  try {
-    // সঠিক মডেলের নাম: panelMember
-    const dbMembers = await prisma.panelMember.findMany({
-      where: {
-        semester: semester,
-        imageUrl: {
-          not: null, // যাদের ছবি নেই (NULL), তাদের আনবে না
-        },
-      },
-    });
-
-    return {
-      success: true,
-      data: dbMembers.map((m) => ({ name: m.name, imageUrl: m.imageUrl })),
-    };
-  } catch (error) {
-    console.error("Error fetching panel images:", error);
-    return { success: false, data: [] };
-  }
-}

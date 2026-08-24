@@ -5,10 +5,13 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-// ================= PANEL SEMESTERS CONFIGURATION =================
-const panelSemesters = [{ id: "fall-2025", label: "Fall 2025" }];
+export type PanelSemester = { id: string; label: string };
 
-export default function Navigation() {
+export default function Navigation({
+  panelSemesters,
+}: {
+  panelSemesters: PanelSemester[];
+}) {
   const [open, setOpen] = useState(false);
   // ===== MOBILE "EXECUTIVE COMMITTEE" ACCORDION (closed by default) =====
   const [panelOpen, setPanelOpen] = useState(false);
