@@ -1,11 +1,8 @@
 import { cookies } from "next/headers";
-import { PrismaClient } from "@prisma/client";
 import { redirect } from "next/navigation";
-import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 
 import ClientBackground from "./ClientBackground";
-
-const prisma = new PrismaClient();
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();

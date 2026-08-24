@@ -1,9 +1,8 @@
 "use server";
 
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { cookies } from "next/headers";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 export async function registerMember(formData: FormData) {
   try {
@@ -96,7 +95,7 @@ export async function getPanelImages(semester: string) {
 
     return {
       success: true,
-      data: dbMembers.map((m: any) => ({ name: m.name, imageUrl: m.imageUrl })),
+      data: dbMembers.map((m) => ({ name: m.name, imageUrl: m.imageUrl })),
     };
   } catch (error) {
     console.error("Error fetching panel images:", error);

@@ -1,0 +1,2 @@
+# Database backups — contain member PII, never commit
+backups/
