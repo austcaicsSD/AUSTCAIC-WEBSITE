@@ -524,7 +524,7 @@ export default async function Home() {
         id="join-us"
         className="py-24 px-6 relative overflow-hidden bg-gradient-to-br from-brandBlue to-brandPurple text-white z-20"
       >
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay" aria-hidden="true"></div>
+        <div className="absolute inset-0 bg-[url('/patterns/cubes.png')] opacity-10 mix-blend-overlay" aria-hidden="true"></div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
           <FadeIn>
