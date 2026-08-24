@@ -1,7 +1,7 @@
 import { cn } from "@/lib/cn";
 
 const control =
-  "w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-brandBlue focus:ring-2 focus:ring-brandBlue/20 disabled:bg-gray-50 disabled:text-gray-500 aria-[invalid=true]:border-red-500";
+  "w-full rounded-xl border border-gray-200 bg-white/60 backdrop-blur-sm px-4 py-3 text-sm font-medium text-gray-900 outline-none transition-all placeholder:text-gray-400 focus:border-brandPurple focus:ring-2 focus:ring-brandPurple/20 disabled:bg-gray-100/60 disabled:text-gray-500 aria-[invalid=true]:border-red-400 aria-[invalid=true]:focus:ring-red-500/20";
 
 export function Field({
   label,

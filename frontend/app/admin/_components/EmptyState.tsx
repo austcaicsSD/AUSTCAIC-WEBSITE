@@ -8,14 +8,16 @@ export function EmptyState({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="px-5 py-14 text-center">
-      <p className="text-sm font-bold text-gray-900">{title}</p>
+    <div className="px-6 py-16 text-center">
+      <p className="text-base font-black tracking-tight text-gray-950">
+        {title}
+      </p>
       {description && (
-        <p className="mx-auto mt-1 max-w-sm text-sm text-gray-500">
+        <p className="mx-auto mt-2 max-w-sm text-sm font-medium text-gray-500">
           {description}
         </p>
       )}
-      {action && <div className="mt-5">{action}</div>}
+      {action && <div className="mt-6">{action}</div>}
     </div>
   );
 }

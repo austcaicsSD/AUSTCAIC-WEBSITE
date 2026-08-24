@@ -65,13 +65,13 @@ export function PanelMemberForm({
       {state.formError && (
         <p
           role="alert"
-          className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-700"
+          className="rounded-xl border border-red-100 bg-red-50 px-5 py-4 text-sm font-bold text-red-600"
         >
           {state.formError}
         </p>
       )}
 
-      <Card className="p-6">
+      <Card className="p-6 sm:p-8">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <Field label="Full name" htmlFor="name" required error={err("name")}>
             <Input

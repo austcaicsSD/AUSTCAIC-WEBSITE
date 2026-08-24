@@ -63,7 +63,10 @@ export default async function AdminPanelListPage({
         }
       />
 
-      <form method="get" className="mb-6 flex flex-wrap items-end gap-3">
+      <form
+        method="get"
+        className="mb-6 flex flex-wrap items-end gap-3 rounded-[1.75rem] border border-white/60 bg-white/70 p-5 backdrop-blur-2xl shadow-[0_15px_40px_rgba(0,0,0,0.04)]"
+      >
         <div className="min-w-56 flex-1">
           <label
             htmlFor="q"
@@ -147,12 +150,12 @@ export default async function AdminPanelListPage({
                 </thead>
                 <tbody>
                   {rows.map((member) => (
-                    <tr key={member.id}>
-                      <Td className="tabular-nums text-gray-500">
+                    <tr key={member.id} className="transition-colors hover:bg-white/60">
+                      <Td className="tabular-nums text-gray-400">
                         {member.orderIndex}
                       </Td>
-                      <Td>
-                        <span className="font-bold text-gray-950">
+                      <Td className="whitespace-nowrap">
+                        <span className="font-black tracking-tight text-gray-950">
                           {member.name}
                         </span>
                         {member.memberId && (

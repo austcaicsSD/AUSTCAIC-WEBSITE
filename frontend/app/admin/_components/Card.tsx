@@ -8,7 +8,7 @@ export function Card({
     <div
       {...props}
       className={cn(
-        "rounded-xl border border-gray-200 bg-white shadow-sm",
+        "rounded-[1.75rem] border border-white/60 bg-white/70 backdrop-blur-2xl shadow-[0_15px_40px_rgba(0,0,0,0.05)]",
         className,
       )}
     />
@@ -23,8 +23,8 @@ export function CardHeader({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center justify-between border-b border-gray-200 px-5 py-3">
-      <h2 className="text-sm font-black uppercase tracking-widest text-gray-500">
+    <div className="flex items-center justify-between border-b border-gray-200/70 px-6 py-4">
+      <h2 className="text-xs font-black uppercase tracking-[0.18em] text-gray-500">
         {title}
       </h2>
       {action}

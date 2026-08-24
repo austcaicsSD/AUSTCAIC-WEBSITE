@@ -39,23 +39,23 @@ export function ConfirmDialog({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/50 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/40 backdrop-blur-sm p-4"
       onClick={onCancel}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby={`${inputId}-title`}
-        className="w-full max-w-md rounded-xl bg-white p-6 text-left shadow-xl"
+        className="w-full max-w-md rounded-[1.75rem] border border-white/60 bg-white/90 backdrop-blur-2xl p-8 text-left shadow-[0_30px_70px_-20px_rgba(15,23,42,0.4)]"
         onClick={(e) => e.stopPropagation()}
       >
         <h2
           id={`${inputId}-title`}
-          className="text-lg font-black tracking-tight text-gray-950"
+          className="text-xl font-black tracking-tight text-gray-950"
         >
           {title}
         </h2>
-        <p className="mt-2 text-sm text-gray-600">{description}</p>
+        <p className="mt-2 text-sm font-medium text-gray-500">{description}</p>
 
         <label
           htmlFor={inputId}

@@ -32,8 +32,10 @@ export function PhotoField({
   };
 
   return (
-    <div className="border-t border-gray-200 pt-6">
-      <p className="mb-3 text-sm font-bold text-gray-900">Photo</p>
+    <div className="mt-8 border-t border-gray-200/70 pt-8">
+      <p className="mb-4 text-sm font-black tracking-tight text-gray-950">
+        Photo
+      </p>
 
       <div className="flex flex-wrap items-center gap-5">
         {shown ? (
@@ -62,7 +64,7 @@ export function PhotoField({
             aria-invalid={Boolean(error)}
             aria-describedby={error ? "photo-error" : undefined}
             onChange={(e) => pick(e.target.files?.[0] ?? null)}
-            className="block w-full text-sm text-gray-600 file:mr-3 file:rounded-lg file:border-0 file:bg-gray-100 file:px-4 file:py-2 file:text-sm file:font-bold file:text-gray-900 hover:file:bg-gray-200"
+            className="block w-full text-sm font-medium text-gray-600 file:mr-3 file:rounded-xl file:border-0 file:bg-gradient-to-r file:from-brandBlue file:to-brandPurple file:px-5 file:py-2.5 file:text-sm file:font-bold file:text-white hover:file:opacity-90"
           />
 
           <p className="text-xs text-gray-500">

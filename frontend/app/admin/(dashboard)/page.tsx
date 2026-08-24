@@ -53,11 +53,13 @@ export default async function AdminDashboardPage() {
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
         {stats.map((s) => (
-          <Card key={s.label} className="p-5">
-            <p className="text-xs font-black uppercase tracking-widest text-gray-500">
+          <Card key={s.label} className="p-6 transition-shadow duration-500 hover:shadow-[0_20px_50px_rgba(29,78,216,0.10)]">
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-gray-500">
               {s.label}
             </p>
-            <p className="mt-2 text-4xl font-black text-gray-950">{s.value}</p>
+            <p className="mt-3 bg-gradient-to-r from-brandBlue to-brandPurple bg-clip-text text-5xl font-black tracking-tight text-transparent">
+              {s.value}
+            </p>
           </Card>
         ))}
       </div>
@@ -82,8 +84,8 @@ export default async function AdminDashboardPage() {
               {bySemester.map((row) => {
                 const missing = missingFor.get(row.semester) ?? 0;
                 return (
-                  <tr key={row.semester}>
-                    <Td className="font-bold text-gray-950">
+                  <tr key={row.semester} className="transition-colors hover:bg-white/60">
+                    <Td className="font-black tracking-tight text-gray-950">
                       {semesterLabel(row.semester)}
                     </Td>
                     <Td className="text-right tabular-nums">
@@ -125,12 +127,14 @@ export default async function AdminDashboardPage() {
             </thead>
             <tbody>
               {recent.map((entry) => (
-                <tr key={entry.id}>
+                <tr key={entry.id} className="transition-colors hover:bg-white/60">
                   <Td className="whitespace-nowrap text-gray-500">
                     {dateFormat.format(entry.createdAt)}
                   </Td>
                   <Td className="whitespace-nowrap">{entry.actorEmail}</Td>
-                  <Td className="font-bold text-gray-950">{entry.action}</Td>
+                  <Td className="font-black tracking-tight text-gray-950">
+                    {entry.action}
+                  </Td>
                   <Td className="text-gray-500">{entry.entityType}</Td>
                 </tr>
               ))}

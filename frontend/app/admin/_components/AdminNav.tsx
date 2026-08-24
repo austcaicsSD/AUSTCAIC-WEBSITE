@@ -13,7 +13,7 @@ export function AdminNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex flex-col gap-1">
+    <nav className="flex flex-row gap-2 md:flex-col md:gap-1">
       {NAV.map(({ href, label }) => {
         // "/admin" would otherwise match every child route.
         const active =
@@ -26,10 +26,10 @@ export function AdminNav({ onNavigate }: { onNavigate?: () => void }) {
             onClick={onNavigate}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "rounded-lg px-3 py-2 text-sm font-bold transition-colors",
+              "rounded-xl px-4 py-2.5 text-sm font-bold transition-all duration-300",
               active
-                ? "bg-brandBlue text-white"
-                : "text-gray-700 hover:bg-gray-100 hover:text-gray-950",
+                ? "bg-gradient-to-r from-brandBlue to-brandPurple text-white shadow-[0_8px_24px_rgba(29,78,216,0.28)]"
+                : "text-gray-600 hover:bg-gray-900/5 hover:text-gray-950",
             )}
           >
             {label}
