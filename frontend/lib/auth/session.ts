@@ -1,5 +1,6 @@
 import "server-only";
 import { cookies } from "next/headers";
+import { ADMIN_COOKIE_NAME } from "./cookie-name";
 import {
   SESSION_MAX_AGE_SECONDS,
   signSessionToken,
@@ -7,7 +8,7 @@ import {
   type AdminClaims,
 } from "./tokens";
 
-export const ADMIN_COOKIE = "austcaic_admin";
+export const ADMIN_COOKIE = ADMIN_COOKIE_NAME;
 
 function authSecret(): string {
   const secret = process.env.AUTH_SECRET;
