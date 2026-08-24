@@ -66,7 +66,7 @@ export type PanelFormValues = Partial<Record<PanelField, string>>;
 
 export type PanelFormState = {
   formError?: string;
-  fieldErrors?: Partial<Record<PanelField, string[]>>;
+  fieldErrors?: Partial<Record<PanelField | "photo", string[]>>;
   /** React resets the form after an action, so failures must repopulate it. */
   values?: PanelFormValues;
 };

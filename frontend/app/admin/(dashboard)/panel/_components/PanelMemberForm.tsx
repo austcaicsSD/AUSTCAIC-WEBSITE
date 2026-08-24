@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useActionState } from "react";
 import { Field, Input } from "@/app/admin/_components/Field";
 import { LinkButton } from "@/app/admin/_components/Button";
 import { SubmitButton } from "@/app/admin/_components/SubmitButton";
 import { Card } from "@/app/admin/_components/Card";
+import { PhotoField } from "./PhotoField";
 import type { PanelField, PanelFormState } from "@/lib/validation/panel";
 
 export type PanelMemberFormValues = {
@@ -53,7 +53,8 @@ export function PanelMemberForm({
   submitLabel: string;
 }) {
   const [state, formAction] = useActionState(action, {} as PanelFormState);
-  const err = (field: PanelField) => state.fieldErrors?.[field]?.[0];
+  const err = (field: PanelField | "photo") =>
+    state.fieldErrors?.[field]?.[0];
   // React resets the form once the action resolves, so a rejected submit has to
   // be repopulated from what the server echoed back.
   const val = (field: PanelField) =>
@@ -194,27 +195,7 @@ export function PanelMemberForm({
           </Field>
         </div>
 
-        <div className="mt-6 flex items-center gap-4 border-t border-gray-200 pt-6">
-          {initial.imageUrl ? (
-            <Image
-              src={initial.imageUrl}
-              alt=""
-              width={56}
-              height={56}
-              className="h-14 w-14 rounded-full object-cover"
-            />
-          ) : (
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 text-xs font-bold text-gray-400">
-              None
-            </div>
-          )}
-          <div>
-            <p className="text-sm font-bold text-gray-900">Photo</p>
-            <p className="text-sm text-gray-500">
-              Uploading is not wired up yet - it arrives in the next milestone.
-            </p>
-          </div>
-        </div>
+        <PhotoField currentUrl={initial.imageUrl} error={err("photo")} />
       </Card>
 
       <datalist id="semester-options">
