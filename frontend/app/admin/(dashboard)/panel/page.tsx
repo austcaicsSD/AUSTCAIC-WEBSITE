@@ -6,9 +6,10 @@ import { PageHeader } from "../../_components/PageHeader";
 import { Card, CardHeader } from "../../_components/Card";
 import { Table, Th, Td } from "../../_components/Table";
 import { EmptyState } from "../../_components/EmptyState";
-import { Button, LinkButton } from "../../_components/Button";
+import { LinkButton } from "../../_components/Button";
 import { Input, Select } from "../../_components/Field";
 import { DeleteMemberButton } from "./_components/DeleteMemberButton";
+import { FilterSubmit } from "./_components/FilterSubmit";
 
 export default async function AdminPanelListPage({
   searchParams,
@@ -100,9 +101,7 @@ export default async function AdminPanelListPage({
           </Select>
         </div>
 
-        <Button type="submit" variant="secondary">
-          Apply
-        </Button>
+        <FilterSubmit />
         {filtered && (
           <LinkButton href="/admin/panel" variant="ghost">
             Clear

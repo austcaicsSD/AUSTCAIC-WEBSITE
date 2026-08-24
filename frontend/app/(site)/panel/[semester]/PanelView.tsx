@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Pagination from "@/app/components/Pagination";
+import { useFocusTrap } from "@/app/components/useFocusTrap";
 
 interface PanelMemberData {
   id: string | number;
@@ -160,6 +161,7 @@ export default function PanelView({
   );
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
+  const dialogRef = useFocusTrap<HTMLDivElement>(Boolean(selectedMember));
 
   useEffect(() => {
     if (!selectedMember) return;
@@ -456,13 +458,19 @@ export default function PanelView({
           onClick={() => setSelectedMember(null)}
         >
           <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="panel-member-name"
+            tabIndex={-1}
             className="relative w-full max-w-3xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100 flex flex-col md:flex-row"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedMember(null)}
-              className="absolute top-4 right-4 z-50 p-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full transition-all"
+              aria-label="Close member details"
+              className="absolute top-4 right-4 z-50 p-2 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               <svg
                 className="w-5 h-5"
@@ -497,7 +505,10 @@ export default function PanelView({
                 AUSTCAIC Panel
               </div>
 
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-2 leading-tight">
+              <h2
+                id="panel-member-name"
+                className="text-3xl md:text-4xl font-black text-gray-900 mb-2 leading-tight"
+              >
                 {selectedMember.name}
               </h2>
 
