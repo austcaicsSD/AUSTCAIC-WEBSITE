@@ -23,12 +23,14 @@ export default function ScrollProgress() {
   }, []);
 
   return (
+    // z-10 keeps the bar above the nav bar but below the dropdown panels,
+    // which open downwards from inside the header.
     <div
-      className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px]"
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[3px]"
       aria-hidden="true"
     >
       <div
-        className="h-full bg-gradient-to-r from-brandBlue via-brandPurple to-blue-500 transition-[width] duration-150 ease-out"
+        className="h-full bg-gradient-to-r from-brandBlue via-brandPurple to-blue-500 shadow-[0_0_12px_rgba(109,40,217,0.5)] transition-[width] duration-150 ease-out"
         style={{ width: `${progress}%` }}
       />
     </div>

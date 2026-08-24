@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Footer from "./components/Footer";
-import Navigation from "./components/Navigation";
-import ScrollProgress from "./components/ScrollProgress";
-import BackToTop from "./components/BackToTop";
-import AnnouncementBar from "./components/AnnouncementBar";
 
 export const metadata: Metadata = {
   title: "AUST Cybersecurity and AI Club",
   description: "Official website of AUSTCAIC",
 };
 
-
-
+// Chrome (nav, footer) lives in the (site) group so /admin can opt out of it
+// entirely, and skip the semester query the public nav needs.
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,19 +15,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
-      <body className="bg-gray-50 font-sans text-gray-900 antialiased flex flex-col min-h-screen">
-        <AnnouncementBar />
-        <header className="sticky top-0 z-50 w-full group/nav">
-          <Navigation />
-          <ScrollProgress />
-        </header>
-
-        {/* MAIN CONTENT AREA */}
-        <div className="flex-grow z-10">{children}</div>
-
-        {/* ================= FOOTER RESTORED ================= */}
-        <Footer />
-        <BackToTop />
+      <body className="bg-gray-50 font-sans text-gray-900 antialiased">
+        {children}
       </body>
     </html>
   );

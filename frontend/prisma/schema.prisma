@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Member {
@@ -30,9 +31,57 @@ model PanelMember {
   facebookUrl   String?
   linkedinUrl   String?
   imageUrl      String?
+  imagePath     String?
   orderIndex    Int      @default(0)
   createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
 
+  @@index([semester, orderIndex])
   @@map("panel_members")
+}
+
+/// Rows are created by hand in Supabase. passwordHash comes from
+/// `node scripts/hash-password.mjs` - never store a plaintext password here.
+model Admin {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  isActive     Boolean   @default(true)
+  tokenVersion Int       @default(0)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+
+  @@map("admins")
+}
+
+/// Backs the login lockout. Must be in the DB, not memory, to work across
+/// serverless instances.
+model LoginAttempt {
+  id         String   @id @default(uuid())
+  email      String
+  ipHash     String
+  successful Boolean
+  createdAt  DateTime @default(now())
+
+  @@index([email, createdAt])
+  @@map("login_attempts")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    String
+  actorEmail String
+  action     String
+  entityType String
+  entityId   String?
+  before     Json?
+  after      Json?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("audit_logs")
 }
 

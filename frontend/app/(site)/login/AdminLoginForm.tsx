@@ -1,0 +1,155 @@
+"use client";
+
+import { useActionState, useState } from "react";
+import { loginAdmin, type LoginState } from "@/app/admin/actions";
+
+const initial: LoginState = { message: "" };
+
+export default function AdminLoginForm() {
+  const [state, formAction, isPending] = useActionState(loginAdmin, initial);
+  const [revealed, setRevealed] = useState(false);
+
+  return (
+    <>
+      <div className="text-center mb-8">
+        <div className="mx-auto w-16 h-16 bg-gradient-to-br from-brandBlue to-brandPurple rounded-2xl flex items-center justify-center text-white shadow-lg transform -rotate-3 mb-6">
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+            ></path>
+          </svg>
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-950 tracking-tight">
+          Admin Login
+        </h1>
+        <p className="text-gray-500 mt-2">
+          Authorised committee members only
+        </p>
+      </div>
+
+      <form action={formAction} className="space-y-5">
+        <div>
+          <label
+            htmlFor="adminEmail"
+            className="block text-sm font-bold text-gray-700 mb-2 pl-1"
+          >
+            Email Address
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="adminEmail"
+            autoComplete="username"
+            required
+            className="w-full px-5 py-4 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-xl outline-none focus:border-brandPurple focus:ring-2 focus:ring-brandPurple/20 transition-all font-medium text-gray-900 placeholder:text-gray-400"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="adminPassword"
+            className="block text-sm font-bold text-gray-700 mb-2 pl-1"
+          >
+            Password
+          </label>
+          <div className="relative">
+            <input
+              type={revealed ? "text" : "password"}
+              name="password"
+              id="adminPassword"
+              autoComplete="current-password"
+              required
+              className="w-full pl-5 pr-14 py-4 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-xl outline-none focus:border-brandPurple focus:ring-2 focus:ring-brandPurple/20 transition-all font-medium text-gray-900 placeholder:text-gray-400"
+            />
+            <button
+              type="button"
+              onClick={() => setRevealed((v) => !v)}
+              aria-label={revealed ? "Hide password" : "Show password"}
+              aria-pressed={revealed}
+              aria-controls="adminPassword"
+              className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400 transition-colors hover:text-gray-700 focus-visible:outline-none focus-visible:text-brandPurple"
+            >
+              {revealed ? (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {state.message && (
+          <div
+            role="alert"
+            className="px-4 py-3 bg-red-50 text-red-600 text-sm font-bold rounded-xl border border-red-100 flex items-center gap-2"
+          >
+            <svg
+              className="w-5 h-5 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              ></path>
+            </svg>
+            {state.message}
+          </div>
+        )}
+
+        <div className="pt-4">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="inline-flex items-center justify-center gap-3 px-10 py-5 w-full bg-gradient-to-r from-brandBlue to-brandPurple text-white font-bold text-lg rounded-2xl shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-brandPurple/30 disabled:opacity-70 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
+          >
+            {isPending ? "Signing in…" : "Sign in"}
+          </button>
+        </div>
+      </form>
+    </>
+  );
+}

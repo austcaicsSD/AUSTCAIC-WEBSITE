@@ -1,0 +1,6 @@
+# Database backups — contain member PII, never commit
+backups/
+
+# Planning notes name the production database and describe unfixed weaknesses.
+# This repository is public; keep them local.
+docs/admin-panel-plan.md

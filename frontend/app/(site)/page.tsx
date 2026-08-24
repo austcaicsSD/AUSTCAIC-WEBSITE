@@ -1,0 +1,577 @@
+import Link from "next/link";
+import Image from "next/image";
+import FadeIn from "@/app/components/FadeIn";
+import HeroBackground from "@/app/components/HeroBackground";
+import AnimatedCounters from "@/app/components/AnimatedCounters";
+import UpcomingEvents from "@/app/components/UpcomingEvents";
+import RecentActivities from "@/app/components/RecentActivities";
+import BeyondTech from "@/app/components/BeyondTech";
+import GalleryMoments from "@/app/components/GalleryMoments";
+import SponsorsPartners from "@/app/components/SponsorsPartners";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+export const dynamic = "force-dynamic";
+
+// ================= MAIN PAGE SERVER COMPONENT =================
+export default async function Home() {
+  const memberCount = await prisma.member.count();
+  return (
+    <main className="relative w-full overflow-hidden bg-[#fafafa] text-gray-900 selection:bg-brandPurple/30 font-sans">
+      
+      {/* ================= 1. HERO SECTION ================= */}
+      <section className="relative min-h-screen flex items-center justify-center pt-10 overflow-hidden bg-white z-20 rounded-b-[3rem] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border-b border-gray-100">
+        {/* Extracted client interactive cursor radial background */}
+        <HeroBackground />
+
+        <div className="absolute top-1/4 left-[10%] opacity-20 animate-[bounce_6s_infinite] pointer-events-none z-0">
+          <svg
+            className="w-24 h-24 text-brandBlue"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1"
+              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+            ></path>
+          </svg>
+        </div>
+        <div
+          className="absolute bottom-1/4 right-[10%] opacity-20 animate-[bounce_8s_infinite] pointer-events-none z-0"
+          style={{ animationDelay: "1s" }}
+        >
+          <svg
+            className="w-32 h-32 text-brandPurple"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1"
+              d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"
+            ></path>
+          </svg>
+        </div>
+
+        <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-brandBlue/20 rounded-full mix-blend-multiply filter blur-[100px] animate-pulse pointer-events-none z-0"></div>
+        <div
+          className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-brandPurple/20 rounded-full mix-blend-multiply filter blur-[100px] animate-pulse pointer-events-none z-0"
+          style={{ animationDelay: "2s" }}
+        ></div>
+
+        <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center w-full max-w-5xl">
+          <FadeIn delay={100}>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/60 border border-brandPurple/20 shadow-[0_0_15px_rgba(139,92,246,0.15)] backdrop-blur-md mb-8 cursor-default hover:scale-105 transition-transform">
+              <span className="flex h-2.5 w-2.5 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brandPurple opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brandPurple"></span>
+              </span>
+              <span className="text-sm font-bold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-brandBlue to-brandPurple uppercase">
+                AUST&apos;s Premier Tech Community
+              </span>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={300}>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter mb-6 text-gray-900 leading-[1.1]">
+              <span className="block drop-shadow-sm">AUST Cybersecurity</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brandBlue via-brandPurple to-brandBlue animate-gradient-x drop-shadow-sm">
+                & AI Club
+              </span>
+            </h1>
+          </FadeIn>
+
+          <FadeIn delay={500}>
+            <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+              Secure. Innovate. Lead.
+            </p>
+            <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+              Join the community shaping the future of security and artificial
+              intelligence.
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={700}>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto">
+              <Link
+                href="/register"
+                className="group relative px-8 py-4 bg-gradient-to-r from-brandBlue to-brandPurple text-white rounded-xl font-bold text-lg overflow-hidden w-full sm:w-auto shadow-[0_8px_30px_rgba(29,78,216,0.3)] hover:shadow-brandBlue/50 hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
+                <span className="relative z-10">
+                  Why you should become a Member
+                </span>
+              </Link>
+              <Link
+                href="/lab-free"
+                className="group flex items-center justify-center gap-2 px-8 py-4 bg-white/80 backdrop-blur-md text-gray-900 border-2 border-gray-200 rounded-xl font-bold text-lg hover:border-brandPurple hover:text-brandPurple hover:-translate-y-1 transition-all duration-300 shadow-sm w-full sm:w-auto"
+              >
+                Explore Resources
+                <svg
+                  className="w-5 h-5 group-hover:rotate-12 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                  ></path>
+                </svg>
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-brandBlue z-10">
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            ></path>
+          </svg>
+        </div>
+      </section>
+
+      {/* ================= 2. ANIMATED STATISTICS ================= */}
+      <AnimatedCounters memberCount={memberCount} />
+
+      {/* ================= 3. UPCOMING EVENTS ================= */}
+      <UpcomingEvents />
+
+      {/* ================= 4. RECENT ACTIVITIES ================= */}
+      <RecentActivities />
+
+      {/* ================= 5. OUR JOURNEY (Timeline) ================= */}
+      <section className="py-32 px-6 relative z-10">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brandBlue/10 rounded-full blur-[100px] -z-10 mix-blend-multiply"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brandPurple/10 rounded-full blur-[100px] -z-10 mix-blend-multiply"></div>
+
+        <div className="max-w-5xl mx-auto relative z-10">
+          <FadeIn>
+            <div className="text-center mb-24">
+              <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter">
+                Our{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brandBlue to-brandPurple">
+                  Journey
+                </span>
+              </h2>
+            </div>
+          </FadeIn>
+
+          <div className="relative">
+            {/* Glowing Gradient Center Line */}
+            <div className="absolute left-8 md:left-1/2 top-4 bottom-4 w-1 bg-gradient-to-b from-brandBlue/20 via-brandPurple/50 to-brandBlue/20 -translate-x-1/2 rounded-full hidden md:block" aria-hidden="true"></div>
+
+            <div className="space-y-16 md:space-y-24">
+              {/* Node 1 */}
+              <FadeIn direction="left" delay={100}>
+                <div className="relative flex flex-col md:flex-row items-center justify-between group">
+                  <div className="md:w-5/12 text-right hidden md:block pr-12">
+                    <h3 className="text-3xl font-black text-gray-900 mb-2 group-hover:text-brandBlue transition-colors duration-300">
+                      The Inception
+                    </h3>
+                    <p className="text-gray-500 text-lg">
+                      Foundation of the tech hub.
+                    </p>
+                  </div>
+                  <div className="absolute left-8 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-gray-200 -translate-x-1/2 group-hover:border-brandBlue group-hover:shadow-[0_0_20px_rgba(29,78,216,0.4)] transition-all duration-500 z-10" aria-hidden="true"></div>
+                  <div className="md:w-5/12 pl-16 md:pl-12 w-full">
+                    <div className="p-8 bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(29,78,216,0.1)] hover:-translate-y-1 transition-all duration-500">
+                      <span className="inline-block px-4 py-1.5 bg-brandBlue/10 text-brandBlue font-bold rounded-full mb-4 text-sm tracking-widest" aria-hidden="true"></span>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3 md:hidden">
+                        The Inception
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        Started with a core group of tech enthusiasts aiming to
+                        create a dedicated hub for cybersecurity awareness and
+                        AI exploration at AUST.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+
+              {/* Node 2 */}
+              <FadeIn direction="right" delay={200}>
+                <div className="relative flex flex-col md:flex-row-reverse items-center justify-between group">
+                  <div className="md:w-5/12 text-left hidden md:block pl-12">
+                    <h3 className="text-3xl font-black text-gray-900 mb-2 group-hover:text-brandPurple transition-colors duration-300">
+                      Growth & Execution
+                    </h3>
+                    <p className="text-gray-500 text-lg">
+                      Expanding our horizons.
+                    </p>
+                  </div>
+                  <div className="absolute left-8 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-gray-200 -translate-x-1/2 group-hover:border-brandPurple group-hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] transition-all duration-500 z-10" aria-hidden="true"></div>
+                  <div className="md:w-5/12 pl-16 md:pr-12 md:pl-0 w-full text-left md:text-right">
+                    <div className="p-8 bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(139,92,246,0.1)] hover:-translate-y-1 transition-all duration-500">
+                      <span className="inline-block px-4 py-1.5 bg-brandPurple/10 text-brandPurple font-bold rounded-full mb-4 text-sm tracking-widest" aria-hidden="true"></span>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3 md:hidden">
+                        Growth & Execution
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        Expanded our resource base, hosted university-wide tech
+                        seminars, and launched collaborative open-source
+                        projects.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+
+              {/* Node 3 */}
+              <FadeIn direction="left" delay={300}>
+                <div className="relative flex flex-col md:flex-row items-center justify-between group">
+                  <div className="md:w-5/12 text-right hidden md:block pr-12">
+                    <h3 className="text-3xl font-black text-gray-900 mb-2 group-hover:text-blue-500 transition-colors duration-300">
+                      Leading the Future
+                    </h3>
+                    <p className="text-gray-500 text-lg">Building a legacy.</p>
+                  </div>
+                  <div className="absolute left-8 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-gray-200 -translate-x-1/2 group-hover:border-blue-500 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] transition-all duration-500 z-10" aria-hidden="true"></div>
+                  <div className="md:w-5/12 pl-16 md:pl-12 w-full">
+                    <div className="p-8 bg-white/70 backdrop-blur-xl border border-white rounded-[2rem] shadow-[0_15px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.1)] hover:-translate-y-1 transition-all duration-500">
+                      <span className="inline-block px-4 py-1.5 bg-blue-50 text-blue-600 font-bold rounded-full mb-4 text-sm tracking-widest">
+                        2026+
+                      </span>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3 md:hidden">
+                        Leading the Future
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        Integrating deep learning research and advanced network
+                        security labs, building a legacy of innovators.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= 6. VISION & MISSION ================= */}
+      <section className="py-40 px-6 relative z-10 overflow-hidden border-y border-gray-100 bg-white">
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-brandBlue/20 rounded-full blur-[120px] pointer-events-none mix-blend-multiply animate-pulse"></div>
+        <div
+          className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-brandPurple/20 rounded-full blur-[120px] pointer-events-none mix-blend-multiply animate-pulse"
+          style={{ animationDelay: "2s" }}
+        ></div>
+
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 relative z-10">
+          <FadeIn delay={100} direction="up">
+            <div className="group bg-white/40 backdrop-blur-3xl p-12 rounded-[3rem] border border-white shadow-[0_20px_60px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_80px_rgba(29,78,216,0.15)] hover:-translate-y-3 transition-all duration-500 h-full relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-brandBlue/10 rounded-bl-[100px] -z-10 group-hover:scale-150 transition-transform duration-700"></div>
+              <div className="w-20 h-20 bg-white shadow-md text-brandBlue rounded-2xl flex items-center justify-center mb-8 border border-gray-100 group-hover:rotate-12 transition-transform duration-500">
+                <svg
+                  className="w-10 h-10"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 className="text-4xl font-black mb-5 text-gray-900 group-hover:text-brandBlue transition-colors">
+                Our Vision
+              </h3>
+              <p className="text-gray-600 text-lg leading-relaxed font-medium">
+                To emerge as the premier center of excellence in Cybersecurity
+                and Artificial Intelligence in Bangladesh, fostering a
+                generation of ethical innovators equipped to tackle global
+                technological challenges and secure the digital frontier.
+              </p>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={300} direction="up">
+            <div className="group bg-white/40 backdrop-blur-3xl p-12 rounded-[3rem] border border-white shadow-[0_20px_60px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_80px_rgba(139,92,246,0.15)] hover:-translate-y-3 transition-all duration-500 h-full relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-brandPurple/10 rounded-bl-[100px] -z-10 group-hover:scale-150 transition-transform duration-700"></div>
+              <div className="w-20 h-20 bg-white shadow-md text-brandPurple rounded-2xl flex items-center justify-center mb-8 border border-gray-100 group-hover:-rotate-12 transition-transform duration-500">
+                <svg
+                  className="w-10 h-10"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 className="text-4xl font-black mb-5 text-gray-900 group-hover:text-brandPurple transition-colors">
+                Our Mission
+              </h3>
+              <p className="text-gray-600 text-lg leading-relaxed font-medium">
+                To bridge the gap between theoretical knowledge and practical
+                application by providing hands-on training, conducting
+                cutting-edge research, and cultivating a collaborative community
+                of ethical hackers and AI enthusiasts.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ================= 7. BEYOND TECH / CULTURAL ================= */}
+      <BeyondTech />
+
+      {/* ================= 8. FEATURED PROJECTS ================= */}
+      <section className="py-32 px-6 relative z-20">
+        <div className="max-w-6xl mx-auto relative">
+          <FadeIn>
+            <div className="text-center mb-20">
+              <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter">
+                Featured{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brandBlue to-brandPurple">
+                  Projects
+                </span>
+              </h2>
+              <p className="mt-6 text-xl text-gray-500 font-medium">
+                Innovations crafted by our brilliant members.
+              </p>
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={200}>
+            <div className="flex justify-center">
+              <a
+                href="https://flare-sphere-real-time-hand-trackin.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group w-full max-w-5xl block bg-white rounded-[3rem] overflow-hidden border border-gray-200/70 shadow-[0_20px_60px_rgba(0,0,0,0.05)] hover:-translate-y-3 hover:border-brandPurple/30 hover:shadow-[0_30px_80px_rgba(29,78,216,0.15)] transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brandPurple focus-visible:ring-offset-4"
+              >
+                <div className="flex flex-col md:flex-row h-full">
+                  {/* VISUAL PANEL */}
+                  <div className="md:w-1/2 min-h-[320px] md:min-h-full relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808014_1px,transparent_1px),linear-gradient(to_bottom,#80808014_1px,transparent_1px)] bg-[size:28px_28px]"></div>
+                    <div className="absolute -top-12 -left-12 w-64 h-64 rounded-full bg-brandBlue/20 blur-[80px] mix-blend-multiply transition-transform duration-1000 group-hover:scale-125"></div>
+                    <div className="absolute -bottom-12 -right-12 w-64 h-64 rounded-full bg-brandPurple/20 blur-[80px] mix-blend-multiply transition-transform duration-1000 group-hover:scale-125"></div>
+
+                    <div className="relative z-10 w-36 h-36 rounded-[2rem] bg-white border border-gray-200 shadow-xl flex items-center justify-center transition-transform duration-700 group-hover:-rotate-6 group-hover:scale-105">
+                      {/* Hand-landmark skeleton, mirroring what the tracker renders */}
+                      <svg
+                        viewBox="2 8 52 52"
+                        fill="none"
+                        className="w-24 h-24"
+                        aria-hidden="true"
+                      >
+                        <g
+                          className="text-brandPurple"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M32 56 20 48M32 56 26 40M32 56 32 38M32 56 38 40M32 56 44 44" />
+                          <path d="M26 40 32 38 38 40 44 44" />
+                          <path d="M20 48 14 42 10 36 7 31" />
+                          <path d="M26 40 25 30 24 23 23 17" />
+                          <path d="M32 38 32 28 32 20 32 13" />
+                          <path d="M38 40 39 30 40 24 41 18" />
+                          <path d="M44 44 46 36 47 31 48 26" />
+                        </g>
+
+                        <g className="text-brandBlue" fill="currentColor">
+                          <circle cx="32" cy="56" r="3.4" />
+                          <circle cx="20" cy="48" r="2.2" />
+                          <circle cx="14" cy="42" r="2.2" />
+                          <circle cx="10" cy="36" r="2.2" />
+                          <circle cx="26" cy="40" r="2.2" />
+                          <circle cx="25" cy="30" r="2.2" />
+                          <circle cx="24" cy="23" r="2.2" />
+                          <circle cx="32" cy="38" r="2.2" />
+                          <circle cx="32" cy="28" r="2.2" />
+                          <circle cx="32" cy="20" r="2.2" />
+                          <circle cx="38" cy="40" r="2.2" />
+                          <circle cx="39" cy="30" r="2.2" />
+                          <circle cx="40" cy="24" r="2.2" />
+                          <circle cx="44" cy="44" r="2.2" />
+                          <circle cx="46" cy="36" r="2.2" />
+                          <circle cx="47" cy="31" r="2.2" />
+                        </g>
+
+                        {/* Fingertips pulse in sequence to suggest live tracking */}
+                        <g fill="#6d28d9">
+                          {[
+                            { cx: 7, cy: 31 },
+                            { cx: 23, cy: 17 },
+                            { cx: 32, cy: 13 },
+                            { cx: 41, cy: 18 },
+                            { cx: 48, cy: 26 },
+                          ].map((tip, i) => (
+                            <circle
+                              key={i}
+                              cx={tip.cx}
+                              cy={tip.cy}
+                              r="3.2"
+                              className="animate-pulse"
+                              style={{ animationDelay: `${i * 220}ms` }}
+                            />
+                          ))}
+                        </g>
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* CONTENT PANEL */}
+                  <div className="md:w-1/2 p-10 md:p-14 flex flex-col justify-center">
+                    <div className="inline-flex items-center gap-2.5 px-4 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-black tracking-widest rounded-full mb-6 w-max uppercase">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      </span>
+                      Live Project
+                    </div>
+
+                    <h3 className="text-4xl md:text-5xl font-black mb-4 text-gray-900 tracking-tight">
+                      Flare Sphere
+                    </h3>
+                    <p className="text-gray-600 mb-6 text-lg leading-relaxed">
+                      Real-time Hand Tracking Application built with modern web
+                      technologies, pushing the boundaries of AI integration.
+                    </p>
+
+                    <p className="flex items-center gap-2 mb-8 text-sm font-bold text-gray-400">
+                      <svg
+                        className="w-4 h-4 shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.8"
+                          d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+                        />
+                      </svg>
+                      <span className="truncate">
+                        flare-sphere-real-time-hand-trackin.vercel.app
+                      </span>
+                    </p>
+
+                    <span className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-brandBlue to-brandPurple text-white rounded-2xl font-bold w-max shadow-[0_8px_30px_rgba(29,78,216,0.3)] transition-transform duration-300 group-hover:-translate-y-0.5">
+                      Launch Application
+                      <svg
+                        className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        ></path>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ================= 9. GALLERY / MOMENTS ================= */}
+      <GalleryMoments />
+
+      {/* ================= 10. SPONSORS & PARTNERS ================= */}
+      <SponsorsPartners />
+
+      {/* ================= 11. CALL TO ACTION ================= */}
+      <section
+        id="join-us"
+        className="py-24 px-6 relative overflow-hidden bg-gradient-to-br from-brandBlue to-brandPurple text-white z-20"
+      >
+        <div className="absolute inset-0 bg-[url('/patterns/cubes.png')] opacity-10 mix-blend-overlay" aria-hidden="true"></div>
+
+        <div className="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
+          <FadeIn>
+            <div className="w-32 h-32 relative mb-8 rounded-[2rem] overflow-hidden shadow-2xl bg-white p-3 ring-4 ring-white/20 transform hover:scale-105 transition-transform duration-300">
+              <Image
+                src="/AUSTCAIC-logo.jpg"
+                alt="AUSTCAIC Logo"
+                fill
+                sizes="128px"
+                className="object-contain"
+              />
+            </div>
+          </FadeIn>
+
+          <FadeIn delay={100}>
+            <h2 className="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
+              Ready to Make an Impact?
+            </h2>
+            <p className="text-xl text-white/90 mb-10 font-medium">
+              Be a part of a community that builds, secures, and innovates.
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={200}>
+            <Link
+              href="/register"
+              className="group inline-flex items-center gap-3 px-10 py-5 bg-white text-gray-900 rounded-full font-bold text-xl hover:scale-105 hover:shadow-2xl transition-all duration-300 ring-4 ring-white/30 hover:ring-white/50"
+            >
+              Join as a General Member
+              <svg
+                className="w-6 h-6 text-brandPurple group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                ></path>
+              </svg>
+            </Link>
+          </FadeIn>
+        </div>
+      </section>
+    </main>
+  );
+}
