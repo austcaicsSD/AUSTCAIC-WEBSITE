@@ -31,9 +31,30 @@ model PanelMember {
   facebookUrl   String?
   linkedinUrl   String?
   imageUrl      String?
+  imagePath     String?
   orderIndex    Int      @default(0)
   createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
 
+  semesterId String?
+  semesterRef Semester? @relation(fields: [semesterId], references: [id], onDelete: SetNull)
+
+  @@index([semester, orderIndex])
+  @@index([semesterId])
   @@map("panel_members")
+}
+
+model Semester {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  label       String
+  isPublished Boolean  @default(false)
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+
+  panelMembers PanelMember[]
+
+  @@map("semesters")
 }
 

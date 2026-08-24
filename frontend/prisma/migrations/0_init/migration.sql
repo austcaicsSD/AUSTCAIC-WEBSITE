@@ -1,4 +1,4 @@
-﻿-- CreateTable
+-- CreateTable
 CREATE TABLE "Member" (
     "id" TEXT NOT NULL,
     "fullName" TEXT NOT NULL,
