@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import FadeIn from "../components/FadeIn";
+import FadeIn from "@/app/components/FadeIn";
 
 // ================= TYPES & DATA =================
 type OfferingData = {

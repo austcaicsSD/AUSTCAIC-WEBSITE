@@ -1,5 +1,5 @@
 import ClientBackground from "../profile/ClientBackground";
-import { Skeleton } from "../components/Skeleton";
+import { Skeleton } from "@/app/components/Skeleton";
 
 export default function Loading() {
   return (

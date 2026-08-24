@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import FadeIn from "./components/FadeIn";
-import HeroBackground from "./components/HeroBackground";
-import AnimatedCounters from "./components/AnimatedCounters";
-import UpcomingEvents from "./components/UpcomingEvents";
-import RecentActivities from "./components/RecentActivities";
-import BeyondTech from "./components/BeyondTech";
-import GalleryMoments from "./components/GalleryMoments";
-import SponsorsPartners from "./components/SponsorsPartners";
+import FadeIn from "@/app/components/FadeIn";
+import HeroBackground from "@/app/components/HeroBackground";
+import AnimatedCounters from "@/app/components/AnimatedCounters";
+import UpcomingEvents from "@/app/components/UpcomingEvents";
+import RecentActivities from "@/app/components/RecentActivities";
+import BeyondTech from "@/app/components/BeyondTech";
+import GalleryMoments from "@/app/components/GalleryMoments";
+import SponsorsPartners from "@/app/components/SponsorsPartners";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();

@@ -1,10 +1,10 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
-import { loginMember } from "../actions";
+import { loginMember } from "@/app/actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import FadeIn from "../components/FadeIn";
+import FadeIn from "@/app/components/FadeIn";
 
 export default function LoginPage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

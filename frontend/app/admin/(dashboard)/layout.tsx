@@ -1,6 +1,33 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentAdmin } from "@/lib/auth/require-admin";
 import { logoutAdmin } from "../actions";
+import { AdminNav } from "../_components/AdminNav";
+
+function Brand() {
+  return (
+    <span className="text-lg font-black tracking-tight text-gray-950">
+      AUST
+      <span className="bg-gradient-to-r from-brandBlue to-brandPurple bg-clip-text text-transparent">
+        CAIC
+      </span>{" "}
+      Admin
+    </span>
+  );
+}
+
+function LogoutButton() {
+  return (
+    <form action={logoutAdmin}>
+      <button
+        type="submit"
+        className="rounded-lg px-3 py-2 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+      >
+        Log out
+      </button>
+    </form>
+  );
+}
 
 export default async function AdminDashboardLayout({
   children,
@@ -13,34 +40,44 @@ export default async function AdminDashboardLayout({
   if (!admin) redirect("/admin/login");
 
   return (
-    <div className="min-h-screen bg-[#fafafa]">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <span className="text-lg font-black tracking-tight text-gray-950">
-            AUST
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brandBlue to-brandPurple">
-              CAIC
-            </span>{" "}
-            Admin
-          </span>
-
-          <div className="flex items-center gap-4">
-            <span className="text-sm font-bold text-gray-500">
-              {admin.name}
-            </span>
-            <form action={logoutAdmin}>
-              <button
-                type="submit"
-                className="rounded-xl bg-gray-100 px-4 py-2 text-sm font-bold text-gray-900 transition-colors hover:bg-gray-200"
-              >
-                Log out
-              </button>
-            </form>
+    <div className="min-h-screen bg-gray-50">
+      <div className="mx-auto flex max-w-7xl">
+        <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-gray-200 bg-white px-4 py-5 md:flex">
+          <div className="px-3">
+            <Brand />
           </div>
-        </div>
-      </header>
 
-      <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
+          <div className="mt-6 flex-1">
+            <AdminNav />
+          </div>
+
+          <div className="border-t border-gray-200 pt-4">
+            <p className="px-3 text-sm font-bold text-gray-900">{admin.name}</p>
+            <p className="mb-2 px-3 text-xs text-gray-500">{admin.email}</p>
+            <Link
+              href="/"
+              className="block rounded-lg px-3 py-2 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+            >
+              View site
+            </Link>
+            <LogoutButton />
+          </div>
+        </aside>
+
+        <div className="min-w-0 flex-1">
+          <header className="border-b border-gray-200 bg-white md:hidden">
+            <div className="flex items-center justify-between px-5 py-3">
+              <Brand />
+              <LogoutButton />
+            </div>
+            <div className="px-5 pb-3">
+              <AdminNav />
+            </div>
+          </header>
+
+          <main className="px-5 py-8 md:px-10 md:py-10">{children}</main>
+        </div>
+      </div>
     </div>
   );
 }
