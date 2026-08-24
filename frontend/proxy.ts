@@ -6,8 +6,10 @@ import { verifySessionToken } from "@/lib/auth/tokens";
 // First of three gates. Signature check only - no DB access here.
 // The authoritative check lives in app/admin/(dashboard)/layout.tsx.
 export async function proxy(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith("/admin/login")) {
-    return NextResponse.next();
+  // Admin sign-in moved onto the public /login page; without this an old
+  // bookmark reaches the auth check, passes it, and lands on a 404.
+  if (request.nextUrl.pathname === "/admin/login") {
+    return NextResponse.redirect(new URL("/login?as=admin", request.url));
   }
 
   const token = request.cookies.get(ADMIN_COOKIE_NAME)?.value;
@@ -16,7 +18,7 @@ export async function proxy(request: NextRequest) {
     : null;
 
   if (!claims) {
-    return NextResponse.redirect(new URL("/admin/login", request.url));
+    return NextResponse.redirect(new URL("/login?as=admin", request.url));
   }
 
   return NextResponse.next();

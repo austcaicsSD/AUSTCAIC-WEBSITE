@@ -37,7 +37,7 @@ export default async function AdminDashboardLayout({
   // Authoritative gate: re-checks the account exists, is active, and the
   // tokenVersion still matches.
   const admin = await getCurrentAdmin();
-  if (!admin) redirect("/admin/login");
+  if (!admin) redirect("/login?as=admin");
 
   return (
     <div className="min-h-screen bg-gray-50">

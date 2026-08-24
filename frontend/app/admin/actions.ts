@@ -70,5 +70,5 @@ export async function loginAdmin(
 
 export async function logoutAdmin(): Promise<void> {
   await clearAdminSession();
-  redirect("/admin/login");
+  redirect("/login?as=admin");
 }
