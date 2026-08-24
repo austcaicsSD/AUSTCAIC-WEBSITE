@@ -2,59 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-
-// ================= ANIMATION COMPONENT =================
-const FadeIn = ({
-  children,
-  delay = 0,
-  direction = "up",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  direction?: "up" | "left" | "right";
-}) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const domRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    if (domRef.current) observer.observe(domRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const getDirectionClasses = () => {
-    if (direction === "up") return "translate-y-12";
-    if (direction === "left") return "-translate-x-12";
-    if (direction === "right") return "translate-x-12";
-    return "";
-  };
-
-  return (
-    <div
-      ref={domRef}
-      className={`transition-all duration-1000 ease-out transform ${
-        isVisible
-          ? "opacity-100 translate-y-0 translate-x-0"
-          : `opacity-0 ${getDirectionClasses()}`
-      }`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  );
-};
+import { useState } from "react";
+import FadeIn from "./components/FadeIn";
 
 // ================= MAIN PAGE COMPONENT =================
 export default function Home() {
@@ -411,57 +360,127 @@ export default function Home() {
                 href="https://flare-sphere-real-time-hand-trackin.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group w-full max-w-5xl block bg-gray-950 rounded-[3rem] overflow-hidden hover:-translate-y-4 transition-all duration-700 shadow-[0_30px_60px_rgba(0,0,0,0.15)] hover:shadow-[0_40px_80px_rgba(29,78,216,0.3)]"
+                className="group w-full max-w-5xl block bg-white rounded-[3rem] overflow-hidden border border-gray-200/70 shadow-[0_20px_60px_rgba(0,0,0,0.05)] hover:-translate-y-3 hover:border-brandPurple/30 hover:shadow-[0_30px_80px_rgba(29,78,216,0.15)] transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brandPurple focus-visible:ring-offset-4"
               >
                 <div className="flex flex-col md:flex-row h-full">
-                  <div className="md:w-1/2 min-h-[300px] md:min-h-full bg-[#050505] relative flex items-center justify-center overflow-hidden">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0,transparent_100%)]"></div>
-                    <div className="absolute w-64 h-64 bg-brandBlue/30 rounded-full blur-[80px] group-hover:bg-brandPurple/40 group-hover:scale-150 transition-all duration-1000 z-0"></div>
+                  {/* VISUAL PANEL */}
+                  <div className="md:w-1/2 min-h-[320px] md:min-h-full relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808014_1px,transparent_1px),linear-gradient(to_bottom,#80808014_1px,transparent_1px)] bg-[size:28px_28px]"></div>
+                    <div className="absolute -top-12 -left-12 w-64 h-64 rounded-full bg-brandBlue/20 blur-[80px] mix-blend-multiply transition-transform duration-1000 group-hover:scale-125"></div>
+                    <div className="absolute -bottom-12 -right-12 w-64 h-64 rounded-full bg-brandPurple/20 blur-[80px] mix-blend-multiply transition-transform duration-1000 group-hover:scale-125"></div>
 
-                    <div className="relative z-10 w-32 h-32 border border-white/10 bg-white/5 backdrop-blur-md rounded-[2rem] flex items-center justify-center group-hover:rotate-12 transition-transform duration-700 shadow-2xl">
+                    <div className="relative z-10 w-36 h-36 rounded-[2rem] bg-white border border-gray-200 shadow-xl flex items-center justify-center transition-transform duration-700 group-hover:-rotate-6 group-hover:scale-105">
+                      {/* Hand-landmark skeleton, mirroring what the tracker renders */}
                       <svg
-                        className="w-16 h-16 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                        viewBox="2 8 52 52"
                         fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                        className="w-24 h-24"
+                        aria-hidden="true"
                       >
-                        <path
+                        <g
+                          className="text-brandPurple"
+                          stroke="currentColor"
+                          strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          strokeWidth="1.5"
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        ></path>
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.5"
-                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                        ></path>
+                        >
+                          <path d="M32 56 20 48M32 56 26 40M32 56 32 38M32 56 38 40M32 56 44 44" />
+                          <path d="M26 40 32 38 38 40 44 44" />
+                          <path d="M20 48 14 42 10 36 7 31" />
+                          <path d="M26 40 25 30 24 23 23 17" />
+                          <path d="M32 38 32 28 32 20 32 13" />
+                          <path d="M38 40 39 30 40 24 41 18" />
+                          <path d="M44 44 46 36 47 31 48 26" />
+                        </g>
+
+                        <g className="text-brandBlue" fill="currentColor">
+                          <circle cx="32" cy="56" r="3.4" />
+                          <circle cx="20" cy="48" r="2.2" />
+                          <circle cx="14" cy="42" r="2.2" />
+                          <circle cx="10" cy="36" r="2.2" />
+                          <circle cx="26" cy="40" r="2.2" />
+                          <circle cx="25" cy="30" r="2.2" />
+                          <circle cx="24" cy="23" r="2.2" />
+                          <circle cx="32" cy="38" r="2.2" />
+                          <circle cx="32" cy="28" r="2.2" />
+                          <circle cx="32" cy="20" r="2.2" />
+                          <circle cx="38" cy="40" r="2.2" />
+                          <circle cx="39" cy="30" r="2.2" />
+                          <circle cx="40" cy="24" r="2.2" />
+                          <circle cx="44" cy="44" r="2.2" />
+                          <circle cx="46" cy="36" r="2.2" />
+                          <circle cx="47" cy="31" r="2.2" />
+                        </g>
+
+                        {/* Fingertips pulse in sequence to suggest live tracking */}
+                        <g fill="#6d28d9">
+                          {[
+                            { cx: 7, cy: 31 },
+                            { cx: 23, cy: 17 },
+                            { cx: 32, cy: 13 },
+                            { cx: 41, cy: 18 },
+                            { cx: 48, cy: 26 },
+                          ].map((tip, i) => (
+                            <circle
+                              key={i}
+                              cx={tip.cx}
+                              cy={tip.cy}
+                              r="3.2"
+                              className="animate-pulse"
+                              style={{ animationDelay: `${i * 220}ms` }}
+                            />
+                          ))}
+                        </g>
                       </svg>
                     </div>
                   </div>
 
-                  <div className="md:w-1/2 p-12 md:p-16 flex flex-col justify-center relative">
-                    <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-brandBlue/5 to-transparent pointer-events-none"></div>
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 text-white text-xs font-bold tracking-widest rounded-full mb-8 w-max border border-white/10 uppercase">
-                      <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_10px_#4ade80] animate-pulse"></span>
+                  {/* CONTENT PANEL */}
+                  <div className="md:w-1/2 p-10 md:p-14 flex flex-col justify-center">
+                    <div className="inline-flex items-center gap-2.5 px-4 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-black tracking-widest rounded-full mb-6 w-max uppercase">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      </span>
                       Live Project
                     </div>
-                    <h3 className="text-4xl md:text-5xl font-black mb-4 text-white">
+
+                    <h3 className="text-4xl md:text-5xl font-black mb-4 text-gray-900 tracking-tight">
                       Flare Sphere
                     </h3>
-                    <p className="text-gray-400 mb-10 text-lg md:text-xl leading-relaxed">
+                    <p className="text-gray-600 mb-6 text-lg leading-relaxed">
                       Real-time Hand Tracking Application built with modern web
                       technologies, pushing the boundaries of AI integration.
                     </p>
 
-                    <span className="inline-flex items-center gap-3 px-8 py-4 bg-white text-gray-950 rounded-2xl font-bold hover:bg-gray-100 transition-colors w-max">
-                      Launch Application
+                    <p className="flex items-center gap-2 mb-8 text-sm font-bold text-gray-400">
                       <svg
-                        className="w-5 h-5 group-hover:translate-x-2 transition-transform"
+                        className="w-4 h-4 shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="1.8"
+                          d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+                        />
+                      </svg>
+                      <span className="truncate">
+                        flare-sphere-real-time-hand-trackin.vercel.app
+                      </span>
+                    </p>
+
+                    <span className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-brandBlue to-brandPurple text-white rounded-2xl font-bold w-max shadow-[0_8px_30px_rgba(29,78,216,0.3)] transition-transform duration-300 group-hover:-translate-y-0.5">
+                      Launch Application
+                      <svg
+                        className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
                       >
                         <path
                           strokeLinecap="round"

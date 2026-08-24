@@ -1,63 +1,10 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { loginMember } from "../actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
-// ================= ANIMATION COMPONENT =================
-const FadeIn = ({
-  children,
-  delay = 0,
-  direction = "up",
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  direction?: "up" | "left" | "right";
-  className?: string;
-}) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const domRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    if (domRef.current) observer.observe(domRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const getDirectionClasses = () => {
-    if (direction === "up") return "translate-y-12";
-    if (direction === "left") return "-translate-x-12";
-    if (direction === "right") return "translate-x-12";
-    return "";
-  };
-
-  return (
-    <div
-      ref={domRef}
-      className={`transition-all duration-1000 ease-out transform ${
-        isVisible
-          ? "opacity-100 translate-y-0 translate-x-0"
-          : `opacity-0 ${getDirectionClasses()}`
-      } ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  );
-};
+import FadeIn from "../components/FadeIn";
 
 export default function LoginPage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

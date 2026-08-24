@@ -6,3 +6,92 @@
   --color-brandPurple: #6d28d9;
   --color-lightBg: #f3f4f6;
 }
+
+/* ================= MOTION PRIMITIVES ================= */
+@keyframes caic-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes caic-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes caic-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes caic-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-fade-up {
+  animation: caic-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in {
+  animation: caic-fade-in 0.6s ease-out both;
+}
+
+.animate-scale-in {
+  animation: caic-scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ================= SKELETON ================= */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(229 231 235);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: caic-shimmer 1.6s infinite;
+}
+
+/* ================= ACCESSIBILITY ================= */
+/* Honour the OS "reduce motion" setting across every animation on the site. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .skeleton::after {
+    display: none;
+  }
+}
+

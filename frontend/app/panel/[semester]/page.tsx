@@ -3,6 +3,7 @@
 import React, { useState, use, useEffect } from "react";
 import Image from "next/image";
 import { getPanelImages } from "@/app/actions";
+import Pagination from "@/app/components/Pagination";
 
 // ================= OFFICIAL PANEL DATA =================
 const officialPanelData = [
@@ -265,6 +266,126 @@ const getRoleHeading = (role: string, count: number): string => {
   return plurals[role] || `${role}s`;
 };
 
+const PAGE_SIZE = 9;
+
+function MemberCard({
+  member,
+  index,
+  onSelect,
+}: {
+  member: PanelMemberData;
+  index: number;
+  onSelect: (m: PanelMemberData) => void;
+}) {
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  return (
+    <button
+      type="button"
+      onClick={() => onSelect(member)}
+      aria-label={`View details for ${member.name}, ${member.role}`}
+      className="group relative w-full h-[420px] rounded-[2rem] overflow-hidden bg-white border border-gray-200 text-left transition-all duration-500 hover:border-blue-300 hover:shadow-[0_20px_50px_-12px_rgba(37,99,235,0.2)] hover:-translate-y-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 animate-fade-up"
+      style={{ animationDelay: `${Math.min(index, 8) * 70}ms` }}
+    >
+      {/* View Details Hover Text/Icon */}
+      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 backdrop-blur rounded-full p-2 text-blue-600 shadow-sm z-30 flex items-center justify-center">
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+          />
+        </svg>
+      </div>
+
+      {/* Background Pattern Inside Card */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white opacity-100"></div>
+      <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50/50 rounded-full blur-[80px] group-hover:bg-purple-100/50 transition-colors duration-700"></div>
+
+      {/* Top Badges */}
+      <div className="absolute top-5 left-5 right-5 z-20 flex justify-between items-start">
+        <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-gray-100 bg-white/80 backdrop-blur-md shadow-sm p-1 transition-transform duration-300 group-hover:scale-110">
+          <Image
+            src="/AUSTCAIC-logo.jpg"
+            alt=""
+            fill
+            sizes="40px"
+            className="object-contain"
+          />
+        </div>
+
+        {member.wing && (
+          <div className="max-w-[60%] px-3 py-1.5 bg-white/90 backdrop-blur-md border border-gray-100 rounded-xl shadow-sm">
+            <span className="block text-[10px] font-black text-blue-600 uppercase tracking-widest leading-tight text-right">
+              {member.wing}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Person Image */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[80%] z-10 flex items-end justify-center">
+        <div className="relative w-[90%] h-full">
+          {!imgLoaded && (
+            <div className="skeleton absolute bottom-0 left-1/2 -translate-x-1/2 h-[85%] w-[60%] rounded-t-[3rem]" />
+          )}
+          <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10 transition-all duration-500 group-hover:h-[60%]"></div>
+          <Image
+            src={member.image}
+            alt={member.name}
+            fill
+            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+            onLoad={() => setImgLoaded(true)}
+            className={`object-contain object-bottom drop-shadow-2xl transition-all duration-700 group-hover:scale-110 group-hover:-translate-y-2 ${
+              imgLoaded ? "opacity-100 blur-0" : "opacity-0 blur-md"
+            }`}
+          />
+        </div>
+      </div>
+
+      {/* Member Info */}
+      <div className="absolute bottom-0 left-0 w-full p-6 z-30 transition-transform duration-500">
+        <h3 className="text-2xl font-black text-white leading-tight mb-1 drop-shadow-md">
+          {member.name}
+        </h3>
+        <p className="text-blue-300 font-bold text-xs tracking-widest uppercase drop-shadow-sm">
+          {member.role}
+        </p>
+        <p className="text-white/70 text-[11px] font-bold uppercase tracking-widest mt-3 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+          View Details{" "}
+          <svg
+            className="w-3 h-3"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2.5"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            ></path>
+          </svg>
+        </p>
+      </div>
+    </button>
+  );
+}
+
 export default function SemesterPanelPage({
   params,
 }: {
@@ -277,6 +398,8 @@ export default function SemesterPanelPage({
     null
   );
   const [dbImages, setDbImages] = useState<Record<string, string>>({});
+  const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     let isMounted = true;
@@ -298,6 +421,15 @@ export default function SemesterPanelPage({
       isMounted = false;
     };
   }, [semesterSlug]);
+
+  useEffect(() => {
+    if (!selectedMember) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedMember(null);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [selectedMember]);
 
   const formattedTitle = semesterSlug
     ? semesterSlug.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase())
@@ -355,6 +487,26 @@ export default function SemesterPanelPage({
     return 0;
   });
 
+  // ================= SEARCH & PAGINATION =================
+  const normalizedQuery = query.trim().toLowerCase();
+  const isSearching = normalizedQuery.length > 0;
+
+  const searchResults = isSearching
+    ? semesterExecutives.filter((m) =>
+        [m.name, m.role, m.wing ?? ""]
+          .join(" ")
+          .toLowerCase()
+          .includes(normalizedQuery)
+      )
+    : [];
+
+  const totalPages = Math.max(1, Math.ceil(searchResults.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const pagedResults = searchResults.slice(
+    (safePage - 1) * PAGE_SIZE,
+    safePage * PAGE_SIZE
+  );
+
   return (
     <main className="min-h-screen bg-[#fcfcfc] text-gray-900 font-sans selection:bg-blue-500/30 overflow-hidden relative">
       {/* ================= BACKGROUND GRID & GLOWS ================= */}
@@ -386,7 +538,7 @@ export default function SemesterPanelPage({
       </div>
 
       {/* STICKY ROLE NAVIGATION */}
-      {sortedRoles.length > 0 && (
+      {!isSearching && sortedRoles.length > 0 && (
         <div
           className="sticky top-[64px] sm:top-[80px] z-30 w-full bg-white/70 backdrop-blur-xl border-y border-gray-200/60 shadow-sm mb-12 animate-fade-in-up"
           style={{ animationDelay: "200ms" }}
@@ -412,7 +564,98 @@ export default function SemesterPanelPage({
 
       {/* MAIN CONTENT */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 pb-28">
-        {sortedRoles.length > 0 ? (
+        {/* SEARCH */}
+        <div className="mb-14 max-w-xl mx-auto">
+          <label htmlFor="panel-search" className="sr-only">
+            Search executive committee members
+          </label>
+          <div className="relative">
+            <svg
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+              />
+            </svg>
+            <input
+              id="panel-search"
+              type="search"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setPage(1);
+              }}
+              placeholder="Search by name, role or wing"
+              className="w-full rounded-2xl border border-gray-200 bg-white/80 py-4 pl-12 pr-4 text-sm font-medium text-gray-900 shadow-sm outline-none backdrop-blur-xl transition-all placeholder:text-gray-400 focus:border-brandPurple focus:ring-2 focus:ring-brandPurple/20"
+            />
+          </div>
+          {isSearching && (
+            <p
+              className="mt-3 text-center text-sm font-bold text-gray-500"
+              aria-live="polite"
+            >
+              {searchResults.length} member
+              {searchResults.length === 1 ? "" : "s"} found
+            </p>
+          )}
+        </div>
+
+        {isSearching ? (
+          searchResults.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+                {pagedResults.map((member, i) => (
+                  <MemberCard
+                    key={member.id}
+                    member={member}
+                    index={i}
+                    onSelect={setSelectedMember}
+                  />
+                ))}
+              </div>
+              <div className="mt-14">
+                <Pagination
+                  currentPage={safePage}
+                  totalPages={totalPages}
+                  onPageChange={setPage}
+                  label="Member results pagination"
+                />
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-20 px-4 border border-dashed border-gray-300 rounded-3xl bg-white shadow-sm animate-fade-up">
+              <div className="w-16 h-16 mb-4 border border-gray-200 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400">
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                No members found
+              </h3>
+              <p className="text-gray-500 font-medium">
+                Try a different name, role or wing.
+              </p>
+            </div>
+          )
+        ) : sortedRoles.length > 0 ? (
           sortedRoles.map((roleName, sectionIndex) => (
             <section
               key={roleName}
@@ -432,100 +675,16 @@ export default function SemesterPanelPage({
 
               {/* PROFILE CARDS GRID */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-                {groupedMembers[roleName].map((member: PanelMemberData) => (
-                  <div
-                    key={member.id}
-                    onClick={() => setSelectedMember(member)}
-                    className="group relative w-full h-[420px] rounded-[2rem] overflow-hidden bg-white border border-gray-200 transition-all duration-500 hover:border-blue-300 hover:shadow-[0_20px_50px_-12px_rgba(37,99,235,0.2)] hover:-translate-y-2 cursor-pointer"
-                  >
-                    {/* View Details Hover Text/Icon */}
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 backdrop-blur rounded-full p-2 text-blue-600 shadow-sm z-30 flex items-center justify-center">
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                        />
-                      </svg>
-                    </div>
-
-                    {/* Background Pattern Inside Card */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-white opacity-100"></div>
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50/50 rounded-full blur-[80px] group-hover:bg-purple-100/50 transition-colors duration-700"></div>
-
-                    {/* Top Badges */}
-                    <div className="absolute top-5 left-5 right-5 z-20 flex justify-between items-start">
-                      <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-gray-100 bg-white/80 backdrop-blur-md shadow-sm p-1 transition-transform duration-300 group-hover:scale-110">
-                        <Image
-                          src="/AUSTCAIC-logo.jpg"
-                          alt="Logo"
-                          fill
-                          sizes="40px"
-                          className="object-contain"
-                        />
-                      </div>
-
-                      {member.wing && (
-                        <div className="max-w-[60%] px-3 py-1.5 bg-white/90 backdrop-blur-md border border-gray-100 rounded-xl shadow-sm">
-                          <span className="block text-[9px] font-black text-blue-600 uppercase tracking-widest leading-tight text-right">
-                            {member.wing}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Person Image */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[80%] z-10 flex items-end justify-center">
-                      <div className="relative w-[90%] h-full">
-                        <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10 transition-all duration-500 group-hover:h-[60%]"></div>
-                        <Image
-                          src={member.image}
-                          alt={member.name}
-                          fill
-                          className="object-contain object-bottom drop-shadow-2xl transition-transform duration-700 group-hover:scale-110 group-hover:-translate-y-2"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Member Info */}
-                    <div className="absolute bottom-0 left-0 w-full p-6 z-30 transition-transform duration-500">
-                      <h3 className="text-2xl font-black text-white leading-tight mb-1 drop-shadow-md">
-                        {member.name}
-                      </h3>
-                      <p className="text-blue-400 font-bold text-xs tracking-widest uppercase drop-shadow-sm">
-                        {member.role}
-                      </p>
-                      <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mt-3 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                        View Details{" "}
-                        <svg
-                          className="w-3 h-3"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2.5"
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          ></path>
-                        </svg>
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                {groupedMembers[roleName].map(
+                  (member: PanelMemberData, i: number) => (
+                    <MemberCard
+                      key={member.id}
+                      member={member}
+                      index={i}
+                      onSelect={setSelectedMember}
+                    />
+                  )
+                )}
               </div>
             </section>
           ))
