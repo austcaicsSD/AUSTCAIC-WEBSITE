@@ -46,7 +46,7 @@ export function ConfirmDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby={`${inputId}-title`}
-        className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"
+        className="w-full max-w-md rounded-xl bg-white p-6 text-left shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <h2

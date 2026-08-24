@@ -4,7 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 
-const NAV = [{ href: "/admin", label: "Dashboard" }] as const;
+const NAV = [
+  { href: "/admin", label: "Dashboard" },
+  { href: "/admin/panel", label: "Panel members" },
+] as const;
 
 export function AdminNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
