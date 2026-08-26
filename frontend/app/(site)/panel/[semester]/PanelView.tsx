@@ -40,7 +40,8 @@ function MemberCard({
   index: number;
   onSelect: (m: PanelMemberData) => void;
 }) {
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const isPlaceholder = member.image === "/placeholder-user.svg" || member.image.includes("placeholder-user.svg");
+  const [imgLoaded, setImgLoaded] = useState(isPlaceholder);
 
   return (
     <button
@@ -290,7 +291,7 @@ export default function PanelView({
                   href={`#${roleName.replace(/\s+/g, "-").toLowerCase()}`}
                   className="whitespace-nowrap px-4 py-2 rounded-full bg-white border border-gray-200 hover:border-blue-400 hover:bg-blue-50 text-gray-600 hover:text-blue-600 text-sm font-bold transition-all duration-300 shadow-sm hover:shadow-md"
                 >
-                  {roleName}
+                  {getRoleHeading(roleName, groupedMembers[roleName].length)}
                 </a>
               ))}
             </div>
