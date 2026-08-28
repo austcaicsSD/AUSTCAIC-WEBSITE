@@ -15,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
-      <body className="bg-gray-50 font-sans text-gray-900 antialiased">
+      <body
+        className="bg-gray-50 font-sans text-gray-900 antialiased"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

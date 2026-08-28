@@ -40,6 +40,21 @@ model PanelMember {
   @@map("panel_members")
 }
 
+model GalleryMoment {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  momentDate  DateTime
+  imageUrl    String?
+  imagePath   String?
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+
+  @@index([momentDate])
+  @@map("gallery_moments")
+}
+
 /// Rows are created by hand in Supabase. passwordHash comes from
 /// `node scripts/hash-password.mjs` - never store a plaintext password here.
 model Admin {

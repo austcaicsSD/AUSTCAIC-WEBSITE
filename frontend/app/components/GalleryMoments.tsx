@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { galleryMomentsData, GalleryItemData } from "../data/homepage";
+import type { GalleryItemData } from "../data/homepage";
 import FadeIn from "./FadeIn";
 
-export default function GalleryMoments() {
+export default function GalleryMoments({ items }: { items: GalleryItemData[] }) {
   const [activeItem, setActiveItem] = useState<GalleryItemData | null>(null);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function GalleryMoments() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeItem]);
 
-  if (!galleryMomentsData || galleryMomentsData.length === 0) return null;
+  if (!items || items.length === 0) return null;
 
   return (
     <section className="py-28 px-6 relative z-20 bg-gray-50/50 border-b border-gray-100">
@@ -41,7 +41,7 @@ export default function GalleryMoments() {
 
         {/* Visually Interesting Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {galleryMomentsData.map((item, index) => {
+          {items.map((item, index) => {
             const isFeatured = index === 0;
 
             return (
@@ -155,9 +155,11 @@ export default function GalleryMoments() {
               <h2 className="text-2xl font-black text-gray-950 tracking-tight leading-snug">
                 {activeItem.title}
               </h2>
-              <p className="text-sm font-medium text-gray-500 mt-2">
-                This is a placeholder gallery item for student review. Real event and workshop session imagery will be uploaded here.
-              </p>
+              {activeItem.description && (
+                <p className="text-sm font-medium text-gray-500 mt-2">
+                  {activeItem.description}
+                </p>
+              )}
             </div>
           </div>
         </div>

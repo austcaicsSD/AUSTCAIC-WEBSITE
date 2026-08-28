@@ -45,6 +45,7 @@ export interface GalleryItemData {
   id: string;
   title: string;
   date: string;
+  description?: string;
   image?: string;
 }
 
@@ -154,25 +155,6 @@ export const beyondTechData: BeyondTechData[] = [
     activityType: "Sports & Athletics",
     details: "Recognizing our general members participating in collegiate athletic contests, fostering active peer relationship frameworks.",
     iconType: "trophy",
-  }
-];
-
-export const galleryMomentsData: GalleryItemData[] = [
-  {
-    id: "gal-1",
-    title: "Inauguration Ceremony & Committee Launch",
-    date: "January 2026",
-    image: "/logo2.jpg",
-  },
-  {
-    id: "gal-2",
-    title: "Cybersecurity Training Session Labs",
-    date: "March 2026",
-  },
-  {
-    id: "gal-3",
-    title: "Core Team & Executive Committee Panel Meetup",
-    date: "May 2026",
   }
 ];
 
