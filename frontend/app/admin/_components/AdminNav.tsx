@@ -7,6 +7,7 @@ import { cn } from "@/lib/cn";
 const NAV = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/panel", label: "Panel members" },
+  { href: "/admin/gallery", label: "Gallery & Moments" },
 ] as const;
 
 export function AdminNav({ onNavigate }: { onNavigate?: () => void }) {

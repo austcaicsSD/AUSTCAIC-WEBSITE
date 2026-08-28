@@ -14,9 +14,27 @@ const prisma = new PrismaClient();
 
 export const dynamic = "force-dynamic";
 
+const galleryDateFormat = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
 // ================= MAIN PAGE SERVER COMPONENT =================
 export default async function Home() {
-  const memberCount = await prisma.member.count();
+  const [memberCount, galleryMoments] = await Promise.all([
+    prisma.member.count(),
+    prisma.galleryMoment.findMany({
+      orderBy: [{ momentDate: "desc" }, { orderIndex: "asc" }],
+    }),
+  ]);
+  const galleryItems = galleryMoments.map((moment) => ({
+    id: moment.id,
+    title: moment.title,
+    date: galleryDateFormat.format(moment.momentDate),
+    description: moment.description ?? undefined,
+    image: moment.imageUrl ?? undefined,
+  }));
   return (
     <main className="relative w-full overflow-hidden bg-[#fafafa] text-gray-900 selection:bg-brandPurple/30 font-sans">
       
@@ -514,7 +532,7 @@ export default async function Home() {
       </section>
 
       {/* ================= 9. GALLERY / MOMENTS ================= */}
-      <GalleryMoments />
+      <GalleryMoments items={galleryItems} />
 
       {/* ================= 10. SPONSORS & PARTNERS ================= */}
       <SponsorsPartners />
