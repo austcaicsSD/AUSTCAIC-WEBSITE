@@ -9,9 +9,8 @@ import BeyondTech from "@/app/components/BeyondTech";
 import GalleryMoments from "@/app/components/GalleryMoments";
 import SponsorsPartners from "@/app/components/SponsorsPartners";
 import { SPONSOR_TYPE_LABELS } from "@/lib/validation/sponsors";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { EVENT_CATEGORY_LABELS } from "@/lib/validation/events";
+import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -21,17 +20,82 @@ const galleryDateFormat = new Intl.DateTimeFormat("en-US", {
   timeZone: "UTC",
 });
 
+const eventDateFormat = new Intl.DateTimeFormat("en-US", {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "Asia/Dhaka",
+});
+
+const eventTimeFormat = new Intl.DateTimeFormat("en-US", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: true,
+  timeZone: "Asia/Dhaka",
+});
+
+const activityDateFormat = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  year: "numeric",
+  timeZone: "Asia/Dhaka",
+});
+
 // ================= MAIN PAGE SERVER COMPONENT =================
 export default async function Home() {
-  const [memberCount, galleryMoments, sponsors] = await Promise.all([
-    prisma.member.count(),
-    prisma.galleryMoment.findMany({
-      orderBy: [{ momentDate: "desc" }, { orderIndex: "asc" }],
-    }),
-    prisma.sponsor.findMany({
-      orderBy: [{ orderIndex: "asc" }, { name: "asc" }],
-    }),
-  ]);
+  const now = new Date();
+
+  const [memberCount, galleryMoments, sponsors, upcomingEvents, pastEvents] =
+    await Promise.all([
+      prisma.member.count(),
+      prisma.galleryMoment.findMany({
+        orderBy: [{ momentDate: "desc" }, { orderIndex: "asc" }],
+      }),
+      prisma.sponsor.findMany({
+        orderBy: [{ orderIndex: "asc" }, { name: "asc" }],
+      }),
+      // One table, split by date: soonest upcoming first, most recent past first.
+      prisma.event.findMany({
+        where: { startsAt: { gte: now } },
+        orderBy: [{ startsAt: "asc" }, { orderIndex: "asc" }],
+        take: 4,
+      }),
+      prisma.event.findMany({
+        where: { startsAt: { lt: now } },
+        orderBy: [{ startsAt: "desc" }, { orderIndex: "asc" }],
+        take: 6,
+      }),
+    ]);
+
+  const eventItems = upcomingEvents.map((event) => ({
+    id: event.id,
+    title: event.title,
+    category: EVENT_CATEGORY_LABELS[event.category],
+    date: eventDateFormat.format(event.startsAt),
+    time: event.endsAt
+      ? `${eventTimeFormat.format(event.startsAt)} - ${eventTimeFormat.format(event.endsAt)}`
+      : eventTimeFormat.format(event.startsAt),
+    venue: event.venue ?? "To be announced",
+    speaker: event.speaker ?? undefined,
+    speakerRole: event.speakerRole ?? undefined,
+    description: event.description,
+    image: event.imageUrl ?? undefined,
+    registrationUrl: event.registrationUrl ?? undefined,
+    status: (event.registrationClosed
+      ? "Closed"
+      : event.registrationUrl
+        ? "Open"
+        : "Upcoming") as "Open" | "Upcoming" | "Closed",
+  }));
+
+  const activityItems = pastEvents.map((event) => ({
+    id: event.id,
+    title: event.title,
+    category: EVENT_CATEGORY_LABELS[event.category],
+    date: activityDateFormat.format(event.startsAt),
+    description: event.description,
+    image: event.imageUrl ?? undefined,
+  }));
   const galleryItems = galleryMoments.map((moment) => ({
     id: moment.id,
     title: moment.title,
@@ -185,10 +249,10 @@ export default async function Home() {
       <AnimatedCounters memberCount={memberCount} />
 
       {/* ================= 3. UPCOMING EVENTS ================= */}
-      <UpcomingEvents />
+      <UpcomingEvents events={eventItems} />
 
       {/* ================= 4. RECENT ACTIVITIES ================= */}
-      <RecentActivities />
+      <RecentActivities activities={activityItems} />
 
       {/* ================= 5. OUR JOURNEY (Timeline) ================= */}
       <section className="py-32 px-6 relative z-10">

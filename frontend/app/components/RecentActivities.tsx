@@ -1,19 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { recentActivitiesData } from "../data/homepage";
+import Image from "next/image";
+import type { ActivityData } from "../data/homepage";
 import FadeIn from "./FadeIn";
 
-type CategoryFilter = "All" | "Workshop" | "Seminar" | "Webinar" | "Competition";
+type CategoryFilter = "All" | "Workshop" | "Seminar" | "Webinar" | "Hackathon" | "Competition";
 
-export default function RecentActivities() {
+export default function RecentActivities({
+  activities,
+}: {
+  activities: ActivityData[];
+}) {
   const [filter, setFilter] = useState<CategoryFilter>("All");
 
-  if (!recentActivitiesData || recentActivitiesData.length === 0) return null;
+  if (activities.length === 0) return null;
 
-  const categories: CategoryFilter[] = ["All", "Workshop", "Seminar", "Webinar", "Competition"];
+  // Only offer filters that have something behind them.
+  const present = new Set(activities.map((a) => a.category));
+  const categories: CategoryFilter[] = [
+    "All",
+    ...(["Workshop", "Seminar", "Webinar", "Hackathon", "Competition"] as const).filter(
+      (c) => present.has(c),
+    ),
+  ];
 
-  const filteredActivities = recentActivitiesData.filter((activity) => {
+  const filteredActivities = activities.filter((activity) => {
     if (filter === "All") return true;
     return activity.category === filter;
   });
@@ -106,12 +118,27 @@ export default function RecentActivities() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredActivities.map((activity, index) => (
             <FadeIn key={activity.id} delay={index * 50}>
-              <div className="group bg-white/70 backdrop-blur-md p-8 rounded-[2rem] border border-gray-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_50px_rgba(109,40,217,0.06)] hover:border-brandPurple/20 hover:-translate-y-1.5 transition-all duration-500 flex flex-col h-full">
-                
+              <div className="group bg-white/70 backdrop-blur-md rounded-[2rem] border border-gray-200/80 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_50px_rgba(109,40,217,0.06)] hover:border-brandPurple/20 hover:-translate-y-1.5 transition-all duration-500 flex flex-col h-full overflow-hidden">
+
+                {activity.image && (
+                  <div className="relative h-44 w-full overflow-hidden">
+                    <Image
+                      src={activity.image}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                )}
+
+                <div className="p-8 flex flex-col flex-1">
                 {/* Visual Placeholder (Top category icon badge) */}
-                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${getGradientStyles(activity.category)} border flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-500`}>
-                  {getIconForCategory(activity.category)}
-                </div>
+                {!activity.image && (
+                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${getGradientStyles(activity.category)} border flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-500`}>
+                    {getIconForCategory(activity.category)}
+                  </div>
+                )}
 
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-[10px] font-black uppercase tracking-widest text-brandPurple bg-brandPurple/5 border border-brandPurple/10 px-2 py-0.5 rounded-lg select-none">
@@ -130,6 +157,7 @@ export default function RecentActivities() {
                 </p>
                 <div className="mt-6 pt-5 border-t border-gray-100 flex items-center gap-1 text-[11px] font-black uppercase tracking-wider text-gray-400 select-none">
                   <span>Past Activity Report</span>
+                </div>
                 </div>
               </div>
             </FadeIn>

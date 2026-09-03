@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { EventData } from "../data/homepage";
 
 export default function EventCard({ event }: { event: EventData }) {
@@ -22,10 +23,24 @@ export default function EventCard({ event }: { event: EventData }) {
   return (
     <div className="group flex flex-col bg-white border border-gray-200 rounded-[2.5rem] overflow-hidden shadow-[0_10px_35px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_60px_rgba(109,40,217,0.12)] hover:border-brandPurple/20 hover:-translate-y-1.5 transition-all duration-500 w-full">
       
-      {/* Visual Header (Visual Category Backdrop - Non-fake image placeholder) */}
+      {/* Visual Header: cover photo when there is one, gradient backdrop otherwise */}
       <div className="relative h-48 bg-gradient-to-br from-blue-900 to-purple-900 flex flex-col justify-between p-6 overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
-        
+        {event.image ? (
+          <>
+            <Image
+              src={event.image}
+              alt=""
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            {/* Keeps the white overlay text readable over any photo. */}
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-gray-950/30 to-gray-950/20 pointer-events-none" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
+        )}
+
         {/* Top elements */}
         <div className="flex justify-between items-center z-10">
           <span className={`px-3 py-1 rounded-xl border text-xs font-black uppercase tracking-wider ${getCategoryStyles(event.category)}`}>
@@ -40,13 +55,16 @@ export default function EventCard({ event }: { event: EventData }) {
 
         {/* Bottom Elements (Event tag name overlay) */}
         <div className="z-10 mt-auto">
-          <p className="text-white/60 text-[10px] font-black uppercase tracking-widest leading-none mb-1">AUSTCAIC Demo Event</p>
+          <p className="text-white/60 text-[10px] font-black uppercase tracking-widest leading-none mb-1">AUSTCAIC Event</p>
           <h4 className="text-lg font-bold text-white leading-tight line-clamp-1 pr-6">{event.title}</h4>
         </div>
 
-        {/* Decorative Glowing Orbs */}
-        <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-brandBlue/35 rounded-full blur-[40px] pointer-events-none group-hover:scale-125 transition-transform duration-700"></div>
-        <div className="absolute -top-8 -right-8 w-32 h-32 bg-brandPurple/35 rounded-full blur-[40px] pointer-events-none group-hover:scale-125 transition-transform duration-700"></div>
+        {!event.image && (
+          <>
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-brandBlue/35 rounded-full blur-[40px] pointer-events-none group-hover:scale-125 transition-transform duration-700"></div>
+            <div className="absolute -top-8 -right-8 w-32 h-32 bg-brandPurple/35 rounded-full blur-[40px] pointer-events-none group-hover:scale-125 transition-transform duration-700"></div>
+          </>
+        )}
       </div>
 
       {/* Content Details */}
