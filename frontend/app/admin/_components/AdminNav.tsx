@@ -8,6 +8,7 @@ const NAV = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/panel", label: "Panel members" },
   { href: "/admin/gallery", label: "Gallery & Moments" },
+  { href: "/admin/sponsors", label: "Sponsors & Partners" },
 ] as const;
 
 export function AdminNav({ onNavigate }: { onNavigate?: () => void }) {

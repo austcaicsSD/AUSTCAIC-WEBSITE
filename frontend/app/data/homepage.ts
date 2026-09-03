@@ -54,6 +54,14 @@ export interface SponsorInfo {
   benefits: string[];
 }
 
+export interface SponsorData {
+  id: string;
+  name: string;
+  typeLabel: string;
+  imageUrl: string | null;
+  websiteUrl: string | null;
+}
+
 export const announcementData: AnnouncementData = {
   label: "Registration Open",
   message: "Demo Event: Register for the upcoming Advanced CTF & Cybersecurity Bootcamp.",
