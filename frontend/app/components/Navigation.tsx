@@ -3,7 +3,16 @@ import Link from "next/link";
 import Socialdropdown from "./Socialdropdown";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { ADMIN_HINT_COOKIE_NAME } from "@/lib/auth/cookie-name";
+
+// Read on the client so the public pages stay statically prerendered; reading a
+// cookie on the server would make every one of them dynamic for all visitors.
+const subscribeToNothing = () => () => {};
+const readAdminHint = () =>
+  document.cookie
+    .split("; ")
+    .some((c) => c.startsWith(`${ADMIN_HINT_COOKIE_NAME}=1`));
 
 export type PanelSemester = { id: string; label: string };
 
@@ -18,6 +27,13 @@ export default function Navigation({
   const menuRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const pathname = usePathname();
+
+  // Server snapshot is false, so the markup matches until hydration.
+  const isAdmin = useSyncExternalStore(
+    subscribeToNothing,
+    readAdminHint,
+    () => false,
+  );
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -152,8 +168,11 @@ export default function Navigation({
                 <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse"></span>{" "}
                 Resources
               </Link>
-              <Link href="/login" className={deskLink(isActive("/login"))}>
-                Login
+              <Link
+                href={isAdmin ? "/admin" : "/login"}
+                className={deskLink(isActive(isAdmin ? "/admin" : "/login"))}
+              >
+                {isAdmin ? "Dashboard" : "Login"}
               </Link>
             </div>
 
@@ -273,11 +292,11 @@ export default function Navigation({
             </svg>
           </Link>
           <Link
-            href="/login"
+            href={isAdmin ? "/admin" : "/login"}
             onClick={closeMenu}
-            className={mobileLink(isActive("/login"))}
+            className={mobileLink(isActive(isAdmin ? "/admin" : "/login"))}
           >
-            Login{" "}
+            {isAdmin ? "Dashboard" : "Login"}{" "}
             <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
             </svg>
