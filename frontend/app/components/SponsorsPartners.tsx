@@ -1,9 +1,14 @@
 "use client";
 
-import { sponsorInfoData } from "../data/homepage";
+import Image from "next/image";
+import { sponsorInfoData, type SponsorData } from "../data/homepage";
 import FadeIn from "./FadeIn";
 
-export default function SponsorsPartners() {
+export default function SponsorsPartners({
+  sponsors = [],
+}: {
+  sponsors?: SponsorData[];
+}) {
   if (!sponsorInfoData) return null;
 
   const tiers = [
@@ -60,28 +65,63 @@ export default function SponsorsPartners() {
             </div>
           </FadeIn>
 
-          {/* Right Column: Premium Placeholder Slots Grid */}
+          {/* Right Column: real sponsor logos once any exist, placeholder tiers until then */}
           <FadeIn>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {tiers.map((tier, idx) => (
-                <div
-                  key={`tier-${idx}`}
-                  className="group bg-gray-50/40 border border-dashed border-gray-250 p-6 rounded-[2rem] flex flex-col justify-center items-center text-center min-h-[140px] hover:bg-white hover:border-brandPurple/20 hover:shadow-md transition-all duration-300"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-white border border-gray-150 shadow-sm flex items-center justify-center text-gray-400 group-hover:text-brandPurple mb-3 transition-colors duration-300">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+            {sponsors.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {sponsors.map((sponsor) => {
+                  const Wrapper = sponsor.websiteUrl ? "a" : "div";
+                  return (
+                    <Wrapper
+                      key={sponsor.id}
+                      {...(sponsor.websiteUrl
+                        ? { href: sponsor.websiteUrl, target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="group bg-white border border-gray-150 p-5 rounded-[2rem] flex flex-col justify-center items-center text-center min-h-[120px] hover:border-brandPurple/20 hover:shadow-md transition-all duration-300"
+                    >
+                      {sponsor.imageUrl ? (
+                        <div className="relative h-12 w-full mb-2">
+                          <Image
+                            src={sponsor.imageUrl}
+                            alt={sponsor.name}
+                            fill
+                            sizes="160px"
+                            className="object-contain"
+                          />
+                        </div>
+                      ) : null}
+                      <span className="text-xs font-black text-gray-700 group-hover:text-brandPurple transition-colors line-clamp-2">
+                        {sponsor.name}
+                      </span>
+                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wide mt-1">
+                        {sponsor.typeLabel}
+                      </span>
+                    </Wrapper>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {tiers.map((tier, idx) => (
+                  <div
+                    key={`tier-${idx}`}
+                    className="group bg-gray-50/40 border border-dashed border-gray-250 p-6 rounded-[2rem] flex flex-col justify-center items-center text-center min-h-[140px] hover:bg-white hover:border-brandPurple/20 hover:shadow-md transition-all duration-300"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-white border border-gray-150 shadow-sm flex items-center justify-center text-gray-400 group-hover:text-brandPurple mb-3 transition-colors duration-300">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-sm font-black text-gray-900 group-hover:text-brandPurple transition-colors">
+                      {tier.name}
+                    </h3>
+                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wide mt-1">
+                      {tier.desc}
+                    </p>
                   </div>
-                  <h3 className="text-sm font-black text-gray-900 group-hover:text-brandPurple transition-colors">
-                    {tier.name}
-                  </h3>
-                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wide mt-1">
-                    {tier.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </FadeIn>
 
         </div>

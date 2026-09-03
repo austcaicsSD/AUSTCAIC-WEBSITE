@@ -12,6 +12,10 @@ mkdirSync(outDir, { recursive: true });
 const TABLES = [
   { model: "member", sqlTable: '"Member"' },
   { model: "panelMember", sqlTable: '"panel_members"' },
+  { model: "galleryMoment", sqlTable: '"gallery_moments"' },
+  { model: "admin", sqlTable: '"admins"' },
+  { model: "loginAttempt", sqlTable: '"login_attempts"' },
+  { model: "auditLog", sqlTable: '"audit_logs"' },
 ];
 
 function sqlLiteral(v) {

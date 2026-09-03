@@ -55,6 +55,28 @@ model GalleryMoment {
   @@map("gallery_moments")
 }
 
+enum SponsorType {
+  GOLD_PARTNER
+  SILVER_PARTNER
+  ACADEMIC_PARTNER
+  MEDIA_SPONSOR
+}
+
+model Sponsor {
+  id         String      @id @default(uuid())
+  name       String
+  type       SponsorType
+  websiteUrl String?
+  imageUrl   String?
+  imagePath  String?
+  orderIndex Int         @default(0)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now()) @updatedAt
+
+  @@index([orderIndex])
+  @@map("sponsors")
+}
+
 /// Rows are created by hand in Supabase. passwordHash comes from
 /// `node scripts/hash-password.mjs` - never store a plaintext password here.
 model Admin {

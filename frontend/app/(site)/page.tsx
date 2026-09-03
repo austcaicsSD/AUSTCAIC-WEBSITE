@@ -8,6 +8,7 @@ import RecentActivities from "@/app/components/RecentActivities";
 import BeyondTech from "@/app/components/BeyondTech";
 import GalleryMoments from "@/app/components/GalleryMoments";
 import SponsorsPartners from "@/app/components/SponsorsPartners";
+import { SPONSOR_TYPE_LABELS } from "@/lib/validation/sponsors";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -22,10 +23,13 @@ const galleryDateFormat = new Intl.DateTimeFormat("en-US", {
 
 // ================= MAIN PAGE SERVER COMPONENT =================
 export default async function Home() {
-  const [memberCount, galleryMoments] = await Promise.all([
+  const [memberCount, galleryMoments, sponsors] = await Promise.all([
     prisma.member.count(),
     prisma.galleryMoment.findMany({
       orderBy: [{ momentDate: "desc" }, { orderIndex: "asc" }],
+    }),
+    prisma.sponsor.findMany({
+      orderBy: [{ orderIndex: "asc" }, { name: "asc" }],
     }),
   ]);
   const galleryItems = galleryMoments.map((moment) => ({
@@ -34,6 +38,13 @@ export default async function Home() {
     date: galleryDateFormat.format(moment.momentDate),
     description: moment.description ?? undefined,
     image: moment.imageUrl ?? undefined,
+  }));
+  const sponsorItems = sponsors.map((sponsor) => ({
+    id: sponsor.id,
+    name: sponsor.name,
+    typeLabel: SPONSOR_TYPE_LABELS[sponsor.type],
+    imageUrl: sponsor.imageUrl,
+    websiteUrl: sponsor.websiteUrl,
   }));
   return (
     <main className="relative w-full overflow-hidden bg-[#fafafa] text-gray-900 selection:bg-brandPurple/30 font-sans">
@@ -535,7 +546,7 @@ export default async function Home() {
       <GalleryMoments items={galleryItems} />
 
       {/* ================= 10. SPONSORS & PARTNERS ================= */}
-      <SponsorsPartners />
+      <SponsorsPartners sponsors={sponsorItems} />
 
       {/* ================= 11. CALL TO ACTION ================= */}
       <section
