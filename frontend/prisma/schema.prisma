@@ -77,6 +77,40 @@ model Sponsor {
   @@map("sponsors")
 }
 
+enum EventCategory {
+  WORKSHOP
+  SEMINAR
+  WEBINAR
+  HACKATHON
+  COMPETITION
+}
+
+/// One table serves both homepage sections: rows dated in the future render as
+/// Upcoming Events, rows in the past render as Recent Club Actions. Nothing is
+/// moved by hand when a date passes.
+model Event {
+  id              String        @id @default(uuid())
+  title           String
+  category        EventCategory
+  description     String
+  startsAt        DateTime
+  endsAt          DateTime?
+  venue           String?
+  speaker         String?
+  speakerRole     String?
+  registrationUrl String?
+  /// Explicitly close registration before the event date, e.g. seats full.
+  registrationClosed Boolean    @default(false)
+  imageUrl        String?
+  imagePath       String?
+  orderIndex      Int           @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @default(now()) @updatedAt
+
+  @@index([startsAt])
+  @@map("events")
+}
+
 /// Rows are created by hand in Supabase. passwordHash comes from
 /// `node scripts/hash-password.mjs` - never store a plaintext password here.
 model Admin {

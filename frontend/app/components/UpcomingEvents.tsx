@@ -1,11 +1,11 @@
 "use client";
 
-import { upcomingEventsData } from "../data/homepage";
+import type { EventData } from "../data/homepage";
 import EventCard from "./EventCard";
 import FadeIn from "./FadeIn";
 
-export default function UpcomingEvents() {
-  if (!upcomingEventsData || upcomingEventsData.length === 0) return null;
+export default function UpcomingEvents({ events }: { events: EventData[] }) {
+  if (events.length === 0) return null;
 
   return (
     <section id="upcoming-events" className="py-28 px-6 relative z-20 bg-white">
@@ -28,7 +28,7 @@ export default function UpcomingEvents() {
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
-          {upcomingEventsData.map((event, index) => (
+          {events.map((event, index) => (
             <FadeIn key={event.id} delay={index * 150} className="w-full max-w-lg">
               <EventCard event={event} />
             </FadeIn>

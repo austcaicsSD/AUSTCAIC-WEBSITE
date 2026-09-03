@@ -1,7 +1,9 @@
+import React from "react";
 import Image from "next/image";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { semesterLabel } from "@/lib/semester";
+import { byRoleRank, roleGroup } from "@/lib/roles";
 import { PageHeader } from "../../_components/PageHeader";
 import { Card, CardHeader } from "../../_components/Card";
 import { Table, Th, Td } from "../../_components/Table";
@@ -30,20 +32,19 @@ export default async function AdminPanelListPage({
   }
 
   const [members, allSemesters] = await Promise.all([
-    prisma.panelMember.findMany({
-      where,
-      orderBy: [
-        { semester: "desc" },
-        { orderIndex: "asc" },
-        { name: "asc" },
-      ],
-    }),
+    prisma.panelMember.findMany({ where }),
     prisma.panelMember.findMany({
       distinct: ["semester"],
       select: { semester: true },
       orderBy: { semester: "desc" },
     }),
   ]);
+
+  // Committee hierarchy is not alphabetical, so it cannot be expressed in the
+  // query - sorted here with the same ranking the public page uses.
+  members.sort(
+    (a, b) => b.semester.localeCompare(a.semester) || byRoleRank(a, b),
+  );
 
   const groups = new Map<string, typeof members>();
   for (const member of members) {
@@ -148,55 +149,73 @@ export default async function AdminPanelListPage({
                   </tr>
                 </thead>
                 <tbody>
-                  {rows.map((member) => (
-                    <tr key={member.id} className="transition-colors hover:bg-white/60">
-                      <Td className="tabular-nums text-gray-400">
-                        {member.orderIndex}
-                      </Td>
-                      <Td className="whitespace-nowrap">
-                        <span className="font-black tracking-tight text-gray-950">
-                          {member.name}
-                        </span>
-                        {member.memberId && (
-                          <span className="block text-xs text-gray-500">
-                            {member.memberId}
-                          </span>
+                  {rows.map((member, i) => {
+                    const group = roleGroup(member.role);
+                    const startsGroup =
+                      i === 0 || roleGroup(rows[i - 1].role) !== group;
+
+                    return (
+                      <React.Fragment key={member.id}>
+                        {startsGroup && (
+                          <tr className="bg-gray-50/70">
+                            <td
+                              colSpan={6}
+                              className="border-b border-gray-200/70 px-6 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-gray-500"
+                            >
+                              {group}
+                            </td>
+                          </tr>
                         )}
-                      </Td>
-                      <Td>{member.role}</Td>
-                      <Td className="text-gray-500">{member.wing ?? "\u2014"}</Td>
-                      <Td>
-                        {member.imageUrl ? (
-                          <Image
-                            src={member.imageUrl}
-                            alt=""
-                            width={36}
-                            height={36}
-                            className="h-9 w-9 rounded-full object-cover"
-                          />
-                        ) : (
-                          <span className="text-xs font-bold text-amber-700">
-                            Missing
-                          </span>
-                        )}
-                      </Td>
-                      <Td className="text-right">
-                        <div className="flex justify-end gap-1">
-                          <LinkButton
-                            href={`/admin/panel/${member.id}`}
-                            variant="secondary"
-                            size="sm"
-                          >
-                            Edit
-                          </LinkButton>
-                          <DeleteMemberButton
-                            id={member.id}
-                            name={member.name}
-                          />
-                        </div>
-                      </Td>
-                    </tr>
-                  ))}
+                        <tr className="transition-colors hover:bg-white/60">
+                          <Td className="tabular-nums text-gray-400">
+                            {member.orderIndex}
+                          </Td>
+                          <Td className="whitespace-nowrap">
+                            <span className="font-black tracking-tight text-gray-950">
+                              {member.name}
+                            </span>
+                            {member.memberId && (
+                              <span className="block text-xs text-gray-500">
+                                {member.memberId}
+                              </span>
+                            )}
+                          </Td>
+                          <Td>{member.role}</Td>
+                          <Td className="text-gray-500">{member.wing ?? "\u2014"}</Td>
+                          <Td>
+                            {member.imageUrl ? (
+                              <Image
+                                src={member.imageUrl}
+                                alt=""
+                                width={36}
+                                height={36}
+                                className="h-9 w-9 rounded-full object-cover"
+                              />
+                            ) : (
+                              <span className="text-xs font-bold text-amber-700">
+                                Missing
+                              </span>
+                            )}
+                          </Td>
+                          <Td className="text-right">
+                            <div className="flex justify-end gap-1">
+                              <LinkButton
+                                href={`/admin/panel/${member.id}`}
+                                variant="secondary"
+                                size="sm"
+                              >
+                                Edit
+                              </LinkButton>
+                              <DeleteMemberButton
+                                id={member.id}
+                                name={member.name}
+                              />
+                            </div>
+                          </Td>
+                        </tr>
+                      </React.Fragment>
+                    );
+                  })}
                 </tbody>
               </Table>
             </Card>

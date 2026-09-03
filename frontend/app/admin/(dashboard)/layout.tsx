@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentAdmin } from "@/lib/auth/require-admin";
 import { logoutAdmin } from "../actions";
@@ -63,12 +62,31 @@ export default async function AdminDashboardLayout({
             <p className="mb-3 truncate text-xs font-medium text-gray-500">
               {admin.email}
             </p>
-            <Link
+            {/* New tab: the session cookie is scoped to /admin, so the public
+                site cannot show a way back and this would strand the admin. */}
+            <a
               href="/"
-              className="block rounded-xl px-4 py-2.5 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-900/5 hover:text-gray-950"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between rounded-xl px-4 py-2.5 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-900/5 hover:text-gray-950"
             >
               View site
-            </Link>
+              <svg
+                className="h-3.5 w-3.5 opacity-60"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
             <LogoutButton />
           </div>
         </aside>

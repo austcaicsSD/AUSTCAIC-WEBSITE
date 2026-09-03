@@ -4,6 +4,12 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Pagination from "@/app/components/Pagination";
 import { useFocusTrap } from "@/app/components/useFocusTrap";
+import {
+  PRESIDENTIAL_GROUP,
+  ROLE_GROUP_ORDER,
+  roleGroup,
+  seniorityRank,
+} from "@/lib/roles";
 
 interface PanelMemberData {
   id: string | number;
@@ -15,7 +21,7 @@ interface PanelMemberData {
 }
 
 const getRoleHeading = (role: string, count: number): string => {
-  if (role === "Presidential Panel") return "Presidential Panel";
+  if (role === PRESIDENTIAL_GROUP) return PRESIDENTIAL_GROUP;
 
   if (count === 1) {
     return role;
@@ -179,24 +185,9 @@ export default function PanelView({
 
   const semesterExecutives = members;
 
-  // ================= SMART GROUPING LOGIC =================
-  const presidentialRoles = [
-    "Advisor",
-    "Treasurer",
-    "President",
-    "Vice President",
-    "General Secretary",
-    "Joint Secretary",
-    "Organizing Secretary",
-  ];
-
   const groupedMembers = semesterExecutives.reduce(
     (groups: Record<string, PanelMemberData[]>, member: PanelMemberData) => {
-      const role = member.role || "Executive Member";
-
-      const groupName = presidentialRoles.includes(role)
-        ? "Presidential Panel"
-        : role;
+      const groupName = roleGroup(member.role || "Executive Member");
 
       if (!groups[groupName]) {
         groups[groupName] = [];
@@ -207,13 +198,13 @@ export default function PanelView({
     {} as Record<string, PanelMemberData[]>
   );
 
-  const roleOrder = [
-    "Presidential Panel",
-    "Executive Director",
-    "Associate Director",
-    "Associate Executive",
-    "Sub Executive",
-  ];
+  // Rows already arrive in orderIndex order, and sort is stable, so ranking by
+  // seniority alone keeps the manual ordering intact for everyone else.
+  for (const group of Object.values(groupedMembers)) {
+    group.sort((a, b) => seniorityRank(a.role) - seniorityRank(b.role));
+  }
+
+  const roleOrder = ROLE_GROUP_ORDER as readonly string[];
 
   const sortedRoles = Object.keys(groupedMembers).sort((a, b) => {
     const indexA = roleOrder.indexOf(a);
