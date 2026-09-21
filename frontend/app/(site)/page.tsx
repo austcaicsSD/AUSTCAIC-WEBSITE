@@ -183,7 +183,7 @@ export default async function Home() {
           </FadeIn>
 
           <FadeIn delay={500}>
-            <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 mb-3 max-w-2xl mx-auto font-medium leading-relaxed">
               Secure. Innovate. Lead.
             </p>
             <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
@@ -255,13 +255,13 @@ export default async function Home() {
       <RecentActivities activities={activityItems} />
 
       {/* ================= 5. OUR JOURNEY (Timeline) ================= */}
-      <section className="py-32 px-6 relative z-10">
+      <section className="py-24 px-6 relative z-10">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brandBlue/10 rounded-full blur-[100px] -z-10 mix-blend-multiply"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brandPurple/10 rounded-full blur-[100px] -z-10 mix-blend-multiply"></div>
 
         <div className="max-w-5xl mx-auto relative z-10">
           <FadeIn>
-            <div className="text-center mb-24">
+            <div className="text-center mb-14">
               <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter">
                 Our{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brandBlue to-brandPurple">
@@ -364,7 +364,7 @@ export default async function Home() {
       </section>
 
       {/* ================= 6. VISION & MISSION ================= */}
-      <section className="py-40 px-6 relative z-10 overflow-hidden border-y border-gray-100 bg-white">
+      <section className="py-28 px-6 relative z-10 overflow-hidden border-y border-gray-100 bg-white">
         <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-brandBlue/20 rounded-full blur-[120px] pointer-events-none mix-blend-multiply animate-pulse"></div>
         <div
           className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-brandPurple/20 rounded-full blur-[120px] pointer-events-none mix-blend-multiply animate-pulse"
@@ -446,17 +446,17 @@ export default async function Home() {
       <BeyondTech />
 
       {/* ================= 8. FEATURED PROJECTS ================= */}
-      <section className="py-32 px-6 relative z-20">
+      <section className="py-24 px-6 relative z-20">
         <div className="max-w-6xl mx-auto relative">
           <FadeIn>
-            <div className="text-center mb-20">
+            <div className="text-center mb-14">
               <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter">
                 Featured{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brandBlue to-brandPurple">
                   Projects
                 </span>
               </h2>
-              <p className="mt-6 text-xl text-gray-500 font-medium">
+              <p className="mt-4 text-xl text-gray-500 font-medium">
                 Innovations crafted by our brilliant members.
               </p>
             </div>
@@ -615,53 +615,203 @@ export default async function Home() {
       {/* ================= 11. CALL TO ACTION ================= */}
       <section
         id="join-us"
-        className="py-24 px-6 relative overflow-hidden bg-gradient-to-br from-brandBlue to-brandPurple text-white z-20"
+        className="relative z-20 overflow-hidden bg-[#fafafa] px-6 py-28"
       >
-        <div className="absolute inset-0 bg-[url('/patterns/cubes.png')] opacity-10 mix-blend-overlay" aria-hidden="true"></div>
+        <style href="caic-join-cta" precedence="default">{`
+          /* A single lit arc travels the card edge, like a trace on a board. */
+          @keyframes caic-join-beam { to { transform: rotate(360deg); } }
 
-        <div className="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
+          /* Nodes on the grid waking and settling, offset from each other. */
+          @keyframes caic-join-node {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1); }
+          }
+
+          @keyframes caic-join-orb {
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(5%, -6%, 0); }
+          }
+          @keyframes caic-join-lift {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+          }
+          @keyframes caic-join-pan { to { background-position: 200% center; } }
+
+          .caic-join-orb {
+            will-change: transform;
+            animation: caic-join-orb 28s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+          }
+          .caic-join-lift {
+            will-change: transform;
+            animation: caic-join-lift 7s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+          }
+          .caic-join-node {
+            will-change: transform, opacity;
+            animation: caic-join-node 6s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+          }
+          .caic-join-pan {
+            background-size: 200% auto;
+            animation: caic-join-pan 10s linear infinite;
+          }
+          .caic-join-beam {
+            background: conic-gradient(
+              from 0deg,
+              transparent 0deg,
+              transparent 316deg,
+              rgba(30, 58, 138, 0.55) 338deg,
+              rgba(109, 40, 217, 0.9) 352deg,
+              transparent 360deg
+            );
+            will-change: transform;
+            animation: caic-join-beam 8s linear infinite;
+          }
+          .caic-join-seam {
+            background-image: linear-gradient(
+              90deg,
+              transparent,
+              var(--color-brandBlue),
+              var(--color-brandPurple),
+              transparent
+            );
+            background-size: 200% auto;
+            animation: caic-join-pan 10s linear infinite;
+          }
+        `}</style>
+
+        <div
+          className="caic-join-seam pointer-events-none absolute inset-x-0 top-0 h-[2px]"
+          aria-hidden="true"
+        ></div>
+
+        {/* Ambient layer: the grid and brand orbs used across the site */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_50%,#000_60%,transparent_100%)]"
+          aria-hidden="true"
+        ></div>
+        <div
+          className="caic-join-orb pointer-events-none absolute -top-24 left-[12%] h-[30rem] w-[30rem] rounded-full bg-brandBlue/15 mix-blend-multiply blur-[110px]"
+          aria-hidden="true"
+        ></div>
+        <div
+          className="caic-join-orb pointer-events-none absolute -bottom-32 right-[10%] h-[32rem] w-[32rem] rounded-full bg-brandPurple/15 mix-blend-multiply blur-[120px]"
+          style={{ animationDelay: "9s", animationDirection: "reverse" }}
+          aria-hidden="true"
+        ></div>
+
+        {/* Nodes waking on the grid - the network this club is about */}
+        {[
+          { pos: "left-[14%] top-[24%]", delay: "0s" },
+          { pos: "left-[28%] bottom-[22%]", delay: "2.1s" },
+          { pos: "right-[20%] top-[30%]", delay: "4.2s" },
+          { pos: "right-[12%] bottom-[28%]", delay: "1.4s" },
+          { pos: "left-[8%] top-[56%]", delay: "3.3s" },
+        ].map((node) => (
+          <span
+            key={node.pos}
+            className={`caic-join-node pointer-events-none absolute ${node.pos} h-1.5 w-1.5 rounded-full bg-brandPurple/50 ring-4 ring-brandPurple/10`}
+            style={{ animationDelay: node.delay }}
+            aria-hidden="true"
+          ></span>
+        ))}
+
+        <div className="group relative z-10 mx-auto w-full max-w-2xl">
+          {/* Brand-gradient aura rotating behind the glass card */}
+          <div
+            className="caic-join-beam pointer-events-none absolute -inset-px rounded-[2.6rem] opacity-70 blur-[1px] transition-opacity duration-500 ease-out group-hover:opacity-100"
+            aria-hidden="true"
+          ></div>
+
           <FadeIn>
-            <div className="w-32 h-32 relative mb-8 rounded-[2rem] overflow-hidden shadow-2xl bg-white p-3 ring-4 ring-white/20 transform hover:scale-105 transition-transform duration-300">
-              <Image
-                src="/AUSTCAIC-logo.jpg"
-                alt="AUSTCAIC Logo"
-                fill
-                sizes="128px"
-                className="object-contain"
-              />
+            <div className="relative flex flex-col items-center overflow-hidden rounded-[2.5rem] border border-white/60 bg-white/70 px-8 py-12 text-center shadow-[0_30px_80px_rgba(29,78,216,0.10)] backdrop-blur-2xl transition-[transform,box-shadow,border-color] duration-500 ease-out group-hover:-translate-y-1 group-hover:border-white group-hover:shadow-[0_30px_70px_rgba(109,40,217,0.14)] sm:px-12">
+              <div className="relative inline-flex items-center gap-2 rounded-full border border-brandPurple/20 bg-brandPurple/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-brandPurple">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brandPurple opacity-75"></span>
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brandPurple"></span>
+                </span>
+                Membership Open
+              </div>
+
+              {/* Logo floats while a brand-gradient ring sweeps around it */}
+              <div className="caic-join-lift relative mt-8 h-28 w-28">
+                <span
+                  className="pointer-events-none absolute -inset-[5px] rounded-full border border-brandPurple/20"
+                  aria-hidden="true"
+                ></span>
+                <div className="relative h-full w-full overflow-hidden rounded-full bg-white p-4 shadow-xl transition-transform duration-500 group-hover:scale-105">
+                  <Image
+                    src="/AUSTCAIC-logo.jpg"
+                    alt="AUSTCAIC Logo"
+                    fill
+                    sizes="112px"
+                    className="rounded-full object-contain p-1"
+                  />
+                </div>
+              </div>
+
+              <h2 className="mt-8 text-4xl font-black tracking-tighter text-gray-900 sm:text-5xl">
+                Ready to Make an{" "}
+                <span className="caic-join-pan bg-gradient-to-r from-brandBlue via-brandPurple to-brandBlue bg-clip-text text-transparent">
+                  Impact?
+                </span>
+              </h2>
+              <p className="mx-auto mt-4 max-w-md text-lg font-medium leading-relaxed text-gray-600">
+                Be a part of a community that builds, secures, and innovates.
+              </p>
+
+              <ul className="mt-7 flex flex-wrap justify-center gap-2.5">
+                {["Cybersecurity", "AI & ML", "CTF & Hackathons", "Research"].map(
+                  (tag, index) => (
+                    <li key={tag}>
+                      <FadeIn delay={200 + index * 90}>
+                        <span
+                          className="block rounded-full border border-gray-200 bg-white/80 bg-gradient-to-r from-brandBlue to-brandPurple bg-size-[0%_100%] bg-no-repeat px-4 py-1.5 text-sm font-semibold text-gray-600 shadow-sm transition-[background-size,color,border-color] duration-500 hover:border-transparent hover:bg-size-[100%_100%] hover:text-white"
+                        >
+                          {tag}
+                        </span>
+                      </FadeIn>
+                    </li>
+                  )
+                )}
+              </ul>
+
+              <FadeIn delay={560}>
+                <div className="relative mt-9 inline-flex">
+                  <Link
+                    href="/register"
+                    className="group/btn relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-gradient-to-r from-brandBlue via-brandPurple to-brandBlue bg-size-[200%_auto] bg-left px-10 py-5 text-lg font-bold text-white shadow-[0_12px_35px_rgba(29,78,216,0.35)] transition-[transform,box-shadow,background-position] duration-500 ease-out hover:-translate-y-1 hover:bg-right hover:shadow-[0_18px_45px_rgba(109,40,217,0.45)] active:translate-y-0 active:scale-[0.97] active:duration-100"
+                  >
+                    <span className="relative z-10">
+                      Join as a General Member
+                    </span>
+                    <span className="relative z-10 inline-flex">
+                      <svg
+                        className="h-5 w-5 transition-transform duration-300 group-hover/btn:translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        ></path>
+                      </svg>
+                    </span>
+                  </Link>
+                </div>
+              </FadeIn>
+
+              {memberCount > 0 && (
+                <FadeIn delay={680}>
+                  <p className="mt-6 text-sm font-bold uppercase tracking-[0.15em] text-gray-400">
+                    {memberCount.toLocaleString("en-US")} members have already
+                    joined
+                  </p>
+                </FadeIn>
+              )}
             </div>
-          </FadeIn>
-
-          <FadeIn delay={100}>
-            <h2 className="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
-              Ready to Make an Impact?
-            </h2>
-            <p className="text-xl text-white/90 mb-10 font-medium">
-              Be a part of a community that builds, secures, and innovates.
-            </p>
-          </FadeIn>
-
-          <FadeIn delay={200}>
-            <Link
-              href="/register"
-              className="group inline-flex items-center gap-3 px-10 py-5 bg-white text-gray-900 rounded-full font-bold text-xl hover:scale-105 hover:shadow-2xl transition-all duration-300 ring-4 ring-white/30 hover:ring-white/50"
-            >
-              Join as a General Member
-              <svg
-                className="w-6 h-6 text-brandPurple group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
-              </svg>
-            </Link>
           </FadeIn>
         </div>
       </section>
