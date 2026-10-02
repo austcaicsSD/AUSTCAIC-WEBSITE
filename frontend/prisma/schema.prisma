@@ -56,10 +56,14 @@ model GalleryMoment {
 }
 
 enum SponsorType {
+  // Retired: kept only so the schema matches the database enum. Not offered in the app.
   GOLD_PARTNER
   SILVER_PARTNER
   ACADEMIC_PARTNER
   MEDIA_SPONSOR
+  STRATEGIC_PARTNER
+  COMMUNITY_PARTNER
+  EVENT_PARTNER
 }
 
 model Sponsor {
