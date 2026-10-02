@@ -12,8 +12,9 @@ export default function SponsorsPartners({
   if (!sponsorInfoData) return null;
 
   const tiers = [
-    { name: "Gold Partner", desc: "Premium Placement & Event Hosting" },
-    { name: "Silver Partner", desc: "Logo Branding & Talent Access" },
+    { name: "Strategic Partner", desc: "Long-Term Collaboration & Joint Initiatives" },
+    { name: "Community Partner", desc: "Shared Outreach & Member Engagement" },
+    { name: "Event Partner", desc: "Event Hosting & On-Site Branding" },
     { name: "Academic Partner", desc: "Collaborative Research & Labs" },
     { name: "Media Sponsor", desc: "Session Press & Reach Outlets" },
   ];

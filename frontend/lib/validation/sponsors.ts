@@ -1,3 +1,4 @@
+import type { SponsorType } from "@prisma/client";
 import { z } from "zod";
 
 const trimmed = (v: unknown) => (typeof v === "string" ? v.trim() : v);
@@ -8,19 +9,24 @@ const blankToNull = (v: unknown) => {
 };
 
 export const SPONSOR_TYPES = [
-  "GOLD_PARTNER",
-  "SILVER_PARTNER",
+  "STRATEGIC_PARTNER",
+  "COMMUNITY_PARTNER",
+  "EVENT_PARTNER",
   "ACADEMIC_PARTNER",
   "MEDIA_SPONSOR",
 ] as const;
 
 export type SponsorTypeValue = (typeof SPONSOR_TYPES)[number];
 
-export const SPONSOR_TYPE_LABELS: Record<SponsorTypeValue, string> = {
-  GOLD_PARTNER: "Gold Partner",
-  SILVER_PARTNER: "Silver Partner",
+/** Keyed by the DB enum, which still contains the retired GOLD/SILVER values. */
+export const SPONSOR_TYPE_LABELS: Record<SponsorType, string> = {
+  STRATEGIC_PARTNER: "Strategic Partner",
+  COMMUNITY_PARTNER: "Community Partner",
+  EVENT_PARTNER: "Event Partner",
   ACADEMIC_PARTNER: "Academic Partner",
   MEDIA_SPONSOR: "Media Sponsor",
+  GOLD_PARTNER: "Gold Partner",
+  SILVER_PARTNER: "Silver Partner",
 };
 
 export const sponsorSchema = z.object({
