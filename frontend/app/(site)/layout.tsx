@@ -2,7 +2,6 @@ import Footer from "@/app/components/Footer";
 import Navigation from "@/app/components/Navigation";
 import ScrollProgress from "@/app/components/ScrollProgress";
 import BackToTop from "@/app/components/BackToTop";
-import AnnouncementBar from "@/app/components/AnnouncementBar";
 import { prisma } from "@/lib/prisma";
 import { semesterLabel } from "@/lib/semester";
 
@@ -28,7 +27,6 @@ export default async function SiteLayout({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <AnnouncementBar />
       <header className="sticky top-0 z-50 w-full group/nav">
         <Navigation panelSemesters={panelSemesters} />
         <ScrollProgress />
