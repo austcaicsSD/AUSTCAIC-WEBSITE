@@ -7,12 +7,33 @@ import FadeIn from "./FadeIn";
 
 export default function GalleryMoments({ items }: { items: GalleryItemData[] }) {
   // Merge database items with curated fallback moments so the carousel is always vibrant
+  // Note: The Team Red_Shell achievement is relocated to the "Our Members, Beyond Tech" section
+  const isRelocatedAchievement = (item: GalleryItemData) =>
+    item.id === "eee7f566-5ef4-49dc-b9e5-fe3bc2bfda30" ||
+    item.id === "gm-cse-carnival" ||
+    item.id === "red-shell-cse-carnival" ||
+    item.title.toLowerCase().includes("red_shell") ||
+    item.title.toLowerCase().includes("red shell") ||
+    (item.description && (
+      item.description.toLowerCase().includes("red_shell") ||
+      item.description.toLowerCase().includes("red shell")
+    )) ||
+    (item.image && item.image.includes("eee7f566-5ef4-49dc-b9e5-fe3bc2bfda30"));
+
   const galleryList: GalleryItemData[] = (() => {
-    const list = [...(items || [])];
-    const existingTitles = new Set(list.map((i) => i.title.toLowerCase().trim()));
+    const list = [...(items || [])].filter((i) => !isRelocatedAchievement(i));
+    const existingTitles = new Set(
+      list.map((i) => i.title.toLowerCase().trim()).filter(Boolean)
+    );
+    const existingImages = new Set(list.map((i) => i.image).filter(Boolean));
     for (const def of defaultGalleryMoments) {
-      if (!existingTitles.has(def.title.toLowerCase().trim())) {
+      const titleKey = def.title.toLowerCase().trim();
+      const hasDuplicateTitle = titleKey ? existingTitles.has(titleKey) : false;
+      const hasDuplicateImage = def.image ? existingImages.has(def.image) : false;
+      if (!isRelocatedAchievement(def) && !hasDuplicateTitle && !hasDuplicateImage) {
         list.push(def);
+        if (titleKey) existingTitles.add(titleKey);
+        if (def.image) existingImages.add(def.image);
       }
     }
     return list;
@@ -245,9 +266,11 @@ export default function GalleryMoments({ items }: { items: GalleryItemData[] }) 
                           <span className="w-2 h-2 rounded-full bg-brandPurple"></span>
                           {item.date}
                         </div>
-                        <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-snug drop-shadow-md">
-                          {item.title}
-                        </h3>
+                        {item.title && !item.title.startsWith("IMG_") && (
+                          <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-snug drop-shadow-md">
+                            {item.title}
+                          </h3>
+                        )}
                         {item.description && (
                           <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed mt-2 line-clamp-2 max-w-xl font-medium">
                             {item.description}
@@ -315,7 +338,7 @@ export default function GalleryMoments({ items }: { items: GalleryItemData[] }) 
                         ? "border-brandPurple ring-4 ring-brandPurple/25 scale-105 shadow-md shadow-brandPurple/20 opacity-100"
                         : "border-gray-200/80 opacity-50 hover:opacity-100 hover:scale-102"
                     }`}
-                    aria-label={`Go to slide ${idx + 1}: ${item.title}`}
+                    aria-label={`Go to slide ${idx + 1}${item.title && !item.title.startsWith("IMG_") ? `: ${item.title}` : ""}`}
                   >
                     {item.image ? (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -410,12 +433,14 @@ export default function GalleryMoments({ items }: { items: GalleryItemData[] }) 
                   {activeItem.date}
                 </div>
 
-                <h2
-                  id="gallery-modal-title"
-                  className="text-xl sm:text-2xl md:text-3xl font-black text-gray-950 tracking-tight leading-snug mb-3"
-                >
-                  {activeItem.title}
-                </h2>
+                {activeItem.title && !activeItem.title.startsWith("IMG_") && (
+                  <h2
+                    id="gallery-modal-title"
+                    className="text-xl sm:text-2xl md:text-3xl font-black text-gray-950 tracking-tight leading-snug mb-3"
+                  >
+                    {activeItem.title}
+                  </h2>
+                )}
 
                 {activeItem.description && (
                   <p className="text-gray-600 text-sm sm:text-base leading-relaxed font-normal whitespace-pre-line mb-6">

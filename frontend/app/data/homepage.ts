@@ -34,6 +34,15 @@ export interface ActivityData {
   image?: string;
 }
 
+export interface MemberAchievementData {
+  id: string;
+  title: string;
+  date: string;
+  description: string;
+  image: string;
+  category?: string;
+}
+
 export interface BeyondTechData {
   id: string;
   title: string;
@@ -81,14 +90,18 @@ export const statisticsData: StatisticData[] = [
 
 export const beyondTechData: BeyondTechData[] = [];
 
-export const defaultGalleryMoments: GalleryItemData[] = [
+export const memberAchievementsData: MemberAchievementData[] = [
   {
-    id: "gm-cse-carnival",
+    id: "red-shell-cse-carnival",
     title: "Team Red_Shell — CSE Carnival Runners-Up",
     date: "September 2026",
-    description: "Celebrating our club competitive team Red_Shell securing runner-up position at the university CSE Carnival.",
+    description: "Celebrating our club's competitive team Red_Shell securing runner-up position at the university CSE Carnival.",
     image: "https://tqwdwdfxckgkkggwvzha.supabase.co/storage/v1/object/public/gallery-images/eee7f566-5ef4-49dc-b9e5-fe3bc2bfda30-0a9d7a9b0828.webp",
+    category: "Competition Achievement",
   },
+];
+
+export const defaultGalleryMoments: GalleryItemData[] = [
   {
     id: "gm-farewell-2025",
     title: "Farewell & Prize Giving Ceremony — Fall 2025",
@@ -116,6 +129,30 @@ export const defaultGalleryMoments: GalleryItemData[] = [
     date: "August 2026",
     description: "Exploring preparation for international cybersecurity roles, cloud certifications, and AI workflow integration.",
     image: "https://tqwdwdfxckgkkggwvzha.supabase.co/storage/v1/object/public/event-images/0fa9dae1-5d21-4665-a59d-ae79826d0618-fc8f0158d4f0.webp",
+  },
+  {
+    id: "gm-img-1765",
+    title: "",
+    date: "September 2026",
+    image: "https://tqwdwdfxckgkkggwvzha.supabase.co/storage/v1/object/public/gallery-images/IMG_1765.jpg",
+  },
+  {
+    id: "gm-img-1843",
+    title: "",
+    date: "September 2026",
+    image: "https://tqwdwdfxckgkkggwvzha.supabase.co/storage/v1/object/public/gallery-images/IMG_1843.jpg",
+  },
+  {
+    id: "gm-img-1946",
+    title: "",
+    date: "September 2026",
+    image: "https://tqwdwdfxckgkkggwvzha.supabase.co/storage/v1/object/public/gallery-images/IMG_1946.jpg",
+  },
+  {
+    id: "gm-img-20260922-155919",
+    title: "",
+    date: "September 2026",
+    image: "https://tqwdwdfxckgkkggwvzha.supabase.co/storage/v1/object/public/gallery-images/IMG_20260922_155919.jpg",
   },
 ];
 
