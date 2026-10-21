@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 
-const SITE_URL = "https://austcaic.com";
+const SITE_URL = "https://www.austcaic.com";
 const SITE_NAME = "AUSTCAIC";
 const FULL_NAME = "AUST Cybersecurity & AI Club";
 

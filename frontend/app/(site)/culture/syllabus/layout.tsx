@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Explore AUSTCAIC's Hands-On Weekends curriculum — a rigorous, industry-focused bootcamp covering Cybersecurity & CTF, AI & Machine Learning, and Academic Research tracks. Open to AUST members in Dhaka.",
   alternates: {
-    canonical: "https://austcaic.com/culture/syllabus",
+    canonical: "https://www.austcaic.com/culture/syllabus",
   },
 };
 

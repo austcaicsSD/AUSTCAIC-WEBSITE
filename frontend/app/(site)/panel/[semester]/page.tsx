@@ -13,10 +13,8 @@ export async function generateMetadata({
   const label = semesterLabel(semester);
   return {
     title: `Executive Panel — ${label}`,
-    description: `Meet the AUSTCAIC executive committee for ${label}. See the team leading AUST's Cybersecurity and AI Club — the panel driving innovation, security research, and student leadership.`,
-    alternates: {
-      canonical: `https://austcaic.com/panel/${semester}`,
-    },
+    description: `Meet the AUSTCAIC executive committee for ${label}.`,
+    robots: { index: false, follow: false },
   };
 }
 

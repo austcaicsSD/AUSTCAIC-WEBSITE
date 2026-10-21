@@ -8,10 +8,10 @@ export const metadata: Metadata = {
     title: "Join AUSTCAIC | AUST Cybersecurity & AI Club",
     description:
       "A student-led cybersecurity and AI community at AUST, Dhaka. Seminars, bootcamps, and real projects for aspiring security and AI professionals.",
-    url: "https://austcaic.com/register",
+    url: "https://www.austcaic.com/register",
   },
   alternates: {
-    canonical: "https://austcaic.com/register",
+    canonical: "https://www.austcaic.com/register",
   },
 };
 
