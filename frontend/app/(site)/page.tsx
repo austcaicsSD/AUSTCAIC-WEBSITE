@@ -16,14 +16,14 @@ import { prisma } from "@/lib/prisma";
 export const metadata: Metadata = {
   title: "AUSTCAIC | AUST Cybersecurity & AI Club — Secure. Innovate. Lead.",
   description:
-    "AUST Cybersecurity & AI Club builds student skills in cybersecurity, AI/ML, and research through weekend CTFs, weekly classes, bootcamps, and seminars.",
+    "AUST Cybersecurity & AI Club builds student skills in cybersecurity, AI/ML, and research through weekend classes, CTFs, bootcamps, and seminars.",
   alternates: {
     canonical: "https://austcaic.com",
   },
   openGraph: {
     title: "AUSTCAIC | AUST Cybersecurity & AI Club",
     description:
-      "A student-led community at AUST, Dhaka growing cybersecurity and AI/ML skills through weekend CTFs, Friday\u2013Saturday classes, bootcamps, and competitions.",
+      "A student-led community at AUST, Dhaka growing cybersecurity and AI/ML skills through weekend classes, Friday\u2013Saturday sessions, bootcamps, and competitions.",
     url: "https://austcaic.com",
   },
 };
