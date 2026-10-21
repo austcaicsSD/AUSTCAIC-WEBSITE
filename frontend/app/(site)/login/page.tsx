@@ -1,4 +1,15 @@
+import type { Metadata } from "next";
 import LoginPanels from "./LoginPanels";
+
+// Never statically prerender — avoids triggering the site layout's DB query
+// at build time and competing for the limited session-mode connection pool.
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Member Login",
+  description: "Sign in to your AUSTCAIC member account or access the staff admin panel.",
+  robots: { index: false, follow: false },
+};
 
 export default async function LoginPage({
   searchParams,

@@ -5,9 +5,12 @@ import BackToTop from "@/app/components/BackToTop";
 import { prisma } from "@/lib/prisma";
 import { semesterLabel } from "@/lib/semester";
 
-// Nav semester list is read from the DB; without this, statically prerendered
-// pages would keep a build-time snapshot until the next deploy.
-export const revalidate = 300;
+// Nav semester list is read from the DB on every request so it is always
+// up-to-date. force-dynamic also prevents Next.js from statically prerendering
+// child pages at build time, which would fire this layout's DB query for each
+// page concurrently and exhaust the limited session-mode connection pool.
+export const dynamic = "force-dynamic";
+
 
 export default async function SiteLayout({
   children,
