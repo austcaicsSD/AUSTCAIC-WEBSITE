@@ -6,10 +6,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/admin/", "/login", "/profile"],
+        disallow: ["/admin", "/admin/", "/login", "/profile", "/panel", "/panel/"],
       },
     ],
-    sitemap: "https://austcaic.com/sitemap.xml",
-    host: "https://austcaic.com",
+    sitemap: "https://www.austcaic.com/sitemap.xml",
+    host: "https://www.austcaic.com",
   };
 }

@@ -18,13 +18,13 @@ export const metadata: Metadata = {
   description:
     "AUST Cybersecurity & AI Club builds student skills in cybersecurity, AI/ML, and research through weekend classes, CTFs, bootcamps, and seminars.",
   alternates: {
-    canonical: "https://austcaic.com",
+    canonical: "https://www.austcaic.com",
   },
   openGraph: {
     title: "AUSTCAIC | AUST Cybersecurity & AI Club",
     description:
       "A student-led community at AUST, Dhaka growing cybersecurity and AI/ML skills through weekend classes, Friday\u2013Saturday sessions, bootcamps, and competitions.",
-    url: "https://austcaic.com",
+    url: "https://www.austcaic.com",
   },
 };
 
