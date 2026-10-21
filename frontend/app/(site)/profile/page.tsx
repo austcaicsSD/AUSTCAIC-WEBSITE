@@ -1,8 +1,17 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 
 import ClientBackground from "./ClientBackground";
+
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "My Profile",
+  description: "Your AUSTCAIC member profile.",
+  robots: { index: false, follow: false },
+};
 
 export default async function DashboardPage() {
   const cookieStore = await cookies();

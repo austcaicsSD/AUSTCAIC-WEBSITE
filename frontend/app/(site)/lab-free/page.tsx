@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Free Resources | AUST Cybersecurity & AI Club",
+  description:
+    "Free cybersecurity and AI learning resources from AUSTCAIC — the AUST Cybersecurity & AI Club. Download roadmaps, guides, and curated materials for AUST students and the tech community in Dhaka.",
+};
+
+
 export default function LabFree() {
   return (
     <div className="max-w-4xl mx-auto py-20 px-6 text-center">
