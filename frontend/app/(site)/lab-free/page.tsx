@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Free Resources | AUST Cybersecurity & AI Club",
+  alternates: {
+    canonical: "https://www.austcaic.com/lab-free",
+  },
   description:
     "Free cybersecurity and AI learning resources from AUSTCAIC — the AUST Cybersecurity & AI Club. Download roadmaps, guides, and curated materials for AUST students and the tech community in Dhaka.",
 };
