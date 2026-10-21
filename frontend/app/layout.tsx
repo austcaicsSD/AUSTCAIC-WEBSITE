@@ -57,10 +57,10 @@ export const metadata: Metadata = {
     description: OG_DESCRIPTION,
     images: [
       {
-        url: "/android-chrome-512x512.png",
-        width: 512,
-        height: 512,
-        alt: "AUSTCAIC — AUST Cybersecurity & AI Club Logo",
+        url: "/AUSTCAIC-logo.jpg",
+        width: 1254,
+        height: 1254,
+        alt: "AUSTCAIC — AUST Cybersecurity & AI Club",
       },
     ],
   },
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${SITE_NAME} | ${FULL_NAME}`,
     description: OG_DESCRIPTION,
-    images: ["/android-chrome-512x512.png"],
+    images: ["/AUSTCAIC-logo.jpg"],
   },
   icons: {
     icon: [
