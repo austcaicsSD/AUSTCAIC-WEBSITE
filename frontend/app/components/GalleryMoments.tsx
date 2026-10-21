@@ -7,21 +7,32 @@ import FadeIn from "./FadeIn";
 
 export default function GalleryMoments({ items }: { items: GalleryItemData[] }) {
   // Merge database items with curated fallback moments so the carousel is always vibrant
-  // Note: The Team Red_Shell achievement is relocated to the "Our Members, Beyond Tech" section
-  const isRelocatedAchievement = (item: GalleryItemData) =>
+  // Note: Achievements are relocated to "Our Members, Beyond Tech",
+  // and event flyers/posters are excluded from this photo gallery section.
+  const isExcludedMoment = (item: GalleryItemData) =>
     item.id === "eee7f566-5ef4-49dc-b9e5-fe3bc2bfda30" ||
     item.id === "gm-cse-carnival" ||
     item.id === "red-shell-cse-carnival" ||
+    item.id === "gm-farewell-2025" ||
+    item.id === "gm-bootcamp-2026" ||
+    item.id === "gm-skillsprint-seminar" ||
+    item.id === "gm-future-proof" ||
     item.title.toLowerCase().includes("red_shell") ||
     item.title.toLowerCase().includes("red shell") ||
     (item.description && (
       item.description.toLowerCase().includes("red_shell") ||
       item.description.toLowerCase().includes("red shell")
     )) ||
-    (item.image && item.image.includes("eee7f566-5ef4-49dc-b9e5-fe3bc2bfda30"));
+    (item.image && (
+      item.image.includes("eee7f566-5ef4-49dc-b9e5-fe3bc2bfda30") ||
+      item.image.includes("b50419a7-975e-4d12-9d00-27a9e505b730") ||
+      item.image.includes("0be74251-de17-4f7c-8360-28be61c0591c") ||
+      item.image.includes("49130a81-16fa-4403-9f21-855efc81859a") ||
+      item.image.includes("0fa9dae1-5d21-4665-a59d-ae79826d0618")
+    ));
 
   const galleryList: GalleryItemData[] = (() => {
-    const list = [...(items || [])].filter((i) => !isRelocatedAchievement(i));
+    const list = [...(items || [])].filter((i) => !isExcludedMoment(i));
     const existingTitles = new Set(
       list.map((i) => i.title.toLowerCase().trim()).filter(Boolean)
     );
@@ -30,7 +41,7 @@ export default function GalleryMoments({ items }: { items: GalleryItemData[] }) 
       const titleKey = def.title.toLowerCase().trim();
       const hasDuplicateTitle = titleKey ? existingTitles.has(titleKey) : false;
       const hasDuplicateImage = def.image ? existingImages.has(def.image) : false;
-      if (!isRelocatedAchievement(def) && !hasDuplicateTitle && !hasDuplicateImage) {
+      if (!isExcludedMoment(def) && !hasDuplicateTitle && !hasDuplicateImage) {
         list.push(def);
         if (titleKey) existingTitles.add(titleKey);
         if (def.image) existingImages.add(def.image);
