@@ -14,10 +14,8 @@ export async function generateMetadata({
   return {
     title: `Executive Panel — ${label}`,
     description: `Meet the AUSTCAIC executive committee for ${label}.`,
-    robots: { index: false, follow: false },
   };
 }
-
 
 export default async function SemesterPanelPage({
   params,
