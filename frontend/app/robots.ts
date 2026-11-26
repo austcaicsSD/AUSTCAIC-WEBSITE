@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/admin/", "/login", "/profile", "/panel", "/panel/"],
+        disallow: ["/admin", "/admin/", "/login", "/profile"],
       },
     ],
     sitemap: "https://www.austcaic.com/sitemap.xml",
